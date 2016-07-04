@@ -1,0 +1,48 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ 
+ *= require_tree .
+ *= require_self
+ *= require toastr
+ *= require dataTables/jquery.dataTables
+ *= require css/bootstrap.min.css
+ *= require fonts/css/font-awesome.min.css
+ *= require css/animate.min.css
+ *= require print
+ *= require css/custom.css
+ *= require css/custom2.css
+ *= require css/maps/jquery-jvectormap-2.0.3.css
+ *= require css/icheck/flat/green.css
+ *= require css/floatexamples.css
+ *= require css/normalize.css
+ *= require css/nprogress.css
+ *= require css/ion.rangeSlider.css
+ *= require css/ion.rangeSlider.skinFlat.css
+ */
+/* main.css */
+
+td img {
+    height: 15px;
+    padding: 0 10px;
+}
+
+tr {
+    background-color: none;
+}
+
+table.jambo_table tbody:nth-of-type(even) {		      /* added all even rows a #eee color  */
+    background-color: #ffffff;
+}
+
+table.jambo_table tbody:nth-of-type(odd) {		      /* added all even rows a #eee color  */
+    background-color: #f9f9f9;
+}

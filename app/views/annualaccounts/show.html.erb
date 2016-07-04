@@ -1,0 +1,324 @@
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Jaarrekening <%= @annualaccount.an_date.year %></h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Winst- en verliesrekening</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table2">
+                <tbody>
+                    <tr>
+                        <td>Omzet</td> 
+                        <td><%= @annualaccount.an_pr_return %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>    
+                    <tr>
+                        <td>Productiekosten</td> 
+                        <td><%= @annualaccount.an_pr_production_cost %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="extra">Brutomarge</td>
+                        <td class="extra"><%= @annualaccount.an_pr_gross_margin %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Reis- en verblijfkosten</td> 
+                        <td><%= @annualaccount.an_pr_TA_expenses %></td>
+                    </tr>
+                    <tr>
+                        <td>Huisvestingkosten</td> 
+                        <td><%= @annualaccount.an_pr_accomodation_expenses %></td>
+                    </tr>
+                    <tr>
+                        <td>Kantoorkostenv</td> 
+                        <td><%= @annualaccount.an_pr_sales_expenses %></td>
+                    </tr>
+                    <tr>
+                        <td>Verkoopkosten</td> 
+                        <td><%= @annualaccount.an_pr_consumption_expenses %></td> 
+                    </tr>
+                    <tr>
+                        <td>Consumptiekosten</td> 
+                        <td><%= @annualaccount.an_pr_other_expenses %></td>
+                    </tr>
+                    <tr>
+                        <td>Andere kosten</td> 
+                        <td><%= @annualaccount.an_pr_total_other_expenses %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Totaal overige kosten</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="extra">Nettomarge</td> 
+                        <td class="extra"><%= @annualaccount.an_pr_net_margin %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Afschrijvingen</td> 
+                        <td><%= @annualaccount.an_pr_depreciation %></td>
+                    </tr>
+                    <tr>
+                        <td>Bankkosten (rente negatief vermelden)</td> 
+                        <td><%= @annualaccount.an_pr_bank_charges %></td>
+                    </tr>
+                    <tr>
+                        <td>Kleine Ondernemersregeling</td> 
+                        <td><%= @annualaccount.an_pr_small_business_scheme %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="extra">Verlies afgelopen jaar</td> 
+                        <td class="extra"><%= @annualaccount.an_pr_loss %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Privé-onttrekking</td> 
+                        <td><%= @annualaccount.an_pr_withdrawal %></td>
+                    </tr>
+                    <tr>
+                        <td>Privé-stortingen</td> 
+                        <td><%= @annualaccount.an_pr_deposit %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Salderen omzetbelasting</td> 
+                        <td><%= @annualaccount.an_pr_balance_turnover_tax %></td>
+                    </tr>
+                    <tr>
+                        <td>Betaalde omzetbelasting</td> 
+                        <td><%= @annualaccount.an_pr_payed_turnover_tax %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Niet aftrekbare consumptiekosten</td> 
+                        <td><%= @annualaccount.an_pr_deductible_consumption_expenses %></td>
+                    </tr>
+                <tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Balans</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table2">
+                <tbody>
+                    <tr>
+                        <td class="extra"><h4>Activa</h4></td>
+                        <td class="extra"><h4><%= @annualaccount.an_date.year %></h4></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Vlottende activa</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Debiteuren</td> 
+                        <td><%= @annualaccount.an_ba_debtor %></td>
+                    </tr>
+                    <tr>
+                        <td>Liquide middelen</td> 
+                        <td><%= @annualaccount.an_ba_liquid_assets %></td>
+                    </tr>
+                     <tr>
+                        <td>Overlopende active (o.a. omzetbelasting)</td> 
+                        <td><%= @annualaccount.an_ba_prepayment %></td>
+                    </tr>
+                     <tr>
+                        <td>Voorraad</td> 
+                        <td><%= @annualaccount.an_pr_production_cost %></td> 
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Vaste activa</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td>Boekwaarde</td> 
+                        <td><%=@annualaccount.an_ba_carrying_amount %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td>Totaal Activa</td> 
+                        <td><%= @annualaccount.an_ba_total_asset %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="extra"><h4>Passiva</h4></td>
+                        <td class="extra"><h4><%= @annualaccount.an_date.year %></h4></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Kortlopende schulden</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td>Crediteuren</td> 
+                        <td><%= @annualaccount.an_ba_creditors %></td>
+                    </tr>
+                     <tr>
+                        <td>Overlopende passiva (o.a. omzetbelasting)</td> 
+                        <td><%= @annualaccount.an_ba_accrued_receivables %></td>
+                    </tr>
+                     <tr>
+                        <td>Kortlopende schulden</td> 
+                        <td><%= @annualaccount.an_ba_current_receivables %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Langlopende schulden</td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td>Lening</td> 
+                        <td><%= @annualaccount.an_ba_loan %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Eigen vermogen</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Saldo winst- en verliesrekening !!!!</td> 
+                        <td><%= @annualaccount.an_ba_withdrawals_deposits_balance %></td>
+                    </tr>
+                    <tr>
+                        <td>Saldo priveonttrekkingen - stortingen</td> 
+                        <td><%= @annualaccount.an_ba_withdrawals_deposits_balance %></td>
+                    </tr>
+                    <tr>
+                        <td>Reserve</td>
+                        <td><%= @annualaccount.an_ba_reserve %></td>
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Totaal Passiva</td></td> 
+                        <td><%= @annualaccount.an_ba_total_receivables %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- /page content -->

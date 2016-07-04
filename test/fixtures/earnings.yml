@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  earning_number: 1
+  earning_invoice_number: 1
+  earning_date: 2016-07-02 19:30:13
+  earning_client_name: MyString
+  earning_subject: MyString
+  earning_VAT_number: 9.99
+  earning_VAT_percentage: 9.99
+  earning_exclusive_VAT: 9.99
+  earning_VAT: 9.99
+  earning_including_VAT: 9.99
+  earning_when_paid: 2016-07-02 19:30:13
+  earning_paid: 9.99
+  earning_left: 9.99
+
+two:
+  earning_number: 1
+  earning_invoice_number: 1
+  earning_date: 2016-07-02 19:30:13
+  earning_client_name: MyString
+  earning_subject: MyString
+  earning_VAT_number: 9.99
+  earning_VAT_percentage: 9.99
+  earning_exclusive_VAT: 9.99
+  earning_VAT: 9.99
+  earning_including_VAT: 9.99
+  earning_when_paid: 2016-07-02 19:30:13
+  earning_paid: 9.99
+  earning_left: 9.99

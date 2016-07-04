@@ -1,0 +1,293 @@
+<!-- page content -->
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Dashboard</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Openstaande crediteuren</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-striped jambo_table bulk_action">
+              <thead>
+                <tr class="headings">
+                  <th class="column-title">Uitgave nmr.</th>
+                  <th class="column-title">Datum</th>
+                  <th class="column-title">Naam bedrijf</th>
+                  <th class="column-title">Omschrijving kosten</th>
+                  <th class="column-title">Nummer crediteur</th>
+                  <th class="column-title">Soort uitgave</th>
+                  <th class="column-title">BTW %</th>
+                  <th class="column-title">Bedrag ex BTW</th>
+                  <th class="column-title">BTW</th>
+                  <th class="column-title">Bedrag incl BTW</th>
+                  <th class="column-title">Datum betaald</th>
+                  <th class="column-title">Betaald</th>
+                  <th class="column-title">Nog over</th>
+                  <th class="column-title"></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <% Spending.all.each do |spending| %>
+                  <% if spending.spending_left != 0 %>
+                    <tr>
+                      <td><%= spending.spending_follow_number %></td>
+                      <td><%= spending.spending_date %></td>
+                      <td><%= spending.spending_company_name %></td>
+                      <td><%= spending.spending_cost_description %></td>
+                      <td><%= spending.spending_invoice_number_creditor %></td>
+                      <td><%= spending.spending_type %></td>
+                      <td>
+                        
+                        <% spending.spending_VAT_percentage = (spending.spending_VAT.round(2)  / (spending.spending_VAT.round(2) + spending.spending_exclusive_VAT.round(2) ) * 100.00) %>
+                        <%= spending.spending_VAT_percentage.round(2) %> %
+                      </td>
+                      <td>
+                          € <%= spending.spending_exclusive_VAT %>
+                      </td>
+                      <td> 
+                          € <%= spending.spending_VAT.round(2) %>
+                      </td>
+                      <td>
+                        <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
+                        € <%= spending.spending_including_VAT %>
+                      </td>
+                      <td><%= spending.spending_when_paid %></td>
+                      <td>€ <%= spending.spending_paid %></td>
+                      <td>
+                        <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
+                        € <%= spending.spending_left %>
+                      </td>
+                      <td>
+                      <%= link_to edit_spending_path(spending) do %>
+                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <% end %>
+                      <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
+                          <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                      <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Openstaande debiteuren</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-striped jambo_table bulk_action">
+              <thead>
+                <tr class="headings">
+                  <th class="column-title">Factuur nummer</th>
+                  <th class="column-title">Datum</th>
+                  <th class="column-title">Naam Opdrachtgever</th>
+                  <th class="column-title">Onderwerp</th>
+                  <th class="column-title">BTW nummer</th>
+                  <th class="column-title">BTW %</th>
+                  <th class="column-title">Bedrag ex BTW</th>
+                  <th class="column-title">BTW</th>
+                  <th class="column-title">Bedrag incl BTW</th>
+                  <th class="column-title">Datum betaling</th>
+                  <th class="column-title">Bedrag betaald</th>
+                  <th class="column-title">Nog over</th>
+                  <th class="column-title"></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <% Invoice.all.each do |invoice| %>
+                  <% if invoice.invoice_left != 0 %>
+                    <tr>
+                      <td><%= invoice.invoice_number %></td>
+                      <td><%= invoice.invoice_date %></td>
+                      <td><%= invoice.invoice_client_name %></td>
+                      <td><%= invoice.invoice_subject %></td>
+                      <td><%= invoice.invoice_VAT_number %></td>
+                      <td><%= invoice.invoice_VAT_percentage %>%</td>
+                      <td>€ <%= invoice.invoice_exclusive_VAT %></td>
+                      <td>
+                          <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
+                          <% invoice.invoice_VAT = som_BTW %>
+                          € <%= invoice.invoice_VAT %>
+                      </td>
+                      <td> 
+                          <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                          € <%= invoice.invoice_including_VAT %>
+                      </td>
+                      <td>
+                        <%= invoice.invoice_when_paid %>
+                      </td>
+                      <td>
+                        <%= invoice.invoice_paid %>
+                      </td>
+                      <td>
+                        <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
+                        <%= invoice.invoice_left %>
+                      </td>
+                      <td>
+                      <%= link_to edit_invoice_path(invoice) do %>
+                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <% end %>
+                      <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
+                          <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                      <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Mijn projecten</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <%= pie_chart Project.all.group(:project_client).count, library: {backgroundColor: "none"} %>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Mijn klanten</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <%= pie_chart Client.all.group(:client_name).count, library: {backgroundColor: "none"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Urenregistratie</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <%= bar_chart Timesheet.all.group(:timesheet_name).sum(:timesheet_hours), library: {backgroundColor: "none"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- /page content -->

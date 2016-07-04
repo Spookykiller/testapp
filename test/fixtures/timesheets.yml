@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timesheet_projectnumber: MyString
+  timesheet_description: MyString
+  timesheet_date: MyString
+  timesheet_hours: MyString
+  timesheet_billable: MyString
+  timesheet_comment: MyString
+
+two:
+  timesheet_projectnumber: MyString
+  timesheet_description: MyString
+  timesheet_date: MyString
+  timesheet_hours: MyString
+  timesheet_billable: MyString
+  timesheet_comment: MyString

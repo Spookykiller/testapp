@@ -1,0 +1,89 @@
+<!-- page content -->
+<div class="right_col" role="main" style="height:100vh">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Show</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Uw concepten:</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-striped jambo_table bulk_action">
+              <thead>
+                <tr class="headings">
+                    <th class="column-title">Factuur nummer</th>
+                    <th class="column-title">Datum</th>
+                    <th class="column-title">Naam Opdrachtgever</th>
+                    <th class="column-title">Onderwerp</th>
+                    <th class="column-title">BTW nummer</th>
+                    <th class="column-title">Datum betaald</th>
+                    <th class="column-title">Bedrag betaald</th>
+                    <th class="column-title">Acties</th>
+                </tr>
+              </thead>
+            <% @invoices.each do |invoice| %>
+              <tbody>
+                  <tr>
+                    <td><%= invoice.invoice_number %></td>
+                    <td><%= invoice.invoice_date %></td>
+                    <td><%= invoice.invoice_client_name %></td>
+                    <td><%= invoice.invoice_subject %></td>
+                    <td><%= invoice.invoice_VAT_number %></td>
+                    <%= form_for invoice do |f| %>
+                        <td>
+                            <%= f.text_field :invoice_when_paid, class: 'form-control' %>
+                        </td>
+                        <td>
+                            <%= f.number_field :invoice_paid, class: 'form-control' %>
+                        </td>
+                    <td>
+                        <%= f.submit "opslaan", :class => 'btn btn-success' %>
+                    <% end %>
+                    </td>
+                  </tr>
+              </tbody>
+            <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->
+

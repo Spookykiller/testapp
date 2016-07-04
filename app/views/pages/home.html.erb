@@ -1,0 +1,91 @@
+<% if(user_signed_in?)%>
+
+    <div class="navigation">
+        <div class="box box1">
+            <div class="top">
+                <h1>ALGEMEEN</h1>
+            </div>
+            <%= link_to edit_company_path(current_user.company), {:style=>'display:block'} do %>
+                <div class="option"  href="mijngegevens.html">
+                    <h1>MIJN GEGEVENS</h1>
+                    <img src="/images/businessman.png" class="icon"></img>
+                </div>
+            <% end %>
+            <%= link_to clients_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>KLANTEN</h1>
+                    <img src="/images/handshake.png" class="icon"></img>
+                </div>
+            <% end %>
+            <%= link_to pages_dashboard_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>DASHBOARD</h1>
+                    <img src="/images/dashboard-icon.png" class="icon"></img>
+                </div>
+            <% end %>
+            
+        </div>
+        <div class="box box2">
+            <div class="top">
+                <h1>PROJECT-REGISTRATIE</h1>
+            </div>
+            <%= link_to projects_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>PROJECTEN</h1>
+                    <img src="/images/projects.png" class="icon"></img>
+                </div>
+            <% end %>
+            <%= link_to timesheets_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>URENREGISTRATIE</h1>
+                    <img src="/images/time.png" class="icon"></img>
+                </div>
+            <% end %>
+            <div class="option">
+                <h1>URENOVERZICHT</h1>  
+                <img src="/images/small-calendar.png" class="icon"></img>
+            </div>
+        </div>
+        <div class="box box3">
+            <div class="top">
+                <h1>TRANSACTIES</h1>
+            </div>
+            <%= link_to invoices_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>FACTUREREN</h1>
+                    <img src="/images/invoices.png" class="icon"></img>
+                </div>
+            <% end %>
+            <div class="option">
+                <h1>INKOMSTEN</h1> 
+                <img src="/images/piggy-bank.png" class="icon"></img>
+            </div>
+            <%= link_to spendings_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>UITGAVEN</h1>
+                    <img src="/images/credit-card-payment.png" class="icon"></img>
+                </div>
+            <% end %>
+        </div>
+        <div class="box box4">
+            <div class="top"> 
+                <h1>RAPPORTAGES</h1>
+            </div>
+            <div class="option">
+                <h1>BTW AANGIFTE</h1>
+                <img src="/images/stamp.png" class="icon"></img>
+            </div>
+            <%= link_to annualaccounts_path, {:style=>'display:block'} do %>
+                <div class="option">
+                    <h1>JAARREKENING</h1>
+                    <img src="/images/year-account.png" class="icon"></img>
+                </div>
+            <% end %>
+            <div class="option">
+                <h1>BANKAFSCHRIFTEN</h1>
+                <img src="/images/year-account.png" class="icon"></img>
+            </div>
+        </div>
+    </div>
+
+<% end %>

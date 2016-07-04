@@ -1,0 +1,86 @@
+<%= form_for @spending, :html => {:class =>  'form-horizontal form-label-left'} do |f| %>
+    <% if @spending.errors.any? %>
+        <h2><%= pluralize(@spending.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
+        <ul>
+            <% @spending.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    
+    <div class="form-group">
+        <%= f.label :spending_follow_number, 'Volg nummer' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :spending_follow_number, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_date, 'Datum uitgave' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :spending_date, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_company_name, 'Naam Bedrijf' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :spending_company_name, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_cost_description, 'Omschrijving kosten', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :spending_cost_description, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_invoice_number_creditor, 'Factuurnummer leverancier' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :spending_invoice_number_creditor, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_type, 'Soort uitgave', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Productiekosten', 'Verkoopkosten', 'Andere kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Autokosten', 'Bank, rente', 'Omzetbelasting']%><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_exclusive_VAT, 'Bedrag exclusief BTW', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :spending_exclusive_VAT, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_VAT, 'BTW bedrag', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :spending_VAT, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_when_paid, 'Datum betaling', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :spending_when_paid, class: 'form-control col-md-7 col-xs-12', id: 'datepicker2' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :spending_paid, 'Betaald bedrag', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :spending_paid, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+        </div>
+    </div>
+    
+    
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <%= link_to 'Annuleren', spendings_path, :class => 'btn btn-primary' %>
+        <%= f.submit 'Opslaan', :class => 'btn btn-success' %>
+    </div>
+<% end %>

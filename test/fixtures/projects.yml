@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_name: MyString
+  project_client: MyString
+  project_budget: MyString
+  project_billable: MyString
+  project_non_billable: MyString
+  project_residual: MyString
+
+two:
+  project_name: MyString
+  project_client: MyString
+  project_budget: MyString
+  project_billable: MyString
+  project_non_billable: MyString
+  project_residual: MyString

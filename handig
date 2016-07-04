@@ -1,0 +1,16 @@
+u = Company.create :company_name=> "Koenders Advies", :company_address => "Stadrijk 209", :company_zipcode => "5403NK", :company_place => "Uden", :company_phone => "061234567", :company_email => "hoihoi@koendersadvies.nl", :company_webaddress => "www.koendersadvies.nl", :company_bank => "ING", :company_VAT_number => "21%", :company_CC_number => "Kvk hier", :company_bank_account_number => "123456789"
+
+        @company = current_user.company
+
+
+-------------------
+before_filter :require_permission, only: :edit
+
+def require_permission
+  if current_user != Photo.find(params[:id]).user
+    redirect_to root_path
+    #Or do something else here
+  end
+end
+
+Op: http://stackoverflow.com/questions/17594939/check-if-current-user-is-the-owner-of-a-resource-and-allow-edit-delete-actions

@@ -1,0 +1,130 @@
+<!-- page content -->
+<div class="right_col" role="main" style="height:100vh">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Projecten</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Mijn Projecten</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-striped jambo_table bulk_action">
+              <thead>
+                <tr class="headings">
+                    <th class="column-title">Project</th>
+                    <th class="column-title">Klant</th>
+                    <th class="column-title">Budget</th>
+                    <th class="column-title">Uurtarief</th>
+                    <th class="column-title">Billable</th>
+                    <th class="column-title">Non Billable</th>
+                    <th class="column-title">Nog over</th>
+                    <th class="column-title"></th>
+                </tr>
+              </thead>
+            <% @projects.each do |project| %>
+              <tbody>
+                  <tr>
+                    <%-# Project -%>
+                    <td><%= project.project_name %></td>
+                    
+                    <%-# Klant -%>
+                    <td><%= project.project_client %></td>
+                    
+                    <%-# Budget -%>
+                    <td><%= project.project_budget %> uren</td>
+                    
+                    <%-# Uurtarief -%>
+                    <td>€ <%= project.project_hour_rate %></td>
+                    
+                    <%-# Billable -%>
+                    <td>
+                        <% som_hours = 0 %>
+                        <% Timesheet.all.each do |timesheet| %>
+                            <% if timesheet.timesheet_name == project.project_name && timesheet.timesheet_billable == true %>
+                                <% som_hours = som_hours + timesheet.timesheet_hours %>
+                            <% end %>
+                        <% end %>
+                        <% project.project_billable = som_hours %>
+                        <%= project.project_billable %> uren
+                    </td>
+                    
+                    <%-# Non Billable -%>
+                    <td>
+                        <% som_hours = 0 %>
+                        <% Timesheet.all.each do |timesheet| %>
+                            <% if timesheet.timesheet_name == project.project_name && timesheet.timesheet_billable == false %>
+                                <% som_hours = som_hours + timesheet.timesheet_hours %>
+                            <% end %>
+                        <% end %>
+                        <% project.project_non_billable = som_hours %>
+                        <%= project.project_non_billable %> uren
+                    </td>
+                    
+                    <%-# Nog over -%>
+                    <td>
+                        <% project.project_residual = project.project_budget - project.project_billable %>
+                        
+                        <%= project.project_residual %> uren
+                    </td>
+                    
+                    <%-# Acties -%>
+                    <td>
+                    <%= link_to edit_project_path(project) do %>
+                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                    <% end %>
+                    <%= link_to project_path(project), method: :delete, data: { confirm: "Weet je zeker dat je dit project wilt verwijderen" } do %>
+                        <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                    <% end %>
+                    </td>
+                  </tr>
+              </tbody>
+            <% end %>
+            </table>
+            
+            <div class="col-md-6 col-md-offset-5">
+                <%= link_to new_project_path do %>
+                    <button class="btn btn-primary">Nieuw project</button>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->

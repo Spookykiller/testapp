@@ -1,0 +1,25 @@
+<%= form_for @annualaccount do |f| %>
+    <% if @annualaccount.errors.any? %>
+        <h2><%= pluralize(@annualaccount.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
+        <ul>
+            <% @annualaccount.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    
+    <%= f.label :an_date, 'Datum' , class: 'input_label' %>
+    <%= f.text_field :an_date, class: 'input_field', id: 'datepicker1', :value => (f.object.an_date.strftime('%Y') if f.object.an_date) %><br>
+    
+    <%= f.label :an_pr_depreciation, 'Afschrijvingen', class: 'input_label' %>
+    <%= f.number_field :an_pr_depreciation, class: 'input_field' %><br>
+    
+    <%= f.label :an_pr_interest, 'Bankkosten', class: 'input_label' %>
+    <%= f.number_field :an_pr_interest, class: 'input_field' %><br>
+    
+    <div class="center_buttons">
+        <%= f.submit 'Opslaan', :class => 'add_button' %>
+        <%= link_to 'Annuleren', annualaccounts_path, :class => 'cancel_button' %>
+    </div>
+    
+<% end %>

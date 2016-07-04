@@ -1,0 +1,5 @@
+tr:
+  number:
+    currency:
+      format:
+        precision: 10

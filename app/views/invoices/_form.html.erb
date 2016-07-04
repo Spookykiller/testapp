@@ -1,0 +1,151 @@
+<div class="col-xs-12">
+  <div id="invoice-wrap">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="page-header">FACTUUR<small class="pull-right">Datum: <span class="invoice_header_date"></span></small></h3>
+      </div><!-- /.col -->
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 table-responsive">
+        <hr>
+        <table class="table table-hover" id="items">
+      
+          <thead>
+              <th class="item-name">Item</th>
+              <th class="description">Beschrijving</th>
+              <th class="unit">Kosten per eenheid</th>
+              <th class="quantity">Hoeveelheid</th>
+              <th class="units">Prijs</th>
+              <th class="no_print">Acties</th>
+      
+          <tbody>
+            <tr class="item-row">
+              <td><input class="form-control item_name" value="Item #1" /></td>
+              <td><input class="form-control item_desc" value="Beschrijving" /></td>
+              <td><input class="form-control cost" value="650.00" /></td>
+              <td><input class="form-control qty" value="1" /></td>
+              <td class="price_td"><span class="price">650.00</span><span class="subtotal_currency"></span></td>
+              <td class="delete_td"><a class="delete" href="javascript:;" title="Remove row"><span class="fa fa-times"></span></a></td>
+            </tr>
+          
+            <tr class="item-row">
+              <td><input class="form-control item_name" value="Item #2" /></td>
+
+              <td><input class="form-control item_desc" value="Beschrijving #2" /></td>
+              <td><input class="form-control cost" value="75.00" /></td>
+              <td><input class="form-control qty" value="3" /></td>
+              <td class="price_td"><span class="price">225.00</span><span class="subtotal_currency"></span></td>
+              <td class="delete_td"><a class="delete" href="javascript:;" title="Remove row"><span class="fa fa-times"></span></a></td>
+            </tr>
+          
+            <tr id="hiderow">
+              <td colspan="6"><a id="addrow" class="btn btn-success btn-sm" href="javascript:;" title="Add a row"><span class="ti-plus"></span> Voeg rij toe</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-6">
+        <div class="table-responsive">
+          <table class="table table-hover" id="totals">
+            <tr>
+              <th style="width:50%">Subtotaal:</th>
+              <td><span id="subtotal">875.00</span><span class="subtotal_currency"></span></td>
+            </tr>
+            <tr>
+              <th>Belasting percentage:</th>
+              <td><input id="9" class="form-control" value="0.00" /></td>
+            </tr>
+            <tr>
+              <th>Totaal:</th>
+              <td class="balance"><span class="due" id="invoice_total">875.00</span><span class="subtotal_currency"></span></td>
+            </tr>
+          </table>
+        </div>
+      </div><!-- /.col -->    
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 pull-left">
+        <a class="btn btn-info btn-sm" id="invoice_button" data-toggle="modal" data-target="#invoice_modal">Bekijk factuur</a>
+      </div>
+    </div>
+
+    <div id="terms">
+      <h5>Voorwaarde</h5>
+      <textarea id="10">Betalingsvoorwaarde: net 30. Interest accrued at 1.5% per month thereafter.</textarea>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="width:920px">
+      <div class="container-fluid invoice_wrapper" style="margin:10px" id="print-me">
+        <%= render 'invoice' %>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="printDiv('print-me')">Print</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_for @invoice, :html => {:class => 'form-horizontal form-label-left'} do |f| %>
+    <% if @invoice.errors.any? %>
+        <h2><%= pluralize(@invoice.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
+        <ul>
+            <% @invoice.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    
+    <div class="form-group">
+        <%= f.label :invoice_number, 'Factuur nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :invoice_number, class: 'form-control col-md-7 col-xs-12', id: 'invoicing_number' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :invoice_date, 'Factuur datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :invoice_date, id: 'datepicker', class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :invoice_client_name, 'Naam Opdrachtgever', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.collection_select(:invoice_client_name, Client.all, :client_name, :client_name, include_blank: true, class: 'form-control', id: 'client_name') %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :invoice_subject, 'Onderwerp', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :invoice_subject, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <%= f.label :invoice_VAT_number, 'BTW nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :invoice_VAT_number, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <%= f.hidden_field :invoice_VAT_percentage, :html => {:id => "invoice_VAT_percentage"}  %>
+    <%= f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}  %>
+    
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+      <%= link_to 'Annuleren', invoices_path, :class => 'btn btn-primary' %>
+      <%= f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing' %>
+    </div>
+
+<% end %>
+    

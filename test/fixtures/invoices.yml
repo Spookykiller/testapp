@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_number: MyString
+  invoice_date: MyString
+  invoice_client_name: MyString
+  invoice_subject: MyString
+  invoice_VAT_number: MyString
+  invoice_VAT_percentage: MyString
+  invoice_exclusive_VAT: MyString
+  invoice_VAT: MyString
+  invoice_including_VAT: MyString
+
+two:
+  invoice_number: MyString
+  invoice_date: MyString
+  invoice_client_name: MyString
+  invoice_subject: MyString
+  invoice_VAT_number: MyString
+  invoice_VAT_percentage: MyString
+  invoice_exclusive_VAT: MyString
+  invoice_VAT: MyString
+  invoice_including_VAT: MyString

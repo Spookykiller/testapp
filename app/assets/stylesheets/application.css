@@ -14,19 +14,19 @@
  *= require_self
  *= require toastr
  *= require dataTables/jquery.dataTables
- *= require bootstrap.min
- *= require fonts/css/font-awesome.min
- *= require animate.min
+ *= require css/bootstrap.min.css
+ *= require fonts/css/font-awesome.min.css
+ *= require css/animate.min.css
  *= require print
- *= require custom
- *= require custom2
- *= require maps/jquery-jvectormap-2.0.3
- *= require icheck/flat/green
- *= require floatexamples
- *= require normalize
- *= require nprogress
- *= require ion.rangeSlider
- *= require ion.rangeSlider.skinFlat
+ *= require css/custom.css
+ *= require css/custom2.css
+ *= require css/maps/jquery-jvectormap-2.0.3.css
+ *= require css/icheck/flat/green.css
+ *= require css/floatexamples.css
+ *= require css/normalize.css
+ *= require css/nprogress.css
+ *= require css/ion.rangeSlider.css
+ *= require css/ion.rangeSlider.skinFlat.css
  */
 /* main.css */
 

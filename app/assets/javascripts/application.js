@@ -13,36 +13,45 @@
 //= require jquery
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
+//= require js/flot/jquery.flot.js
+//= require js/flot/jquery.flot.pie.js
+//= require js/flot/jquery.flot.orderBars.js
+//= require js/flot/jquery.flot.time.min.js
+//= require js/flot/date.js
+//= require js/flot/jquery.flot.spline.js
+//= require js/flot/jquery.flot.stack.js
+//= require js/flot/curvedLines.js
+//= require js/flot/jquery.flot.resize.js
 
 
-//= require maps/jquery-jvectormap-2.0.3.min
-//= require maps/gdp-data
-//= require maps/jquery-jvectormap-world-mill-en
-//= require maps/jquery-jvectormap-us-aea-en
+//= require js/maps/jquery-jvectormap-2.0.3.min.js
+//= require js/maps/gdp-data.js
+//= require js/maps/jquery-jvectormap-world-mill-en.js
+//= require js/maps/jquery-jvectormap-us-aea-en.js
 
 
-//= require bootstrap.min
+//= require js/bootstrap.min.js
 
-//= require gauge/gauge.min
-//= require gauge/gauge_demo
+//= require js/gauge/gauge.min.js
+//= require js/gauge/gauge_demo.js
 
-//= require progressbar/bootstrap-progressbar.min
+//= require js/progressbar/bootstrap-progressbar.min.js
 
-//= require icheck/icheck.min
+//= require js/icheck/icheck.min.js
 
-//= require moment/moment.min
-//= require datepicker/daterangepicker
+//= require js/moment/moment.min.js
+//= require js/datepicker/daterangepicker.js
 
-//= require chartjs/chart.min
+//= require js/chartjs/chart.min.js
 
-//= require main
-//= require custom
+//= require js/main.js
+//= require js/custom.js
 
-//= require pace/pace.min
+//= require js/pace/pace.min.js
 
-//= require select/select2.full
+//= require  js/select/select2.full.js
 
-//= require dropzone/dropzone
+//= require js/dropzone/dropzone.js
 
 //= require chartkick
 //= require toastr

@@ -15,34 +15,34 @@
 //= require dataTables/jquery.dataTables
 
 
-//= require maps/jquery-jvectormap-2.0.3.min.js
-//= require maps/gdp-data.js
-//= require maps/jquery-jvectormap-world-mill-en.js
-//= require maps/jquery-jvectormap-us-aea-en.js
+//= require maps/jquery-jvectormap-2.0.3.min
+//= require maps/gdp-data
+//= require maps/jquery-jvectormap-world-mill-en
+//= require maps/jquery-jvectormap-us-aea-en
 
 
-//= require bootstrap.min.js
+//= require bootstrap.min
 
-//= require gauge/gauge.min.js
-//= require gauge/gauge_demo.js
+//= require gauge/gauge.min
+//= require gauge/gauge_demo
 
-//= require progressbar/bootstrap-progressbar.min.js
+//= require progressbar/bootstrap-progressbar.min
 
-//= require icheck/icheck.min.js
+//= require icheck/icheck.min
 
-//= require moment/moment.min.js
-//= require datepicker/daterangepicker.js
+//= require moment/moment.min
+//= require datepicker/daterangepicker
 
-//= require chartjs/chart.min.js
+//= require chartjs/chart.min
 
-//= require main.js
-//= require custom.js
+//= require main
+//= require custom
 
-//= require pace/pace.min.js
+//= require pace/pace.min
 
-//= require select/select2.full.js
+//= require select/select2.full
 
-//= require dropzone/dropzone.js
+//= require dropzone/dropzone
 
 //= require chartkick
 //= require toastr

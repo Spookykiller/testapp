@@ -1,0 +1,28 @@
+.invoice_logo {
+    height: 70px;
+}
+
+#invoice-header {
+    margin: 20px 0;
+    padding-bottom: 160px;
+}
+
+.invoice_header {
+    font-size: 12px;
+}
+
+#invoice-header .pull-right {
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.pull-right .labels {
+    float: left;
+    text-align: left;
+    padding-right: 30px;
+}
+
+.pull-right .information {
+    float: right;
+    text-align: right;
+}

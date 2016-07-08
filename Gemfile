@@ -31,6 +31,9 @@ gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 
 gem 'jquery-turbolinks'
 
+# Fonts
+gem "font-awesome-rails"
+
 group :development, :test do
   gem 'byebug'
 end

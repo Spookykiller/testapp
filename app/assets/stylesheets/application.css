@@ -15,7 +15,7 @@
  *= require toastr
  *= require dataTables/jquery.dataTables
  *= require css/bootstrap.min.css
- *= require fonts/css/font-awesome.min.css
+ *= require font-awesome
  *= require css/animate.min.css
  *= require print
  *= require css/custom.css

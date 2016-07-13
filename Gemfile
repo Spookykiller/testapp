@@ -34,6 +34,9 @@ gem 'jquery-turbolinks'
 # Fonts
 gem "font-awesome-rails"
 
+# Multi tenant
+gem 'apartment'
+
 group :development, :test do
   gem 'byebug'
 end

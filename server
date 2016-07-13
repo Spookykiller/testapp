@@ -9,3 +9,5 @@ bundle exec rails console -e production
 RAILS_ENV=production bundle exec rake assets:precompile
 
 LC_ALL=en_US.UTF-8 cap production deploy
+
+RAILS_ENV=production bundle exec rails dbconsole -p

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713071703) do
+ActiveRecord::Schema.define(version: 20160719073337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160713071703) do
     t.decimal  "an_pr_interest"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "article_code"
+    t.string   "article_description"
+    t.string   "article_unit"
+    t.decimal  "article_VAT_percentage"
+    t.decimal  "article_unit_price"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -65,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160713071703) do
     t.string   "company_VAT_number"
     t.string   "company_CC_number"
     t.string   "company_kilometer_compensation"
+    t.boolean  "company_business_car"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
@@ -82,9 +93,25 @@ ActiveRecord::Schema.define(version: 20160713071703) do
     t.datetime "invoice_when_paid"
     t.decimal  "invoice_paid"
     t.decimal  "invoice_left"
+    t.boolean  "invoice_definitive"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "item_code"
+    t.string   "item_description"
+    t.string   "item_unit"
+    t.decimal  "item_quantity"
+    t.decimal  "item_unit_cost"
+    t.decimal  "item_VAT_percentage"
+    t.decimal  "item_total_price"
+    t.integer  "invoice_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "items", ["invoice_id"], name: "index_items_on_invoice_id", using: :btree
 
   create_table "mileages", force: :cascade do |t|
     t.boolean  "mileage_retour"
@@ -174,5 +201,6 @@ ActiveRecord::Schema.define(version: 20160713071703) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "items", "invoices"
   add_foreign_key "users", "companies"
 end

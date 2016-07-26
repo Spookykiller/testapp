@@ -153,9 +153,11 @@
                         <% invoice.invoice_VAT = som_BTW %>
                         <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
                       <td>
-                        <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
-                        <% @invoice_left_sum += invoice.invoice_left %>
-                        € <%= invoice.invoice_left %>
+                        <% if invoice.invoice_paid != nil %>
+                          <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
+                          <% @invoice_left_sum += invoice.invoice_left %>
+                          € <%= invoice.invoice_left %>
+                        <% end %>
                       </td>
                       <td>
                         <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen

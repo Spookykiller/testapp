@@ -86,7 +86,7 @@
                         <% end %>
                       </td>
                       <td>
-                        <% if current_user.company.company_kilometer_compensation != 0 %>
+                        <% if current_user.company.company_kilometer_compensation != 0 && mileage.mileage_billable == true %>
                           <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
                         <% end %>
                         <% mileage.mileage_compensation = mileage.mileage_total_kilometers * mileage.mileage_compensation_rate %>

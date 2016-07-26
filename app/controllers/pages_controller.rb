@@ -7,4 +7,7 @@ class PagesController < ApplicationController
   def dashboard
     @projects = Project.all
   end
+  
+  def vat_declaration
+  end
 end

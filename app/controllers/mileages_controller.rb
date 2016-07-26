@@ -1,6 +1,6 @@
 class MileagesController < ApplicationController
-    before_action :find_mileage, only: [:edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_mileage, only: [:edit, :update, :destroy]
 
     def index
         @mileages = Mileage.all

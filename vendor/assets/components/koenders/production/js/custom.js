@@ -15,7 +15,7 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $FOOTER = $('footer');
 
 // Sidebar
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
@@ -98,7 +98,7 @@ $(document).ready(function() {
 // /Sidebar
 
 // Panel toolbox
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     $('.collapse-link').on('click', function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
@@ -126,7 +126,7 @@ $(document).ready(function() {
 // /Panel toolbox
 
 // Tooltip
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
     });
@@ -140,7 +140,7 @@ if ($(".progress .progress-bar")[0]) {
 // /Progressbar
 
 // Switchery
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     if ($(".js-switch")[0]) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function (html) {
@@ -153,9 +153,9 @@ $(document).ready(function() {
 // /Switchery
 
 // iCheck
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     if ($("input.flat")[0]) {
-        $(document).ready(function () {
+        $(document).on('ready page:load', function () {
             $('input.flat').iCheck({
                 checkboxClass: 'icheckbox_flat-green',
                 radioClass: 'iradio_flat-green'
@@ -219,7 +219,7 @@ function countChecked() {
 }
 
 // Accordion
-$(document).ready(function() {
+$(document).on('ready page:load', function () {
     $(".expand").on("click", function () {
         $(this).next().slideToggle(200);
         $expand = $(this).find(">:first-child");
@@ -234,7 +234,7 @@ $(document).ready(function() {
 
 // NProgress
 if (typeof NProgress != 'undefined') {
-    $(document).ready(function () {
+    $(document).on('ready page:load', function () {
         NProgress.start();
     });
 

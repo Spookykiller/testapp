@@ -46,3 +46,11 @@ table.jambo_table tbody:nth-of-type(even) {		      /* added all even rows a #eee
 table.jambo_table tbody:nth-of-type(odd) {		      /* added all even rows a #eee color  */
     background-color: #f9f9f9;
 }
+
+.extra {
+    font-weight: bold;
+}
+
+.extra .red {
+    color: #ff0000;
+}

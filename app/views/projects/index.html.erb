@@ -73,13 +73,13 @@
                     
                     <%-# Billable -%>
                     <td>
-                        <% som_hours = 0 %>
+                        <% som_billable_hours = 0 %>
                         <% Timesheet.all.each do |timesheet| %>
                             <% if timesheet.timesheet_name == project.project_name && timesheet.timesheet_billable == true %>
-                                <% som_hours = som_hours + timesheet.timesheet_hours %>
+                                <% som_billable_hours = som_billable_hours + timesheet.timesheet_hours %>
                             <% end %>
                         <% end %>
-                        <% project.project_billable = som_hours %>
+                        <% project.project_billable = som_billable_hours %>
                         <%= project.project_billable %> uren
                     </td>
                     
@@ -114,6 +114,7 @@
                   </tr>
               </tbody>
             <% end %>
+                        
             </table>
             
             <div class="col-md-6 col-md-offset-5">

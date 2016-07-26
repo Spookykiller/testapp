@@ -1,0 +1,30 @@
+<% Client.all.each do |client| %>
+    <%= javascript_tag do %>
+        var selects = document.getElementById("invoice_invoice_client_name");
+        var selectedText = selects.options[selects.selectedIndex].text;
+        var $jsValue = document.querySelector('.jsValue');
+
+        if ('<%= j client.client_name %>' == selectedText) {
+            var client_name = "<%= j client.client_name.to_json %>";
+            var client_contact_person = "<%= j client.client_contact_person.to_json %>";
+            var client_address = "<%= j client.client_address.to_json %>";
+            var client_zipcode = "<%= j client.client_zipcode.to_json %>";
+            var client_residence = '<%= j client.client_residence.to_json %>';
+            var client_gender = '<%= j client.client_gender.to_json %>';
+            var client_phone = "<%= j client.client_phone.to_json %>";
+            var client_email = "<%= j client.client_email.to_json %>";
+            var client_account_number = "<%= j client.client_account_number.to_json %>";
+            
+            document.getElementById("client_name").innerHTML = client_name;
+            document.getElementById("client_contact_person").innerHTML = client_contact_person;
+            document.getElementById("client_address").innerHTML = client_address;
+            document.getElementById("client_zipcode").innerHTML = client_zipcode;
+            document.getElementById("client_residence").innerHTML = client_residence;
+            document.getElementById("client_gender").innerHTML = client_gender;
+            document.getElementById("client_phone").innerHTML = client_phone;
+            document.getElementById("client_email").innerHTML = client_email;
+            document.getElementById("client_account_number").innerHTML = client_account_number;
+        }
+    <% end %>
+<% end %>
+

@@ -40,7 +40,7 @@
     <div class="form-group">
         <%= f.label :timesheet_hours, 'Uren' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :timesheet_hours, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.number_field :timesheet_hours, :step => '0.01', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
-    before_action :find_invoice, only: [:test, :edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_invoice, only: [:edit, :update, :destroy]
     
     def index
         @invoices = Invoice.all
@@ -12,10 +12,13 @@ class InvoicesController < ApplicationController
 
     def new
         @invoice = Invoice.new
+
     end
     
-    def test
-        @invoice.update_attributes(:invoice_VAT_number => 1000 )
+    def client_update
+        respond_to do |format|               
+            format.js
+        end
     end
     
     def create
@@ -51,7 +54,7 @@ class InvoicesController < ApplicationController
     private
     
     def invoice_params
-        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left)
+        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left, items_attributes: [:id, :item_code, :item_description, :item_unit, :item_quantity, :item_unit_cost, :item_total_price, :_destroy])
     end
     
     def find_invoice

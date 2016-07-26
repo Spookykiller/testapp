@@ -14,6 +14,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :company_VAT_number
       t.string :company_CC_number
       t.string :company_kilometer_compensation
+      t.boolean :company_business_car
 
       t.timestamps null: false
     end

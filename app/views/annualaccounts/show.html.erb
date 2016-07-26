@@ -47,278 +47,216 @@
                 <tbody>
                     <tr>
                         <td>Omzet</td> 
-                        <td><%= @annualaccount.an_pr_return %></td>
+                        <td>
+                            <% revenue = 0 %>
+                            <% Invoice.all.each do |invoice| %>
+                                <% if invoice.invoice_paid > 0 && invoice.invoice_when_paid.year == @annualaccount.an_date.year %>
+                                    <% revenue += invoice.invoice_paid %>
+                                <% end %>
+                            <% end %>
+                            € <%= revenue %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Inkoop</td> 
+                        <td>
+                            <% purchase_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Inkoop" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% purchase_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= purchase_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td></td> 
                         <td></td>
-                    </tr>    
+                    </tr>
                     <tr>
-                        <td>Productiekosten</td> 
-                        <td><%= @annualaccount.an_pr_production_cost %></td>
+                        <td class="extra">Brutoresultaat</td>
+                        <td class="extra">
+                            <% gross_margin = (revenue - purchase_expenses) %>
+                            € <%= gross_margin %>
+                        </td>
                     </tr>
                     <tr>
                         <td></td> 
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="extra">Brutomarge</td>
-                        <td class="extra"><%= @annualaccount.an_pr_gross_margin %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Reis- en verblijfkosten</td> 
-                        <td><%= @annualaccount.an_pr_TA_expenses %></td>
+                        <td>Overige personeelskosten</td> 
+                        <td>
+                            <% staff_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Overige personeelskosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% staff_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= staff_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td>Huisvestingkosten</td> 
-                        <td><%= @annualaccount.an_pr_accomodation_expenses %></td>
-                    </tr>
-                    <tr>
-                        <td>Kantoorkostenv</td> 
-                        <td><%= @annualaccount.an_pr_sales_expenses %></td>
+                        <td>
+                            <% accomodation_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Huisvestingkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% accomodation_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= accomodation_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td>Verkoopkosten</td> 
-                        <td><%= @annualaccount.an_pr_consumption_expenses %></td> 
+                        <td>
+                            <% sales_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Verkoopkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% sales_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= sales_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td>Consumptiekosten</td> 
-                        <td><%= @annualaccount.an_pr_other_expenses %></td>
+                        <td>
+                            <% consumption_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Consumptiekosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% consumption_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= consumption_expenses %>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Andere kosten</td> 
-                        <td><%= @annualaccount.an_pr_total_other_expenses %></td>
+                        <td>Reis- en verblijfkosten</td> 
+                        <td>
+                            <% travel_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Reis- en verblijfkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% travel_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= travel_expenses %>
+                        </td>
+                    </tr>
+                    
+                    <% car_expenses = 0 %>
+                    <% Company.all.each do |company| %>
+                        <% if company.id == current_user.company_id && company.company_business_car == true %>
+                            <tr>
+                                <td>Autokosten</td> 
+                                <td>
+                                    <% Spending.all.each do |spending| %>
+                                        <% if spending.spending_type == "Autokosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                            <% car_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                        <% end %>
+                                    <% end %>
+                                    € <%= car_expenses %>
+                                </td>
+                            </tr>
+                        <% else %>
+                            <tr>
+                                <td>Kilometervergoeding</td> 
+                                <td>
+                                    <% Mileage.all.each do |mileage| %>
+                                    
+                                        <% if mileage.mileage_date.year == @annualaccount.an_date.year %>
+                                        
+                                            <% if current_user.company.company_kilometer_compensation != 0 && mileage.mileage_billable == true %>
+                                                <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
+                                            <% end %>
+                                            
+                                            <% if mileage.mileage_retour == true %>
+                                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers * 2 %>
+                                            <% else %>
+                                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers %>
+                                            <% end %>
+                                            
+                                            <% car_expenses += (mileage.mileage_total_kilometers * mileage.mileage_compensation_rate) %>
+                                        <% end %>
+                                        
+                                    <% end %>
+                                    € <%= car_expenses %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                    
+                    <tr>
+                        <td>Kantoorkosten</td> 
+                        <td>
+                            <% office_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                <% if spending.spending_type == "Kantoorkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% office_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= office_expenses %>
+                        </td>
                     </tr>
                     <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Totaal overige kosten</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="extra">Nettomarge</td> 
-                        <td class="extra"><%= @annualaccount.an_pr_net_margin %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
+                        <td>Overige kosten</td> 
+                        <td>
+                            <% other_expenses = 0 %>
+                            <% Spending.all.each do |spending| %>
+                                
+                                <% if spending.spending_type == "Overige kosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                    <% other_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% end %>
+                            <% end %>
+                            € <%= other_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td>Afschrijvingen</td> 
-                        <td><%= @annualaccount.an_pr_depreciation %></td>
+                        <td>€ <%= @annualaccount.an_pr_depreciation %></td>
                     </tr>
                     <tr>
-                        <td>Bankkosten (rente negatief vermelden)</td> 
-                        <td><%= @annualaccount.an_pr_bank_charges %></td>
-                    </tr>
-                    <tr>
-                        <td>Kleine Ondernemersregeling</td> 
-                        <td><%= @annualaccount.an_pr_small_business_scheme %></td>
+                        <td>Bank- en rentekosten</td> 
+                        <td>€ <%= @annualaccount.an_pr_interest %></td>
                     </tr>
                     <tr>
                         <td></td> 
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="extra">Verlies afgelopen jaar</td> 
-                        <td class="extra"><%= @annualaccount.an_pr_loss %></td>
+                        <td class="extra">Totaal bedrijfskosten</td>
+                        <td class="extra">
+                            <% total_company_expenses = 0 %>
+                            <% total_company_expenses = (staff_expenses + other_expenses + purchase_expenses + consumption_expenses + sales_expenses + accomodation_expenses + car_expenses + travel_expenses + office_expenses + @annualaccount.an_pr_depreciation + @annualaccount.an_pr_interest) %>
+                            € <%= total_company_expenses %>
+                        </td>
                     </tr>
                     <tr>
                         <td></td> 
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Privé-onttrekking</td> 
-                        <td><%= @annualaccount.an_pr_withdrawal %></td>
-                    </tr>
-                    <tr>
-                        <td>Privé-stortingen</td> 
-                        <td><%= @annualaccount.an_pr_deposit %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Salderen omzetbelasting</td> 
-                        <td><%= @annualaccount.an_pr_balance_turnover_tax %></td>
-                    </tr>
-                    <tr>
-                        <td>Betaalde omzetbelasting</td> 
-                        <td><%= @annualaccount.an_pr_payed_turnover_tax %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Niet aftrekbare consumptiekosten</td> 
-                        <td><%= @annualaccount.an_pr_deductible_consumption_expenses %></td>
+                        <td class="extra">Nettoresultaat</td> 
+                        
+                        <% company_result = 0 %>
+                        <% company_result = (gross_margin - total_company_expenses) %>
+                        <% if company_result < 0 %>  
+                            <td class="extra red">
+                                € <%= company_result %>
+                            </td>
+                        <% else %>
+                            <td class="extra">
+                                € <%= company_result %>
+                            </td>
+                        <% end %>
                     </tr>
                 <tbody>
             </table>
-          </div>
-        </div>
-      </div>
-    
-    <div class="col-md-6 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Balans</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <table class="table2">
-                <tbody>
-                    <tr>
-                        <td class="extra"><h4>Activa</h4></td>
-                        <td class="extra"><h4><%= @annualaccount.an_date.year %></h4></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Vlottende activa</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Debiteuren</td> 
-                        <td><%= @annualaccount.an_ba_debtor %></td>
-                    </tr>
-                    <tr>
-                        <td>Liquide middelen</td> 
-                        <td><%= @annualaccount.an_ba_liquid_assets %></td>
-                    </tr>
-                     <tr>
-                        <td>Overlopende active (o.a. omzetbelasting)</td> 
-                        <td><%= @annualaccount.an_ba_prepayment %></td>
-                    </tr>
-                     <tr>
-                        <td>Voorraad</td> 
-                        <td><%= @annualaccount.an_pr_production_cost %></td> 
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Vaste activa</td>
-                        <td></td>
-                    </tr>
-                     <tr>
-                        <td>Boekwaarde</td> 
-                        <td><%=@annualaccount.an_ba_carrying_amount %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                     <tr>
-                        <td>Totaal Activa</td> 
-                        <td><%= @annualaccount.an_ba_total_asset %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="extra"><h4>Passiva</h4></td>
-                        <td class="extra"><h4><%= @annualaccount.an_date.year %></h4></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Kortlopende schulden</td>
-                        <td></td>
-                    </tr>
-                     <tr>
-                        <td>Crediteuren</td> 
-                        <td><%= @annualaccount.an_ba_creditors %></td>
-                    </tr>
-                     <tr>
-                        <td>Overlopende passiva (o.a. omzetbelasting)</td> 
-                        <td><%= @annualaccount.an_ba_accrued_receivables %></td>
-                    </tr>
-                     <tr>
-                        <td>Kortlopende schulden</td> 
-                        <td><%= @annualaccount.an_ba_current_receivables %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Langlopende schulden</td>
-                        <td></td>
-                    </tr>
-                     <tr>
-                        <td>Lening</td> 
-                        <td><%= @annualaccount.an_ba_loan %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Eigen vermogen</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Saldo winst- en verliesrekening !!!!</td> 
-                        <td><%= @annualaccount.an_ba_withdrawals_deposits_balance %></td>
-                    </tr>
-                    <tr>
-                        <td>Saldo priveonttrekkingen - stortingen</td> 
-                        <td><%= @annualaccount.an_ba_withdrawals_deposits_balance %></td>
-                    </tr>
-                    <tr>
-                        <td>Reserve</td>
-                        <td><%= @annualaccount.an_ba_reserve %></td>
-                    </tr>
-                    <tr>
-                        <td></td> 
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Totaal Passiva</td></td> 
-                        <td><%= @annualaccount.an_ba_total_receivables %></td>
-                    </tr>
-                </tbody>
-            </table>
-
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 </div>
 <!-- /page content -->

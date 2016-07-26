@@ -5,9 +5,61 @@
         <h3 class="page-header">FACTUUR<small class="pull-right">Datum: <span class="invoice_header_date"></span></small></h3>
       </div><!-- /.col -->
     </div>
+    
+    <%= form_for @invoice, :html => {:class => 'form-horizontal form-label-left'} do |f| %>
+      <% if @invoice.errors.any? %>
+          <h2><%= pluralize(@invoice.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
+          <ul>
+              <% @invoice.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+          </ul>
+      <% end %>
+      
+      <div class="form-group">
+          <%= f.label :invoice_number, 'Factuur nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.number_field :invoice_number, class: 'form-control col-md-7 col-xs-12', id: 'invoicing_number' %><br>
+          </div>
+      </div>
+      
+      <div class="form-group">
+          <%= f.label :invoice_date, 'Factuur datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.text_field :invoice_date, id: 'datepicker', class: 'form-control col-md-7 col-xs-12' %><br>
+          </div>
+      </div>
+      
+      <div class="form-group">
+          <%= f.label :invoice_client_name, 'Naam Opdrachtgever', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.collection_select(:invoice_client_name, Client.all, :client_name, :client_name, include_blank: true, class: 'form-control', id: 'client_name') %><br>
+          </div>
+      </div>
+      
+      <div class="form-group">
+          <%= f.label :invoice_subject, 'Onderwerp', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.text_field :invoice_subject, class: 'form-control col-md-7 col-xs-12' %><br>
+          </div>
+      </div>
+      
+      <div class="form-group">
+          <%= f.label :invoice_VAT_number, 'BTW nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.text_field :invoice_VAT_number, class: 'form-control col-md-7 col-xs-12' %><br>
+          </div>
+      </div>
+      
+      <%= f.hidden_field :invoice_VAT_percentage, :html => {:id => "invoice_VAT_percentage"}  %>
+      <%= f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}  %>
+  
+
 
     <div class="row">
       <div class="col-xs-12 table-responsive">
+        
+        
         <hr>
         <table class="table table-hover" id="items">
       
@@ -68,18 +120,22 @@
       </div><!-- /.col -->    
     </div>
 
-    <div class="row">
-      <div class="col-xs-12 pull-left">
-        <a class="btn btn-info btn-sm" id="invoice_button" data-toggle="modal" data-target="#invoice_modal">Bekijk factuur</a>
-      </div>
-    </div>
-
     <div id="terms">
       <h5>Voorwaarde</h5>
       <textarea id="10">Betalingsvoorwaarde: net 30. Interest accrued at 1.5% per month thereafter.</textarea>
     </div>
   </div>
 </div>
+
+      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+          <%= link_to invoices_client_update_path, :remote => true do %>
+            <button class="btn btn-info" id="invoice_button" data-toggle="modal" data-target="#invoice_modal">Bekijk factuur</button>
+          <% end %>
+        <%= link_to 'Annuleren', invoices_path, :class => 'btn btn-primary' %>
+        <%= f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing' %>
+      </div>
+      
+    <% end %>
 
 <div class="modal fade" id="invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg">
@@ -93,59 +149,3 @@
     </div>
   </div>
 </div>
-
-<%= form_for @invoice, :html => {:class => 'form-horizontal form-label-left'} do |f| %>
-    <% if @invoice.errors.any? %>
-        <h2><%= pluralize(@invoice.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
-        <ul>
-            <% @invoice.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-        </ul>
-    <% end %>
-    
-    <div class="form-group">
-        <%= f.label :invoice_number, 'Factuur nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :invoice_number, class: 'form-control col-md-7 col-xs-12', id: 'invoicing_number' %><br>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :invoice_date, 'Factuur datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :invoice_date, id: 'datepicker', class: 'form-control col-md-7 col-xs-12' %><br>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :invoice_client_name, 'Naam Opdrachtgever', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.collection_select(:invoice_client_name, Client.all, :client_name, :client_name, include_blank: true, class: 'form-control', id: 'client_name') %><br>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :invoice_subject, 'Onderwerp', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :invoice_subject, class: 'form-control col-md-7 col-xs-12' %><br>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :invoice_VAT_number, 'BTW nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :invoice_VAT_number, class: 'form-control col-md-7 col-xs-12' %><br>
-        </div>
-    </div>
-    
-    <%= f.hidden_field :invoice_VAT_percentage, :html => {:id => "invoice_VAT_percentage"}  %>
-    <%= f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}  %>
-    
-    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-      <%= link_to 'Annuleren', invoices_path, :class => 'btn btn-primary' %>
-      <%= f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing' %>
-    </div>
-
-<% end %>
-    

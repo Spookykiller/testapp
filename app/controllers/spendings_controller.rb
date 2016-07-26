@@ -1,6 +1,6 @@
 class SpendingsController < ApplicationController
-    before_action :find_spending, only: [:edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_spending, only: [:edit, :update, :destroy]
     
     def index
         @spendings = Spending.all

@@ -1,3 +1,16 @@
+function update_VAT(){
+    var VATtotal = 0;
+    $('#item_VAT').each(function(i){
+        var VAT = $('#item_VAT').val();
+        if (VAT == 6)
+            if (!isNaN(VAT)) VATtotal += Number(VAT);
+    });
+    
+    VATtotal = VATtotal.toFixed(2) * 0.01 + 1;
+    VAT6 = (VATtotal * Number($('#subtotal').html()));
+    $('.VAT_6').html(VAT6);
+}
+
 function update_subtotal() {
     var subtotal = 0;
     $('.price').each(function(i){
@@ -9,6 +22,7 @@ function update_subtotal() {
     $('#subtotal').html(subtotal);
     
     update_balance();
+    update_VAT();
 };
 
 function update_balance() {
@@ -19,16 +33,18 @@ function update_balance() {
 };
 
 function update_price() {
-    var row = $(this).parents('.item-row');
+    var row = $(this).parents('.nested-fields');
     var price = row.find('.cost').val() * row.find('.qty').val();
     price = price.toFixed(2);
     isNaN(price) ? row.find('.price').html('Geen nummer') : row.find('.price').html(price);
     update_subtotal();
+    update_VAT();
 };
 
 function bind1() {
     $('.cost').blur(update_price);
     $('.qty').blur(update_price);
+    $('#item_VAT').blur(update_VAT);
 };
 
 function bind2(main, modal) {

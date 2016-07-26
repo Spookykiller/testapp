@@ -1,6 +1,6 @@
 class Timesheet < ActiveRecord::Base
     belongs_to :client
-    has_and_belongs_to_many :projects
+    belongs_to :projects
     
     validates :timesheet_project_number, presence: true
     validates :timesheet_name, presence: true

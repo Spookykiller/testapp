@@ -1,6 +1,6 @@
 class TimesheetsController < ApplicationController
-    before_action :find_timesheet, only: [:edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_timesheet, only: [:edit, :update, :destroy]
     
     def index
         @timesheets = Timesheet.all

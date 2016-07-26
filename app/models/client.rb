@@ -7,7 +7,7 @@ class Client < ActiveRecord::Base
     validates :client_name, presence: true
     validates :client_contact_person, presence: true, uniqueness: true
     validates :client_address, presence: true, uniqueness: true
-    validates :client_zipcode, presence: true, uniqueness: true
+    validates :client_zipcode, presence: true
     validates :client_residence, presence: true
     validates :client_gender, presence: true
     validates :client_phone, presence: true

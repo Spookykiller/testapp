@@ -13,6 +13,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.datetime :invoice_when_paid
       t.decimal :invoice_paid
       t.decimal :invoice_left
+      t.boolean :invoice_definitive
       
       t.timestamps null: false
     end

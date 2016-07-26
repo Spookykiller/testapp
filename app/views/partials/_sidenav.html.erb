@@ -63,6 +63,11 @@
                 <li><a>Urenoverzicht</a>
                 </li>
                 <li>
+                  <%= link_to articles_path do %>
+                    Artikelen
+                  <% end %>
+                </li>
+                <li>
                   <%= link_to mileages_path do %>
                     Kilometerregistratie
                   <% end %>
@@ -90,7 +95,10 @@
             </li>
             <li><a><i class="fa fa-files-o"></i> Rapportages <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
-                <li><a>BTW aangifte</a>
+                <li>
+                  <%= link_to pages_vat_declaration_path do %>
+                    BTW aangifte
+                  <% end %>
                 </li>
                 <li>
                   <%= link_to annualaccounts_path do %>

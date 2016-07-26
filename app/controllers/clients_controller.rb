@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
-    before_action :find_client, only: [:edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_client, only: [:edit, :update, :destroy]
 
     def index
         @clients = Client.all

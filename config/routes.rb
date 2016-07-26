@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   
   get 'pages/home'
   get 'pages/dashboard'
+  get 'pages/vat_declaration'
+  get 'invoices/client_update'
   get 'plainpage/index'
   get 'invoices/earning'
 
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   resources :spendings
   resources :annualaccounts
   resources :mileages
+  resources :articles
   
   get 'companies/edit'
   

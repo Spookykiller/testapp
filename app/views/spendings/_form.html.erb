@@ -46,7 +46,13 @@
     <div class="form-group">
         <%= f.label :spending_type, 'Soort uitgave', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Productiekosten', 'Verkoopkosten', 'Andere kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Autokosten', 'Bank, rente', 'Omzetbelasting']%><br>
+            <% Company.all.each do |company| %>
+                <% if company.id == current_user.company_id && company.company_business_car == true %>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Overige personeelskosten', 'Verkoopkosten', 'Overige kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Autokosten', 'Bank, rente', 'Omzetbelasting'] %><br>
+                <% else %>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Overige personeelskosten', 'Verkoopkosten', 'Overige kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Bank, rente', 'Omzetbelasting'] %><br>
+                <% end %>
+            <% end %>
         </div>
     </div>
     

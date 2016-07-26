@@ -1,6 +1,6 @@
 class AnnualaccountsController < ApplicationController
-    before_action :find_annualaccount, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!
+    before_action :find_annualaccount, only: [:show, :edit, :update, :destroy]
 
     def index
         @annualaccounts = Annualaccount.all
@@ -46,7 +46,7 @@ class AnnualaccountsController < ApplicationController
     private
     
     def annualaccount_params
-        params.require(:annualaccount).permit(:an_date, :an_pr_return, :an_pr_production_cost, :an_pr_gross_margin, :an_pr_TA_expenses, :an_pr_accomodation_expenses, :an_pr_sales_expenses, :an_pr_consumption_expenses, :an_pr_other_expenses, :an_pr_total_other_expenses, :an_pr_net_margin, :an_pr_depreciation, :an_pr_bank_charges, :an_pr_small_business_scheme, :an_pr_loss, :an_pr_withdrawal, :an_pr_deposit, :an_pr_balance_turnover_tax, :an_pr_payed_turnover_tax, :an_pr_deductible_consumption_expenses, :an_ba_debtor, :an_ba_liquid_assets, :an_ba_prepayment, :an_ba_stock, :an_ba_carrying_amount, :an_ba_total_asset, :an_ba_creditors, :an_ba_accrued_receivables, :an_ba_current_receivables, :an_ba_loan, :an_ba_pr_balance, :an_ba_withdrawals_deposits_balance, :an_ba_reserve, :an_ba_total_receivables)
+        params.require(:annualaccount).permit(:an_date, :an_pr_depreciation, :an_pr_interest)
     end
     
     def find_annualaccount

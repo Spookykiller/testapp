@@ -1,0 +1,100 @@
+.col-xs-12
+  #invoice-wrap
+    .row
+      .col-xs-12
+        %h3.page-header
+          FACTUUR
+          %small.pull-right
+            Datum:
+            %span.invoice_header_date
+      / /.col
+    = form_for @invoice, :html => {:class => 'form-horizontal form-label-left'} do |f|
+      - if @invoice.errors.any?
+        %h2
+          = pluralize(@invoice.errors.count, "error")
+          zorgde ervoor dat de klant niet opgeslagen kon worden.
+        %ul
+          - @invoice.errors.full_messages.each do |msg|
+            %li= msg
+      .form-group
+        = f.label :invoice_date, 'Factuur datum', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+        .col-md-6.col-sm-6.col-xs-12
+          = f.text_field :invoice_date, id: 'datepicker', class: 'form-control col-md-7 col-xs-12'
+          %br/
+      .form-group
+        = f.label :invoice_client_name, 'Naam Opdrachtgever', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+        .col-md-6.col-sm-6.col-xs-12
+          = f.collection_select(:invoice_client_name, Client.all, :client_name, :client_name, include_blank: true, class: 'form-control', id: 'client_name')
+          %br/
+      .form-group
+        = f.label :invoice_subject, 'Onderwerp', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+        .col-md-6.col-sm-6.col-xs-12
+          = f.text_field :invoice_subject, class: 'form-control col-md-7 col-xs-12'
+          %br/
+      .form-group
+        = f.label :invoice_VAT_number, 'BTW nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+        .col-md-6.col-sm-6.col-xs-12
+          = f.text_field :invoice_VAT_number, class: 'form-control col-md-7 col-xs-12'
+          %br/
+          = f.hidden_field :invoice_VAT_percentage, :html => {:id => "invoice_VAT_percentage"}
+          = f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}
+
+      .row
+        .col-xs-12.table-responsive
+          %hr/
+          %table#items.table.table-hover
+            %thead
+              %th.item_code Item code
+              %th.description Beschrijving
+              %th.unit Eenheid
+              %th.VAT BTW %
+              %th.quantity Hoeveelheid
+              %th.unit_cost Kosten per eenheid
+              %th.total_price Totale prijs
+            %tbody
+              = f.fields_for :items do |item|
+                = render 'item_fields', f: item
+          = link_to_add_association 'Add item', f, :items,
+          'data-association-insertion-method' => 'append', 
+          'data-association-insertion-traversal' => 'prev', 
+          'data-association-insertion-node' => 'table', :class => 'btn btn-success btn-sm', :id => 'addrow'
+
+      .row
+        .col-xs-6.col-xs-offset-6
+          .table-responsive
+            %table#totals.table.table-hover
+              %tr
+                %th{:style => "width:50%"} Subtotaal:
+                %td
+                  %span#subtotal 875.00
+                  %span.subtotal_currency
+              %tr
+                %th Belasting percentage:
+                %td
+                  %input#9.form-control{:value => "0.00"}/
+              %tr
+                %th BTW 6%:
+                %td
+                  %span.VAT_6 0
+                  %span.subtotal_currency
+              %tr
+                %th Totaal:
+                %td.balance
+                  %span#invoice_total.due 875.00
+                  %span.subtotal_currency
+        / /.col
+      #terms
+        %h5 Voorwaarde
+        %textarea#10 Betalingsvoorwaarde: net 30. Interest accrued at 1.5% per month thereafter.
+        .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+          = link_to invoices_client_update_path, :remote => true do
+            %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk factuur
+          = link_to 'Annuleren', invoices_path, :class => 'btn btn-primary'
+          = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing'
+#invoice_modal.modal.fade{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content{:style => "width:920px"}
+      #print-me.container-fluid.invoice_wrapper{:style => "margin:10px"}
+        = render 'invoice'
+      .modal-footer
+        %button.btn.btn-primary{:onclick => "printDiv('print-me')"} Print

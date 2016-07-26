@@ -37,6 +37,10 @@ gem "font-awesome-rails"
 # Multi tenant
 gem 'apartment'
 
+# Dynamic nested form handling
+gem 'cocoon'
+gem 'haml'
+
 group :development, :test do
   gem 'byebug'
 end

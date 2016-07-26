@@ -1,4 +1,4 @@
-<%= form_for @annualaccount do |f| %>
+<%= form_for @annualaccount, :html => {:class =>  'form-horizontal form-label-left'} do |f| %>
     <% if @annualaccount.errors.any? %>
         <h2><%= pluralize(@annualaccount.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
         <ul>
@@ -8,18 +8,31 @@
         </ul>
     <% end %>
     
-    <%= f.label :an_date, 'Datum' , class: 'input_label' %>
-    <%= f.text_field :an_date, class: 'input_field', id: 'datepicker1', :value => (f.object.an_date.strftime('%Y') if f.object.an_date) %><br>
     
-    <%= f.label :an_pr_depreciation, 'Afschrijvingen', class: 'input_label' %>
-    <%= f.number_field :an_pr_depreciation, class: 'input_field' %><br>
+    <div class="form-group">
+        <%= f.label :an_date, 'Datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_field :an_date, class: 'form-control col-md-7 col-xs-12', :id => 'datepicker1', :value => (f.object.an_date.strftime('%Y') if f.object.an_date) %><br>
+        </div>
+    </div>
     
-    <%= f.label :an_pr_interest, 'Bankkosten', class: 'input_label' %>
-    <%= f.number_field :an_pr_interest, class: 'input_field' %><br>
+    <div class="form-group">
+        <%= f.label :an_pr_depreciation, 'Afschrijvingen', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :an_pr_depreciation, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
     
-    <div class="center_buttons">
-        <%= f.submit 'Opslaan', :class => 'add_button' %>
-        <%= link_to 'Annuleren', annualaccounts_path, :class => 'cancel_button' %>
+    <div class="form-group">
+        <%= f.label :an_pr_interest, 'Bankkosten (bankkosten negatief vermelden)', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :an_pr_interest, class: 'form-control col-md-7 col-xs-12' %><br>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <%= link_to 'Annuleren', annualaccounts_path, :class => 'btn btn-primary' %>
+        <%= f.submit 'Opslaan', :class => 'btn btn-success' %>
     </div>
     
 <% end %>

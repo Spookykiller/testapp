@@ -17,7 +17,7 @@ Apartment.configure do |config|
   #
   # config.excluded_models = %w{ Company }
   
-  Apartment::Elevators::Subdomain.excluded_subdomains = ['temp-dc', 'boekhouding2-cloned-gijs4']
+  Apartment::Elevators::Subdomain.excluded_subdomains = ['koendersonline', 'temp-dc', 'boekhouding2-cloned-gijs4']
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
   # You can make this dynamic by providing a Proc object to be called on migrations.

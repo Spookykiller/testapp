@@ -29,7 +29,7 @@ role :db,  %w{temp-dc@gary.bluerail.nl}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :deploy_to, '/var/www/vhosts/temp-dc.bluerail.nl/rails'
+set :deploy_to, '/var/www/vhosts/koendersonline.nl/rails'
 set :branch, 'master'
 
 # Custom SSH Options

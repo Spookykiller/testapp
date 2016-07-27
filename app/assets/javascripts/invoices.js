@@ -1,13 +1,18 @@
 function update_VAT(){
     var VATtotal = 0;
+    var total_cost = 0;
     $('#item_VAT').each(function(i){
         var VAT = $('#item_VAT').val();
         if (VAT == 6)
-            if (!isNaN(VAT)) VATtotal += Number(VAT);
+            if (!isNaN(VAT)) VATtotal = Number(VAT);
+            var cost = $(this).closest('tr.nested-fields').find('.price').html();
+            console.log(cost);
+            if (!isNaN(cost)) total_cost += Number(cost);
     });
     
-    VATtotal = VATtotal.toFixed(2) * 0.01 + 1;
-    VAT6 = (VATtotal * Number($('#subtotal').html()));
+    VATtotal = VATtotal.toFixed(2) * 0.01;
+    total_cost = total_cost.toFixed(2);
+    VAT6 = (total_cost * VATtotal);
     $('.VAT_6').html(VAT6);
 }
 

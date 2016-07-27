@@ -45,7 +45,6 @@
 
 //= require js/chartjs/chart.min.js
 
-//= require js/main.js
 //= require js/custom.js
 
 //= require js/pace/pace.min.js
@@ -106,23 +105,29 @@ $(document).on('ready page:load', function () {
     		
     		for (i=0; i < rows.length; i++) {
     			var row = rows[i];
-    			var name = $(row).find('.item_name').val();
+    			console.log(row);
+    			var code = $(row).find('.item_code').html();
     			$('#modal_tbody').append('<tr class="modal-nested-fields"></tr>');
-    			$('.modal-nested-fields:last').append('<td>' + name + '</td>');
+    			$('.modal-nested-fields:last').append('<td>' + code + '</td>');
     
     			var desc = $(row).find('.item_desc').val();
     			$('.modal-nested-fields:last').append('<td>' + desc + '</td>');
+    
+    			var unit = $(row).find('.item_unit').val();
+    			$('.modal-nested-fields:last').append('<td>' + unit + '</td>');
+    
+    			var VAT = $(row).find('.item_VAT').val();
+    			$('.modal-nested-fields:last').append('<td>' + VAT + '</td>');
+    
+    			var qty = $(row).find('.qty').val();
+    			$('.modal-nested-fields:last').append('<td>' + qty + '</td>');
     			
     			var cost = $(row).find('.cost').val();
     			$('.modal-nested-fields:last').append('<td>' + cost + '</td>');
     			
-    			var qty = $(row).find('.qty').val();
-    			$('.modal-nested-fields:last').append('<td>' + qty + '</td>');
-    			
     			var price = $(row).find('.price').text();
     			$('.modal-nested-fields:last').append('<td>' + price + '</td>');
-    			
-    			
+    
     		}
     		
     	});

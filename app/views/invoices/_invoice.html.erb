@@ -16,16 +16,16 @@
           <span class="invoice_header">KvK:</span>
         </div>
         <div class="information">
-          <span class="invoice_header_date">Koenders Advies B.V.</span><br>
-          <span class="invoice_header_date">Postbus 24</span><br>
-          <span class="invoice_header_date">5403 CK Uden</span><br>
+          <span class="invoice_header_date"><%= current_user.company.company_name %></span><br>
+          <span class="invoice_header_date"><%= current_user.company.company_address %></span><br>
+          <span class="invoice_header_date"><%= current_user.company.company_zipcode %> <%= current_user.company.company_place%></span><br>
           <span class="invoice_header_date"></span><br>
-          <span class="invoice_header">0612334578</span><br>
-          <span class="invoice_header">info@koendersadvies.nl</span><br>
-          <span class="invoice_header">www.koendersadvies.nl</span><br>
-          <span class="invoice_header">NL 2662345234</span><br>
-          <span class="invoice_header">NL 1234567890</span><br>
-          <span class="invoice_header">12345678</span>
+          <span class="invoice_header"><%= current_user.company.company_phone %></span><br>
+          <span class="invoice_header"><%= current_user.company.company_email %></span><br>
+          <span class="invoice_header"><%= current_user.company.company_webaddress %></span><br>
+          <span class="invoice_header"><%= current_user.company.company_bank_account_number %></span><br>
+          <span class="invoice_header"><%= current_user.company.company_VAT_number %></span><br>
+          <span class="invoice_header"><%= current_user.company.company_CC_number %></span>
         </div>
       </div>
     </h3>
@@ -34,17 +34,12 @@
 <!-- info row -->
 <div class="row invoice-info">
   <div class="col-xs-4 invoice-col">
-    <address>
-      <div id= "client_name" class="bold"></div>
-      <div id= "client_contact_person"></div>
-      <div id= "client_address"></div>
-      <div id= "client_zipcode"></div>
-      <div id= "client_residence" class="bold"></div>
-      <div id= "client_gender"></div>
-      <div id= "client_phone"></div>
-      <div id= "client_email"></div>
-      <div id= "client_account_number"></div>
-    </address>
+    <div class="address_input">
+      <span id="client_name" class="bold"></span><br>
+      t.a.v. <span id="client_contact_person"></span><br>
+      <span id="client_address"></span><br>
+      <span id="client_zipcode"></span> <span id="client_residence"></span><br>
+    </div>
   </div><!-- /.col -->
 
   <div class="col-xs-4 invoice-col">
@@ -88,8 +83,10 @@
 		  <thead>
 		    <th class="item-name">Item</th>
 		    <th class="description">Beschrijving</th>
-		    <th class="unit">Kosten per eenheid</th>
+		    <th class="unit">Eenheid</th>
+		    <th class="VAT">BTW %</th>
 	      <th class="quantity">Hoeveelheid</th>
+	      <th class="unit">Kosten per eenheid</th>
 	      <th class="units">Prijs</th>
 		  </thead>
 		  

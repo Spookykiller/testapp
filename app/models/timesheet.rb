@@ -7,5 +7,4 @@ class Timesheet < ActiveRecord::Base
     validates :timesheet_description, presence: true
     validates :timesheet_date, presence: true
     validates :timesheet_hours, presence: true
-    validates :timesheet_comment, presence: true
 end

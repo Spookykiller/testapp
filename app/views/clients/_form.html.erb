@@ -55,11 +55,16 @@
     </div>
     
     <div class="form-group">
-        <%= f.label :client_gender, 'Geslacht', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_gender, 'Geslacht', class: 'control-label col-md-3 col-sm-3 col-xs-12' %><br />
         <div class="col-md-6 col-sm-6 col-xs-12">
-           <%= f.check_box :client_gender, class: 'form-control col-md-7 col-xs-12' %>
+            <%= f.label :client_gender, "Man", :value => "true"  %>
+            <%= f.radio_button :client_gender, true %>
+            <%= f.label :client_gender, "Vrouw", :value => "false" %>
+            <%= f.radio_button :client_gender, false %>
         </div>
     </div>
+    
+
     
     <div class="form-group">
         <%= f.label :client_phone, 'Telefoonnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>

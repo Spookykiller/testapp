@@ -1,6 +1,6 @@
 %tr.nested-fields
     - grouped_options = [['Projecten', Project.all.collect {|v| [ v.project_name, v.id ] }], ['Artikelen', Article.all.collect {|v| [ v.article_code, v.id ] }]]
-    %td= f.select :item_code, grouped_options_for_select(grouped_options), :include_blank => true, { :class => 'form-control item_code' }
+    %td= f.select :item_code, grouped_options_for_select(grouped_options), :include_blank => true
     - Project.all.each do |project|
         - som_billable_hours = 0
         - Timesheet.all.each do |timesheet|

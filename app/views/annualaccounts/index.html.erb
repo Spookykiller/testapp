@@ -58,7 +58,7 @@
                     <td>
                       <% revenue = 0 %>
                       <% Invoice.all.each do |invoice| %>
-                          <% if invoice.invoice_paid != nil && invoice.invoice_when_paid.year == annualaccount.an_date.year %>
+                          <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == annualaccount.an_date.year %>
                               <% revenue += invoice.invoice_paid %>
                           <% end %>
                       <% end %>

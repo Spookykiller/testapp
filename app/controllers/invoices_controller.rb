@@ -3,16 +3,15 @@ class InvoicesController < ApplicationController
     before_action :find_invoice, only: [:edit, :update, :destroy]
     
     def index
-        @invoices = Invoice.all
+        @invoices = Invoice.all.order('created_at DESC')
     end
     
     def earning
-       @invoices = Invoice.all 
+       @invoices = Invoice.all.order('created_at DESC')
     end
 
     def new
         @invoice = Invoice.new
-
     end
     
     def client_update

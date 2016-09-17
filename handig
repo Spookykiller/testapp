@@ -4,7 +4,7 @@ u = Company.create :company_name=> "Verdonschot B.V.", :company_address => "Stad
 
 u = Client.create :client_number=> 1, :client_name => "Stadrijk 209", :client_contact_person => "5403NK", :client_address => "Uden", :client_zipcode => "061234567", :client_residence => "hoihoi@koendersadvies.nl", :client_gender => true, :client_phone => "ING", :client_email => "21%", :client_account_number => "Kvk hier"
 
-u = Subdomain.create :subdomain_name=> "robest"
+u = Subdomain.create :subdomain_name=> "verdonschot"
 
 Apartment::Tenant.switch!('robest')
 

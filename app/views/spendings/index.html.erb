@@ -74,7 +74,7 @@
                     <td><%= spending.spending_type %></td>
                     <td>
                       
-                      <% spending.spending_VAT_percentage = (spending.spending_VAT.round(2)  / (spending.spending_VAT.round(2) + spending.spending_exclusive_VAT.round(2) ) * 100.00) %>
+                      <% spending.spending_VAT_percentage = ((spending.spending_VAT.round(2)  / spending.spending_exclusive_VAT.round(2)) * 100.00) %>
                       <%= spending.spending_VAT_percentage.round(2) %> %
                     </td>
                     <td>

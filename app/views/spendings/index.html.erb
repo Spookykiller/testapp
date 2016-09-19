@@ -73,7 +73,6 @@
                     <td><%= spending.spending_invoice_number_creditor %></td>
                     <td><%= spending.spending_type %></td>
                     <td>
-                      
                       <% spending.spending_VAT_percentage = ((spending.spending_VAT.round(2)  / spending.spending_exclusive_VAT.round(2)) * 100.00) %>
                       <%= spending.spending_VAT_percentage.round(2) %> %
                     </td>
@@ -90,8 +89,10 @@
                     <td><%= spending.spending_when_paid %></td>
                     <td>€ <%= spending.spending_paid %></td>
                     <td>
-                      <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                      € <%= spending.spending_left %>
+                      <% if !spending.spending_paid.blank? %>
+                        <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
+                        € <%= spending.spending_left %>
+                      <% end %>
                     </td>
                     <td>
                     <%= link_to edit_spending_path(spending) do %>

@@ -67,15 +67,15 @@
                     <td><%= invoice.invoice_subject %></td>
                     <td><%= invoice.invoice_VAT_number %></td>
                     <td><%= invoice.invoice_VAT_percentage %>%</td>
-                    <td>€ <%= invoice.invoice_exclusive_VAT %></td>
+                    <td>€ <%= invoice.invoice_exclusive_VAT.round(2) %></td>
                     <td>
                         <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
                         <% invoice.invoice_VAT = som_BTW %>
-                        € <%= invoice.invoice_VAT %>
+                        € <%= invoice.invoice_VAT.round(2) %>
                     </td>
                     <td> 
                         <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                        € <%= invoice.invoice_including_VAT %>
+                        € <%= invoice.invoice_including_VAT.round(2) %>
                     </td>
                     <td>
                     <%= link_to edit_invoice_path(invoice) do %>

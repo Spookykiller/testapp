@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719073337) do
+ActiveRecord::Schema.define(version: 20160919120205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20160719073337) do
     t.datetime "spending_date"
     t.string   "spending_company_name"
     t.string   "spending_cost_description"
-    t.integer  "spending_invoice_number_creditor"
+    t.string   "spending_invoice_number_creditor"
     t.string   "spending_type"
     t.decimal  "spending_VAT_percentage"
     t.decimal  "spending_exclusive_VAT"

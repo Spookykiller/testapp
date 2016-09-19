@@ -1,12 +1,12 @@
-u = Company.create :company_name=> "Verdonschot B.V.", :company_address => "Stadrijk 216", :company_zipcode => "5403NK", :company_place => "Uden", :company_phone => "061234567", :company_email => "hoihoi@verdonschot.nl", :company_webaddress => "www.de4gees.nl", :company_bank => "ING", :company_VAT_number => "21%", :company_CC_number => "Kvk hier", :company_bank_account_number => "123456789"
+u = Company.create :company_name=> "Don Lorskens", :company_address => "Stadrijk 216", :company_zipcode => "5403NK", :company_place => "Uden", :company_phone => "061234567", :company_email => "hoihoi@verdonschot.nl", :company_webaddress => "www.de4gees.nl", :company_bank => "ING", :company_VAT_number => "21%", :company_CC_number => "Kvk hier", :company_bank_account_number => "123456789"
 
 
 
 u = Client.create :client_number=> 1, :client_name => "Stadrijk 209", :client_contact_person => "5403NK", :client_address => "Uden", :client_zipcode => "061234567", :client_residence => "hoihoi@koendersadvies.nl", :client_gender => true, :client_phone => "ING", :client_email => "21%", :client_account_number => "Kvk hier"
 
-u = Subdomain.create :subdomain_name=> "verdonschot"
+u = Subdomain.create :subdomain_name=> "vof"
 
-Apartment::Tenant.switch!('robest')
+Apartment::Tenant.switch!('donlorskens')
 
         @company = current_user.company
 

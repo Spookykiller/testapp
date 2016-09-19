@@ -58,24 +58,24 @@
               </thead>
             <% @invoices.each do |invoice| %>
               <tbody>
-                  <tr>
-                    <td><%= invoice.invoice_number %></td>
-                    <td><%= invoice.invoice_date %></td>
-                    <td><%= invoice.invoice_client_name %></td>
-                    <td><%= invoice.invoice_subject %></td>
-                    <td><%= invoice.invoice_VAT_number %></td>
-                    <%= form_for invoice do |f| %>
-                        <td>
-                            <%= f.text_field :invoice_when_paid, class: 'form-control' %>
-                        </td>
-                        <td>
-                            <%= f.number_field :invoice_paid, class: 'form-control' %>
-                        </td>
-                    <td>
-                        <%= f.submit "opslaan", :class => 'btn btn-success' %>
-                    <% end %>
-                    </td>
-                  </tr>
+                <tr>
+                  <td><%= invoice.invoice_number %></td>
+                  <td><%= invoice.invoice_date %></td>
+                  <td><%= invoice.invoice_client_name %></td>
+                  <td><%= invoice.invoice_subject %></td>
+                  <td><%= invoice.invoice_VAT_number %></td>
+                  <%= form_for invoice do |f| %>
+                      <td>
+                          <%= f.text_field :invoice_when_paid, class: 'form-control', :id => 'datepicker' %>
+                      </td>
+                      <td>
+                          <%= f.number_field :invoice_paid, class: 'form-control', :step => '0.01' %>
+                      </td>
+                  <td>
+                      <%= f.submit "opslaan", :class => 'btn btn-success' %>
+                  <% end %>
+                  </td>
+                </tr>
               </tbody>
             <% end %>
             </table>

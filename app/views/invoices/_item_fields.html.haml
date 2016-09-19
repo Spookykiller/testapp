@@ -43,9 +43,9 @@
                 });
     %td= f.text_field :item_description, class: 'form-control item_desc', placeholder: "Dit is een voorbeeld", id: "item_desc"
     %td= f.text_field :item_unit, class: 'form-control item_unit', placeholder: "Km", id: "item_unit"
-    %td= f.number_field :item_VAT_percentage, class: 'form-control item_VAT', placeholder: "21%", id: "item_VAT"
-    %td= f.number_field :item_quantity, class: 'form-control qty', placeholder: "0.00", id: "item_qty"
-    %td= f.number_field :item_unit_cost, class: 'form-control cost', placeholder: "0.00", id: "item_cost"
+    %td= f.number_field :item_VAT_percentage, class: 'form-control item_VAT', :step => "0.01", placeholder: "21%", id: "item_VAT"
+    %td= f.number_field :item_quantity, class: 'form-control qty', :step => "0.01", placeholder: "0.00", id: "item_qty"
+    %td= f.number_field :item_unit_cost, class: 'form-control cost', :step => "0.01", placeholder: "0.00", id: "item_cost"
     %td.price_td
         %span.price 0,00
         %span.subtotal_currency

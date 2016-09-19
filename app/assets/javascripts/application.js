@@ -59,6 +59,14 @@
 
 
 $(document).on('ready page:load', function () {
+    $('#datepicker').each(function(){
+        $(this).daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            format: 'DD/MM/YYYY'
+        });
+    });
+    
     $('#items').on('cocoon:after-insert', function(e, insertedItem){
 		$('input').click(function(){
 		    $(this).select();

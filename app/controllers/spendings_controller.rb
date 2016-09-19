@@ -3,7 +3,7 @@ class SpendingsController < ApplicationController
     before_action :find_spending, only: [:edit, :update, :destroy]
     
     def index
-        @spendings = Spending.all
+        @spendings = Spending.all.order("spending_date DESC")
     end
     
     def new

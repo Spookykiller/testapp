@@ -62,7 +62,7 @@
                 <% @spending_left_sum = 0 %>
                 
                 <% Spending.all.each do |spending| %>
-                  <% if spending.spending_left != 0 %>
+                  <% if spending.spending_left.to_s.to_i > 0.00 %>
                     <tr>
                       <td><%= spending.spending_follow_number %></td>
                       <td><%= spending.spending_date %></td>
@@ -138,42 +138,41 @@
                 </tr>
               </thead>
               
-              <tbody>
-                <% @invoice_left_sum = 0 %>
-                
-                <% Invoice.all.each do |invoice| %>
-                  <% if invoice.invoice_left != 0 %>
-                    <tr>
-                      <td><%= invoice.invoice_number %></td>
-                      <td><%= invoice.invoice_date %></td>
-                      <td><%= invoice.invoice_client_name %></td>
-                      <td><%= invoice.invoice_subject %></td>
-                      <td><%= invoice.invoice_VAT_number %></td>
-                        <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
-                        <% invoice.invoice_VAT = som_BTW %>
-                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                      <td>
-                        <% if invoice.invoice_paid != nil %>
-                          <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
-                          <% @invoice_left_sum += invoice.invoice_left %>
-                          € <%= invoice.invoice_left %>
+              <% @invoice_left_sum = 0 %>
+              <% @invoices.each do |invoice| %>
+                <% if invoice.invoice_left != 0 %>
+                  <tbody>
+                      <tr>
+                        <td><%= invoice.invoice_number %></td>
+                        <td><%= invoice.invoice_date %></td>
+                        <td><%= invoice.invoice_client_name %></td>
+                        <td><%= invoice.invoice_subject %></td>
+                        <td><%= invoice.invoice_VAT_number %></td>
+                          <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
+                          <% invoice.invoice_VAT = som_BTW %>
+                          <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                        <td>
+                          <% if !invoice.invoice_paid.blank? %>
+                            <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
+                            <% @invoice_left_sum += invoice.invoice_left %>
+                            € <%= invoice.invoice_left %>
+                          <% end %>
+                        </td>
+                        <td>
+                          <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
+                        </td>
+                        <td>
+                        <%= link_to edit_invoice_path(invoice) do %>
+                            <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
                         <% end %>
-                      </td>
-                      <td>
-                        <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
-                      </td>
-                      <td>
-                      <%= link_to edit_invoice_path(invoice) do %>
-                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
-                      <% end %>
-                      <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
-                          <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
-                      <% end %>
-                      </td>
-                    </tr>
-                  <% end %>
+                        <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
+                            <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                        <% end %>
+                        </td>
+                      </tr>
+                  </tbody>
                 <% end %>
-              </tbody>
+              <% end %>
             </table>
             
             Totaal nog te ontvangen bedrag: € <%= @invoice_left_sum %>

@@ -39,7 +39,7 @@
     <div class="form-group">
         <%= f.label :spending_invoice_number_creditor, 'Factuurnummer leverancier' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :spending_invoice_number_creditor, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :spending_invoice_number_creditor, class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -48,9 +48,9 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <% Company.all.each do |company| %>
                 <% if company.id == current_user.company_id && company.company_business_car == true %>
-                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Overige personeelskosten', 'Verkoopkosten', 'Overige kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Autokosten', 'Bank, rente', 'Omzetbelasting'] %><br>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Autokosten', 'Overige kosten'] %><br>
                 <% else %>
-                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Overige personeelskosten', 'Verkoopkosten', 'Overige kosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Investeringen', 'Privé', 'Bank, rente', 'Omzetbelasting'] %><br>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Overige kosten'] %><br>
                 <% end %>
             <% end %>
         </div>
@@ -73,7 +73,7 @@
     <div class="form-group">
         <%= f.label :spending_when_paid, 'Datum betaling', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_when_paid, class: 'form-control col-md-7 col-xs-12', id: 'datepicker2' %><br>
+            <%= f.text_field :spending_when_paid, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
         </div>
     </div>
     

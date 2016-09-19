@@ -85,11 +85,11 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Overige personeelskosten</td> 
+                        <td>Personeelskosten</td> 
                         <td>
                             <% staff_expenses = 0 %>
                             <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Overige personeelskosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
+                                <% if spending.spending_type == "Personeelskosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
                                     <% staff_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                                 <% end %>
                             <% end %>

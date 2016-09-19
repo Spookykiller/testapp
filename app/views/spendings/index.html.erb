@@ -89,7 +89,11 @@
                     <td><%= spending.spending_when_paid %></td>
                     <td>€ <%= spending.spending_paid %></td>
                     <td>
-                      <% if !spending.spending_paid.blank? %>
+                      <% if spending.spending_paid.blank? %>
+                        <% spending.spending_paid = 0%>
+                        <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
+                        € <%= spending.spending_left %>
+                      <% else %>
                         <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
                         € <%= spending.spending_left %>
                       <% end %>

@@ -64,17 +64,28 @@
                   <td><%= invoice.invoice_client_name %></td>
                   <td><%= invoice.invoice_subject %></td>
                   <td><%= invoice.invoice_VAT_number %></td>
-                  <%= form_for invoice do |f| %>
-                      <td>
-                          <%= f.text_field :invoice_when_paid, class: 'form-control', :id => 'datepicker' %>
-                      </td>
-                      <td>
-                          <%= f.number_field :invoice_paid, class: 'form-control', :step => '0.01' %>
-                      </td>
-                  <td>
+                  
+                  <% if invoice.invoice_when_paid.blank? %>
+                    <%= form_for invoice do |f| %>
+                        <td>
+                            <%= f.text_field :invoice_when_paid, class: 'form-control', :id => 'datepicker' %>
+                        </td>
+                        <td>
+                            <%= f.number_field :invoice_paid, class: 'form-control', :step => '0.01' %>
+                        </td>
+                    <td>
                       <%= f.submit "opslaan", :class => 'btn btn-success' %>
+                    <% end %>
+                    </td>
+                  <% else %>
+                    <td><%= invoice.invoice_when_paid %></td>
+                    <td><%= invoice.invoice_paid %></td>
+                    <td>
+                      <%= link_to earning_edit_invoice_path(invoice) do %>
+                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <% end %>
+                    </td>
                   <% end %>
-                  </td>
                 </tr>
               </tbody>
             <% end %>

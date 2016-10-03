@@ -43,13 +43,7 @@
   </div><!-- /.col -->
 
   <div class="col-xs-4 invoice-col">
-    Naar
-    <address>
-      <div id= "modal_5"></div>
-      <div id= "modal_6"></div>
-      <div id= "modal_7"></div>
-      <div id= "modal_8"></div>
-    </address>
+
   </div><!-- /.col -->
 
   <div class="col-xs-4 invoice-col">
@@ -63,7 +57,7 @@
 
       <div class="form-group">
         <div class="col-xs-4"><label>Datum</label></div>
-        <div class="col-xs-8"><span class="invoice_header_date pull-right"></span></div>
+        <div class="col-xs-8"><span id="modal_invoice_date" class="invoice_header_date pull-right"></span></div>
       </div>
                     
       <div class="col-xs-12"></div>
@@ -81,7 +75,6 @@
     <hr>
 		<table class="table table-bordered" id="modal_items">
 		  <thead>
-		    <th class="item-name">Item</th>
 		    <th class="description">Beschrijving</th>
 		    <th class="unit">Eenheid</th>
 		    <th class="VAT">BTW %</th>
@@ -103,15 +96,19 @@
       <table class="table" id="modal_totals">
         <tr>
           <th style="width:50%">Subtotaal:</th>
-          <td><span id="modal_subtotal"></span><span class="subtotal_currency"></span></td>
+          <td>€ <span id="modal_subtotal"></span><span class="subtotal_currency"></span></td>
         </tr>
-        <tr>
-          <th>Belasting percentage:</th>
-          <td><span id="modal_9"></span><span class="subtotal_currency"></span></td>
+        <tr id="invoice_VAT_6">
+          <th>BTW 6%</th>
+          <td>€ <span id="modal_VAT_6"></span><span class="subtotal_currency"></span></td>
+        </tr>
+        <tr id="invoice_VAT_21">
+          <th>BTW 21%</th>
+          <td>€ <span id="modal_VAT_21"></span><span class="subtotal_currency"></span></td>
         </tr>
         <tr>
           <th>Totaal:</th>
-          <td class="balance"><span class="due">875.00</span><span class="subtotal_currency"></span></td>
+          <td class="balance">€ <span class="due">875.00</span><span class="subtotal_currency"></span></td>
         </tr>
       </table>
     </div>

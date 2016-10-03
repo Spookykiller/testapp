@@ -48,9 +48,9 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <% Company.all.each do |company| %>
                 <% if company.id == current_user.company_id && company.company_business_car == true %>
-                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Autokosten', 'Overige kosten'] %><br>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Autokosten', 'Overige kosten'], {}, {class: 'form-control col-md-7 col-xs-12'} %><br>
                 <% else %>
-                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Overige kosten'] %><br>
+                    <%= f.select :spending_type, ['Kantoorkosten', 'Consumptiekosten', 'Inkoop', 'Personeelskosten', 'Verkoopkosten', 'Reis- en verblijfkosten', 'Huisvestigingskosten', 'Overige kosten'], {}, {class: 'form-control col-md-7 col-xs-12'} %><br>
                 <% end %>
             <% end %>
         </div>

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_invoice, only: [:edit, :update, :destroy]
+    before_action :find_invoice, only: [:earning_edit, :edit, :update, :destroy]
     
     def index
        @invoices = Invoice.all.order('invoice_date DESC')
@@ -8,6 +8,9 @@ class InvoicesController < ApplicationController
     
     def earning
        @invoices = Invoice.all.order('invoice_date DESC')
+    end
+    
+    def earning_edit
     end
 
     def new
@@ -53,7 +56,7 @@ class InvoicesController < ApplicationController
     private
     
     def invoice_params
-        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left, items_attributes: [:id, :item_code, :item_description, :item_unit, :item_quantity, :item_unit_cost, :item_total_price, :_destroy])
+        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left, :VAT6, :VAT21, items_attributes: [:id, :item_code, :item_description, :item_unit, :item_quantity, :item_unit_cost, :item_total_price, :_destroy])
     end
     
     def find_invoice

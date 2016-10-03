@@ -71,13 +71,13 @@ $(document).on('ready page:load', function () {
 		$('input').click(function(){
 		    $(this).select();
     	});
-    
-        $('#9').blur(update_balance);
         
     	$('#addrow').click(function(){
     		if ($('.delete').length > 0) $('.delete').show();
     		bind1();
     	});
+        
+        VAT_total();
     	
         bind1();
     
@@ -105,18 +105,30 @@ $(document).on('ready page:load', function () {
     	
     	$('body').on('click', '#invoice_button', function(){
     		bind2($('#subtotal'), $("#modal_subtotal"));
+    		bind2($('.VAT_6'), $("#modal_VAT_6"));
+    		bind2($('.VAT_21'), $("#modal_VAT_21"));
     		bind3($('#9'), $("#modal_9"));
     		bind3($('#invoicing_number'), $("#modal_invoice_number"));
+    		bind3($('#datepicker'), $('#modal_invoice_date'));
+    		
+    		// Showing rows in invoice if value is not 0
+    		if ($('.VAT_6').html() == 0) {
+    		    $('#invoice_VAT_6').hide();
+    		} else {
+    		    $('#invoice_VAT_6').show();
+    		}
+    		if ($('.VAT_21').html() == 0) {
+    		    $('#invoice_VAT_21').hide();
+    		} else {
+    		    $('#invoice_VAT_12').show();
+    		}
     
     		var rows = $('.nested-fields');
     		$('#modal_tbody').empty();
     		
     		for (i=0; i < rows.length; i++) {
     			var row = rows[i];
-    			console.log(row);
-    			var code = $(row).find('.item_code').html();
     			$('#modal_tbody').append('<tr class="modal-nested-fields"></tr>');
-    			$('.modal-nested-fields:last').append('<td>' + code + '</td>');
     
     			var desc = $(row).find('.item_desc').val();
     			$('.modal-nested-fields:last').append('<td>' + desc + '</td>');
@@ -131,10 +143,10 @@ $(document).on('ready page:load', function () {
     			$('.modal-nested-fields:last').append('<td>' + qty + '</td>');
     			
     			var cost = $(row).find('.cost').val();
-    			$('.modal-nested-fields:last').append('<td>' + cost + '</td>');
+    			$('.modal-nested-fields:last').append('<td> € ' + cost + '</td>');
     			
     			var price = $(row).find('.price').text();
-    			$('.modal-nested-fields:last').append('<td>' + price + '</td>');
+    			$('.modal-nested-fields:last').append('<td> € ' + price + '</td>');
     
     		}
     		
@@ -142,3 +154,34 @@ $(document).on('ready page:load', function () {
 
     });
 });
+
+function VAT_total() {
+    
+    var total_VAT6 = 0;
+    var total_VAT21 = 0;
+	$('tr.nested-fields').each(function(){
+	    var column_price = Number($(this).find('.price').html());
+	    var column_VAT = 0.01 * Number($(this).find('#item_VAT').val());
+	    console.log(column_VAT);
+        
+        if (column_VAT == 0.06) {
+            var column_VAT_total6 = Number(column_VAT) * Number(column_price);
+            console.log(column_VAT_total6);
+            
+            if (!isNaN(column_VAT_total6)) total_VAT6 += Number(column_VAT_total6);
+        } else if (column_VAT == 0.21){
+            var column_VAT_total21 = Number(column_VAT) * Number(column_price);
+            console.log(column_VAT_total21);
+            
+            if (!isNaN(column_VAT_total21)) total_VAT21 += Number(column_VAT_total21);
+        }
+        
+	});
+	
+	$('.VAT_6').html(Number(total_VAT6.toFixed(2)));
+	$('.VAT_21').html(Number(total_VAT21.toFixed(2)));
+    
+    $('#invoice_VAT6').val(Number(total_VAT6.toFixed(2)));
+	$('#invoice_VAT21').val(Number(total_VAT21.toFixed(2)));
+    
+}

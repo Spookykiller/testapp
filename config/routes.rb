@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   resources :clients
   resources :projects
   resources :timesheets
-  resources :invoices
+  resources :invoices do
+    member do
+      get 'earning_edit'
+    end
+  end
   resources :spendings
   resources :annualaccounts
   resources :mileages

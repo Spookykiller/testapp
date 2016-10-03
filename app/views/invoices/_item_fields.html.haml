@@ -1,6 +1,6 @@
 %tr.nested-fields
     - grouped_options = [['Projecten', Project.all.collect {|v| [ v.project_name, v.id ] }], ['Artikelen', Article.all.collect {|v| [ v.article_code, v.id ] }]]
-    %td= f.select :item_code, grouped_options_for_select(grouped_options), :include_blank => true
+    %td= f.select :item_code, grouped_options_for_select(grouped_options), {:include_blank => true}, id: 'item_code', class: 'form-control item_code'
     - Project.all.each do |project|
         - som_billable_hours = 0
         - Timesheet.all.each do |timesheet|
@@ -31,26 +31,26 @@
                     if ("#{article.article_code}" == selected) {
                         var article_description = "#{article.article_description}";
                         var article_unit = "#{article.article_unit}";
-                        var article_VAT_percentage = "#{article.article_VAT_percentage}";
+                        var article_VAT_percentage = Number("#{article.article_VAT_percentage}");
                         var article_unit_price = "#{article.article_unit_price}";
                         
                         row.find('#item_desc').val(article_description);
                         row.find('#item_unit').val(article_unit);
-                        row.find('#item_VAT').val(article_VAT_percentage);
+                        row.find('#item_VAT').val(article_VAT_percentage.toFixed(0));
                         row.find('#item_qty').val(0);
                         row.find('#item_cost').val(article_unit_price);
                     }
                 });
-    %td= f.text_field :item_description, class: 'form-control item_desc', placeholder: "Dit is een voorbeeld", id: "item_desc"
-    %td= f.text_field :item_unit, class: 'form-control item_unit', placeholder: "Km", id: "item_unit"
-    %td= f.number_field :item_VAT_percentage, class: 'form-control item_VAT', :step => "0.01", placeholder: "21%", id: "item_VAT"
-    %td= f.number_field :item_quantity, class: 'form-control qty', :step => "0.01", placeholder: "0.00", id: "item_qty"
-    %td= f.number_field :item_unit_cost, class: 'form-control cost', :step => "0.01", placeholder: "0.00", id: "item_cost"
+    %td= f.text_field :item_description, :class => 'form-control item_desc', placeholder: "Dit is een voorbeeld", id: "item_desc"
+    %td= f.text_field :item_unit, :class => 'form-control item_unit', placeholder: "Km", id: "item_unit"
+    %td= f.select :item_VAT_percentage, [0, 6, 21], {}, {id: 'item_VAT', class: 'form-control item_VAT_percentage'}
+    %td= f.number_field :item_quantity, :class => 'form-control qty', :step => "0.01", placeholder: "0.00", id: "item_qty"
+    %td= f.number_field :item_unit_cost, :class => 'form-control cost', :step => "0.01", placeholder: "0.00", id: "item_cost"
     %td.price_td
         %span.price 0,00
         %span.subtotal_currency
     %td.delete_td
         %a.delete{:href => "javascript:;", :title => "Remove row"}
             %span.fa.fa-times
-                = link_to_remove_association "remove task", f
+                = link_to_remove_association "", f
                     

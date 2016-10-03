@@ -51,7 +51,6 @@
                     <th class="column-title">Naam Opdrachtgever</th>
                     <th class="column-title">Onderwerp</th>
                     <th class="column-title">BTW nummer</th>
-                    <th class="column-title">BTW %</th>
                     <th class="column-title">Bedrag ex BTW</th>
                     <th class="column-title">BTW</th>
                     <th class="column-title">Bedrag incl BTW</th>
@@ -66,11 +65,9 @@
                     <td><%= invoice.invoice_client_name %></td>
                     <td><%= invoice.invoice_subject %></td>
                     <td><%= invoice.invoice_VAT_number %></td>
-                    <td><%= invoice.invoice_VAT_percentage %>%</td>
                     <td>€ <%= invoice.invoice_exclusive_VAT.round(2) %></td>
                     <td>
-                        <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
-                        <% invoice.invoice_VAT = som_BTW %>
+                        <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
                         € <%= invoice.invoice_VAT.round(2) %>
                     </td>
                     <td> 

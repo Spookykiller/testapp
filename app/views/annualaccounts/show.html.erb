@@ -49,9 +49,20 @@
                         <td>Omzet</td> 
                         <td>
                             <% revenue = 0 %>
+                            <% invoice_left = 0 %>
                             <% Invoice.all.each do |invoice| %>
-                                <% if invoice.invoice_paid != nil && invoice.invoice_when_paid.year == @annualaccount.an_date.year %>
-                                    <% revenue += invoice.invoice_paid %>
+                            
+                                <% if invoice.VAT6.blank? %>
+                                    <% invoice.VAT6 = 0.0 %>
+                                <% end %>
+                                
+                                <% if invoice.VAT21.blank? %>
+                                    <% invoice.VAT21 = 0.0 %>
+                                <% end %>
+                                
+                                <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == @annualaccount.an_date.year %>
+                                    <% invoice_left = invoice.invoice_paid - invoice.VAT6 - invoice.VAT21 %>
+                                    <% revenue += invoice_left %>
                                 <% end %>
                             <% end %>
                             € <%= revenue %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927073548) do
+ActiveRecord::Schema.define(version: 20161003083515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20160927073548) do
     t.string   "item_unit"
     t.decimal  "item_quantity"
     t.decimal  "item_unit_cost"
-    t.decimal  "item_VAT_percentage"
+    t.integer  "item_VAT_percentage"
     t.decimal  "item_total_price"
     t.integer  "invoice_id"
     t.datetime "created_at",          null: false

@@ -12,7 +12,7 @@
     <div class="form-group">
         <%= f.label :an_date, 'Datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :an_date, class: 'form-control col-md-7 col-xs-12', :id => 'datepicker1', :value => (f.object.an_date.strftime('%Y') if f.object.an_date) %><br>
+            <%= f.text_field :an_date, class: 'form-control col-md-7 col-xs-12', :id => 'datepicker', :value => (f.object.an_date.strftime('%Y') if f.object.an_date) %><br>
         </div>
     </div>
     

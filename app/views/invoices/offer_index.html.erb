@@ -3,7 +3,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Factureren</h3>
+        <h3>Offertes</h3>
       </div>
 
       <div class="title_right">
@@ -24,7 +24,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Uw concepten:</h2>
+            <h2>Uw offertes:</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -46,25 +46,23 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Factuur nummer</th>
+                    <th class="column-title">Offerte nummer</th>
                     <th class="column-title">Datum</th>
                     <th class="column-title">Naam Opdrachtgever</th>
                     <th class="column-title">Onderwerp</th>
-                    <th class="column-title">BTW nummer</th>
                     <th class="column-title">Bedrag ex BTW</th>
                     <th class="column-title">BTW</th>
                     <th class="column-title">Bedrag incl BTW</th>
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @invoices_concept.each do |invoice| %>
+            <% @offers.each do |invoice| %>
               <tbody>
                   <tr>
                     <td><%= invoice.invoice_number %></td>
                     <td><%= invoice.invoice_date %></td>
                     <td><%= invoice.invoice_client_name %></td>
                     <td><%= invoice.invoice_subject %></td>
-                    <td><%= invoice.invoice_VAT_number %></td>
                     <td>€ <%= invoice.invoice_exclusive_VAT.round(2) %></td>
                     <td>
                         <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
@@ -82,7 +80,7 @@
                         <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
                     <% end %>
                     <%= link_to definitive_invoice_path(invoice) do %>
-                      <button class="btn btn-primary">Definitief</button>
+                      <button class="btn btn-primary">Maak factuur</button>
                     <% end %>
                     </td>
                   </tr>
@@ -90,75 +88,10 @@
             <% end %>
             </table>
             <div class="col-md-6 col-md-offset-5">
-                <%= link_to new_invoice_path do %>
-                    <button class="btn btn-primary">Nieuwe factuur</button>
+                <%= link_to invoices_offer_path do %>
+                    <button class="btn btn-primary">Nieuwe offerte</button>
                 <% end %>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row">
-
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Definitieve facturen:</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <table class="table table-striped jambo_table bulk_action">
-              <thead>
-                <tr class="headings">
-                    <th class="column-title">Factuur nummer</th>
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Naam Opdrachtgever</th>
-                    <th class="column-title">Onderwerp</th>
-                    <th class="column-title">BTW nummer</th>
-                    <th class="column-title">Bedrag ex BTW</th>
-                    <th class="column-title">BTW</th>
-                    <th class="column-title">Bedrag incl BTW</th>
-                    <th class="column-title">Acties</th>
-                </tr>
-              </thead>
-            <% @invoices_definitive.each do |invoice| %>
-              <tbody>
-                  <tr>
-                    <td><%= invoice.invoice_number %></td>
-                    <td><%= invoice.invoice_date %></td>
-                    <td><%= invoice.invoice_client_name %></td>
-                    <td><%= invoice.invoice_subject %></td>
-                    <td><%= invoice.invoice_VAT_number %></td>
-                    <td>€ <%= invoice.invoice_exclusive_VAT.round(2) %></td>
-                    <td>
-                        <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
-                        € <%= invoice.invoice_VAT.round(2) %>
-                    </td>
-                    <td> 
-                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                        € <%= invoice.invoice_including_VAT.round(2) %>
-                    </td>
-                    <td><%= link_to "Zie factuur", invoice_path(invoice) %></td>
-                  </tr>
-              </tbody>
-            <% end %>
-            </table>
           </div>
         </div>
       </div>
@@ -166,4 +99,3 @@
   </div>
 </div>
 <!-- /page content -->
-

@@ -3,7 +3,7 @@
     .row
       .col-xs-12
         %h3.page-header
-          FACTUUR
+          OFFERTE
           %small.pull-right
             Datum:
             %span.invoice_header_date
@@ -17,7 +17,7 @@
           - @invoice.errors.full_messages.each do |msg|
             %li= msg
       .form-group
-        = f.label :invoice_date, 'Factuur datum *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+        = f.label :invoice_date, 'Offerte datum *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
         .col-md-6.col-sm-6.col-xs-12
           = f.text_field :invoice_date, id: 'datepicker', class: 'form-control col-md-7 col-xs-12'
           %br/
@@ -31,15 +31,13 @@
         .col-md-6.col-sm-6.col-xs-12
           = f.text_field :invoice_subject, class: 'form-control col-md-7 col-xs-12'
           %br/
-      .form-group
-        = f.label :invoice_VAT_number, 'BTW nummer *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
-        .col-md-6.col-sm-6.col-xs-12
-          = f.text_field :invoice_VAT_number, class: 'form-control col-md-7 col-xs-12'
-          %br/
           = f.hidden_field :invoice_VAT_percentage, :html => {:id => "invoice_VAT_percentage"}
           = f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}
           = f.hidden_field :VAT6, :html => {:id => "invoice_VAT6"}
           = f.hidden_field :VAT21, :html => {:id => "invoice_VAT21"}
+          = f.hidden_field :invoice_VAT, :html => {:id => "invoice_VAT"}
+          = f.hidden_field :invoice_including_VAT, :html => {:id => "invoice_including_VAT"}
+          = f.hidden_field :offer, :value => true
 
       .row
         .col-xs-12.table-responsive
@@ -91,13 +89,13 @@
         %textarea#10 Betalingsvoorwaarde: net 30. Interest accrued at 1.5% per month thereafter.
         .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
           = link_to invoices_client_update_path, :remote => true do
-            %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk factuur
+            %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk offerte
           = link_to 'Annuleren', invoices_path, :class => 'btn btn-primary'
-          = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing', data: { confirm: "Weet u zeker dat u de factuur wilt wijzigen?"}
+          = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing'
 #invoice_modal.modal.fade{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal-lg
     .modal-content{:style => "width:920px"}
       #print-me.container-fluid.invoice_wrapper{:style => "margin:10px"}
-        = render 'invoice'
+        = render 'offer'
       .modal-footer
         %button.btn.btn-primary{:onclick => "printDiv('print-me')"} Print

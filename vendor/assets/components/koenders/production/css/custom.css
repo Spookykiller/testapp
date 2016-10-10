@@ -197,7 +197,7 @@ body .container.body .right_col {
   float: left;
   background: #FFFFFF;
   background-image: url("http://www.koendersadvies.nl/beheer/wp-content/themes/koenders-1/img/koenders-logo-line.svg");
-  background-size: 200px 200px;
+  background-size: 200px auto;
   background-repeat: no-repeat;
   background-position: center center;
   border-radius: 0;

@@ -66,60 +66,100 @@ $(document).on('ready page:load', function () {
             format: 'DD/MM/YYYY'
         });
     });
+    
+    $('#definitive').find('form').each(function() {
+        $(this).find('input.form-control').prop('disabled', true);
+        $(this).find('select').prop('disabled', true);
+        $(this).find('.add_fields').hide();
+        $(this).find('#invoicing').prop('disabled', false);
+    })
 
     update_numbers();
     
     $('#items').on('cocoon:after-insert', function(e, insertedItem){
         update_numbers();
     });
+    
+    $('#items').on('cocoon:before-insert', function(e, insertedItem) {
+        insertedItem.fadeIn('slow');
+        update_numbers();
+    });
+    
+    $('#invoicing').click(function() {
+        update_numbers();
+    });
+    
+        
+    $('#invoice_button').click(function() {
+        update_numbers();
+    });
+    
 });
 
 function VAT_total() {
     
-    var total_VAT6 = 0;
-    var total_VAT21 = 0;
+    var total_VAT6 = 0.00;
+    var total_VAT21 = 0.00;
+    var total_VAT = 0.00;
+    var subtotal = 0.00;
+    var total = 0.00;
 	$('tr.nested-fields').each(function(){
+
+	    var column_qty = Number($(this).find('#item_qty').val());
+	    var colum_item_cost = Number($(this).find('#item_cost').val());
+	    var column_total_price = Number(column_qty) * Number(colum_item_cost);
+	    
+	    $(this).find('.price').html(column_total_price.toFixed(2));
+	    
 	    var column_price = Number($(this).find('.price').html());
 	    var column_VAT = 0.01 * Number($(this).find('#item_VAT').val());
-	    console.log(column_VAT);
-        
+
         if (column_VAT == 0.06) {
             var column_VAT_total6 = Number(column_VAT) * Number(column_price);
-            console.log(column_VAT_total6);
-            
+
             if (!isNaN(column_VAT_total6)) total_VAT6 += Number(column_VAT_total6);
         } else if (column_VAT == 0.21){
             var column_VAT_total21 = Number(column_VAT) * Number(column_price);
-            console.log(column_VAT_total21);
-            
+
             if (!isNaN(column_VAT_total21)) total_VAT21 += Number(column_VAT_total21);
         }
         
+        subtotal += Number(column_total_price);
 	});
+	
+	total = Number(subtotal) + Number(total_VAT6) + Number(total_VAT21);
+	total_VAT = Number(total_VAT6) + Number(total_VAT21);
 	
 	$('.VAT_6').html(Number(total_VAT6.toFixed(2)));
 	$('.VAT_21').html(Number(total_VAT21.toFixed(2)));
+    $('.due').html(total.toFixed(2));
     
     $('#invoice_VAT6').val(Number(total_VAT6.toFixed(2)));
 	$('#invoice_VAT21').val(Number(total_VAT21.toFixed(2)));
+        $('#invoice_invoice_VAT').val(total_VAT.toFixed(2));
     
+    $('#subtotal').html(subtotal.toFixed(2));
+    $('#invoice_invoice_exclusive_VAT').val(subtotal.toFixed(2));
+
+    $('#invoice_invoice_including_VAT').val(total.toFixed(2));
+
 }
 
 function update_numbers() {
     $('input').click(function(){
 	    $(this).select();
+	    VAT_total();
 	});
+	
+	VAT_total();
     
 	$('#addrow').click(function(){
 		if ($('.delete').length > 0) $('.delete').show();
-		bind1();
+		VAT_total();
 	});
     
-    VAT_total();
-	
 	$('body').on('click', '.delete', function(){
 		$(this).parents('.nested-fields').remove();
-		update_subtotal();
 		if ($('.delete').length < 2) $('.delete').hide();
 	});
 	
@@ -156,7 +196,7 @@ function update_numbers() {
 		if ($('.VAT_21').html() == 0) {
 		    $('#invoice_VAT_21').hide();
 		} else {
-		    $('#invoice_VAT_12').show();
+		    $('#invoice_VAT_21').show();
 		}
 
 		var rows = $('.nested-fields');
@@ -172,7 +212,7 @@ function update_numbers() {
 			var unit = $(row).find('.item_unit').val();
 			$('.modal-nested-fields:last').append('<td>' + unit + '</td>');
 
-			var VAT = $(row).find('.item_VAT').val();
+			var VAT = $(row).find('.item_VAT_percentage').find(":selected").text();
 			$('.modal-nested-fields:last').append('<td>' + VAT + '</td>');
 
 			var qty = $(row).find('.qty').val();

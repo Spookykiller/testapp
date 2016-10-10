@@ -1,18 +1,33 @@
 class InvoicesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_invoice, only: [:earning_edit, :edit, :update, :destroy]
+    before_action :find_invoice, only: [:definitive, :earning_edit, :show, :edit, :update, :destroy]
     
     def index
-       @invoices = Invoice.all.order('invoice_date DESC')
+        @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => nil).all.order('invoice_date DESC')
+        @invoices_definitive = Invoice.where(:invoice_definitive => true, :offer => nil).all.order('invoice_date DESC')
     end
     
     def earning
-       @invoices = Invoice.all.order('invoice_date DESC')
+       @invoices = Invoice.all.where(:invoice_definitive => true, :offer => nil).order('invoice_date DESC')
     end
     
     def earning_edit
     end
-
+    
+    def definitive
+    end
+    
+    def offer_index
+        @offers = Invoice.all.where(:offer => true).order('invoice_date DESC')
+    end
+    
+    def offer
+        @invoice = Invoice.new
+    end
+    
+    def show
+    end
+    
     def new
         @invoice = Invoice.new
     end
@@ -26,12 +41,23 @@ class InvoicesController < ApplicationController
     def create
         @invoice = Invoice.new invoice_params
         
-        if @invoice.save
-            flash[:notice] = "De factuur is opgeslagen!"
-            redirect_to action: "index"
-        else
-            render 'new'
-            flash[:notice] = "Oh nee! De factuur is niet opgeslagen."
+        if @invoice.offer == true
+            if @invoice.save
+                flash[:notice] = "De offerte is opgeslagen!"
+                redirect_to action: "offer_index"
+            else
+                render 'offer'
+                flash[:notice] = "Oh nee! De offerte is niet opgeslagen."
+            end
+        
+        else  
+            if @invoice.save
+                flash[:notice] = "De factuur is opgeslagen!"
+                redirect_to action: "index"
+            else
+                render 'new'
+                flash[:notice] = "Oh nee! De factuur is niet opgeslagen."
+            end
         end
     end
     
@@ -56,7 +82,7 @@ class InvoicesController < ApplicationController
     private
     
     def invoice_params
-        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left, :VAT6, :VAT21, items_attributes: [:id, :item_code, :item_description, :item_unit, :item_quantity, :item_unit_cost, :item_VAT_percentage, :item_total_price, :_destroy])
+        params.require(:invoice).permit(:invoice_number, :invoice_date, :invoice_client_name, :invoice_subject, :invoice_VAT_number, :invoice_VAT_percentage, :invoice_exclusive_VAT, :invoice_VAT, :invoice_including_VAT, :invoice_when_paid, :invoice_paid, :invoice_left, :invoice_definitive, :VAT6, :VAT21, :offer, items_attributes: [:id, :item_code, :item_description, :item_unit, :item_quantity, :item_unit_cost, :item_VAT_percentage, :item_total_price, :_destroy])
     end
     
     def find_invoice

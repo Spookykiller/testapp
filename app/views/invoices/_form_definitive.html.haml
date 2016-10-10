@@ -1,5 +1,5 @@
 .col-xs-12
-  #invoice-wrap
+  #invoice-wrap#definitive
     .row
       .col-xs-12
         %h3.page-header
@@ -40,6 +40,7 @@
           = f.hidden_field :invoice_exclusive_VAT, :html => {:id => "invoice_exclusive_VAT"}
           = f.hidden_field :VAT6, :html => {:id => "invoice_VAT6"}
           = f.hidden_field :VAT21, :html => {:id => "invoice_VAT21"}
+          = f.hidden_field :invoice_definitive, :value => 1
 
       .row
         .col-xs-12.table-responsive
@@ -93,7 +94,7 @@
           = link_to invoices_client_update_path, :remote => true do
             %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk factuur
           = link_to 'Annuleren', invoices_path, :class => 'btn btn-primary'
-          = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing', data: { confirm: "Weet u zeker dat u de factuur wilt wijzigen?"}
+          = f.submit 'Definitief', :class => 'btn btn-success', :id => 'invoicing', data: { confirm: "Weet je zeker dat je deze factuur definitief wilt maken? Dit is onomkeerbaar." }
 #invoice_modal.modal.fade{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal-lg
     .modal-content{:style => "width:920px"}

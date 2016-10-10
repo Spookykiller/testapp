@@ -42,6 +42,16 @@
             </ul>
             <div class="clearfix"></div>
           </div>
+          <% high_VAT = 0 %>
+          <% turnover_VAT_21 = 0 %>
+          
+          <% @invoices.each do |invoice| %>
+            <% high_VAT += invoice.VAT21 %>
+            <% if !invoice.invoice_paid.blank? %>
+              <% turnover_VAT_21 += invoice.invoice_paid %>
+            <% end %>
+          <% end %>
+          
           <div class="x_content">
             <table class="table2">
                 <tbody>
@@ -57,8 +67,8 @@
                     </tr>
                     <tr>
                       <td>1a. Leveringen/diensten belast met hoog tarief</td>
-                      <td>€ 8000</td>
-                      <td>€ 1680</td>
+                      <td>€ <%= turnover_VAT_21 %></td>
+                      <td>€ <%= high_VAT %></td>
                     </tr>
                     <tr>
                       <td>1b. Leveringen/diensten belast met laag tarief</td>

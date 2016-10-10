@@ -27,3 +27,11 @@
     text-align: right;
 }
 
+.address_input {
+    font-size: 12px;
+}
+
+#client-address-col {
+    position: absolute;
+    top: 175px;
+}

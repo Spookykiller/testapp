@@ -140,7 +140,7 @@
               
               <% @invoice_left_sum = 0 %>
               <% @invoices.each do |invoice| %>
-                <% if invoice.invoice_left != 0 %>
+                <% if !invoice.invoice_paid.blank? %>
                   <tbody>
                       <tr>
                         <td><%= invoice.invoice_number %></td>

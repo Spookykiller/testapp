@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'invoices/client_update'
   get 'plainpage/index'
   get 'invoices/earning'
+  get 'invoices/offer'
+  get 'invoices/offer_index'
 
   resources :companies
   resources :clients
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   resources :invoices do
     member do
       get 'earning_edit'
+      get 'definitive'
     end
   end
   resources :spendings

@@ -51,7 +51,6 @@ class InvoicesController < ApplicationController
             end
         else  
             if @invoice.save
-                @invoice.offer = false
                 flash[:notice] = "De factuur is opgeslagen!"
                 redirect_to action: "index"
             else

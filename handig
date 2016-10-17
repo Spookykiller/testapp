@@ -6,7 +6,7 @@ u = Client.create :client_number=> 1, :client_name => "Stadrijk 209", :client_co
 
 u = Subdomain.create :subdomain_name=> "aciric"
 
-Apartment::Tenant.switch!('aciric')
+Apartment::Tenant.switch!('verdonschot')
 
         @company = current_user.company
 

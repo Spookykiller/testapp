@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011201809) do
+ActiveRecord::Schema.define(version: 20161017082442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 20161011201809) do
     t.boolean  "company_business_car"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "company_logo_file_name"
+    t.string   "company_logo_content_type"
+    t.integer  "company_logo_file_size"
+    t.datetime "company_logo_updated_at"
   end
 
   create_table "invoices", force: :cascade do |t|

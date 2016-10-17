@@ -17,7 +17,7 @@ class CompaniesController < ApplicationController
     end
     
     def company_params
-        params.require(:company).permit(:company_name, :company_address, :company_zipcode, :company_place, :company_phone, :company_email, :company_webaddress, :company_bank_account_number, :company_bank, :company_VAT_number, :company_CC_number, :company_kilometer_compensation, :company_business_car)
+        params.require(:company).permit(:company_name, :company_address, :company_zipcode, :company_place, :company_phone, :company_email, :company_webaddress, :company_bank_account_number, :company_bank, :company_VAT_number, :company_CC_number, :company_kilometer_compensation, :company_business_car, :company_logo)
     end
     
     def find_company

@@ -41,6 +41,10 @@ gem 'apartment'
 gem 'cocoon'
 gem 'haml'
 
+# Image processing
+
+gem "paperclip"
+
 group :development, :test do
   gem 'byebug'
 end

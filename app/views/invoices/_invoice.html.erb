@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-xs-12">
     <h3 class="page-header" id="invoice-header">
-      <img src="http://www.koendersadvies.nl/beheer/wp-content/themes/koenders-1/img/koenders-logo.svg" class="invoice_logo"></img>
+      <div id="company-logo">
+        <%= image_tag current_user.company.company_logo.url %>
+      </div>
       <div class="pull-right">
         <div class="labels">
           <span class="invoice_header_date"></span><br>

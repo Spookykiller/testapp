@@ -35,3 +35,12 @@
     position: absolute;
     top: 175px;
 }
+
+#company-logo {
+    display: inline-block;
+}
+
+#company-logo img {
+    max-width: 300px;
+    max-height: 120px;
+}

@@ -3,12 +3,12 @@ class InvoicesController < ApplicationController
     before_action :find_invoice, only: [:definitive, :earning_edit, :show, :edit, :update, :destroy]
     
     def index
-        @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => nil).all.order('invoice_date DESC')
-        @invoices_definitive = Invoice.where(:invoice_definitive => true, :offer => nil).all.order('invoice_date DESC')
+        @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => [nil,false]).all.order('invoice_date DESC')
+        @invoices_definitive = Invoice.where(:invoice_definitive => true, :offer => [nil,false]).all.order('invoice_date DESC')
     end
     
     def earning
-       @invoices = Invoice.all.where(:invoice_definitive => true, :offer => nil).order('invoice_date DESC')
+       @invoices = Invoice.all.where(:invoice_definitive => true, :offer => [nil,false]).order('invoice_date DESC')
     end
     
     def earning_edit

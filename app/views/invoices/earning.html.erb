@@ -3,7 +3,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Show</h3>
+        <h3>Inkomsten</h3>
       </div>
 
       <div class="title_right">
@@ -24,7 +24,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Uw concepten:</h2>
+            <h2>Uw definitieve facturen:</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -59,7 +59,7 @@
             <% @invoices.each do |invoice| %>
               <tbody>
                 <tr>
-                  <td><%= invoice.invoice_number %></td>
+                  <td><%= (invoice.id + 2016000) %></td>
                   <td><%= invoice.invoice_date %></td>
                   <td><%= invoice.invoice_client_name %></td>
                   <td><%= invoice.invoice_subject %></td>

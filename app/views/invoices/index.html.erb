@@ -46,7 +46,6 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Factuur nummer</th>
                     <th class="column-title">Datum</th>
                     <th class="column-title">Naam Opdrachtgever</th>
                     <th class="column-title">Onderwerp</th>
@@ -60,7 +59,6 @@
             <% @invoices_concept.each do |invoice| %>
               <tbody>
                   <tr>
-                    <td><%= invoice.invoice_number %></td>
                     <td><%= invoice.invoice_date %></td>
                     <td><%= invoice.invoice_client_name %></td>
                     <td><%= invoice.invoice_subject %></td>
@@ -140,7 +138,7 @@
             <% @invoices_definitive.each do |invoice| %>
               <tbody>
                   <tr>
-                    <td><%= invoice.id %></td>
+                    <td><%= (2016000 + invoice.id) %></td>
                     <td><%= invoice.invoice_date %></td>
                     <td><%= invoice.invoice_client_name %></td>
                     <td><%= invoice.invoice_subject %></td>

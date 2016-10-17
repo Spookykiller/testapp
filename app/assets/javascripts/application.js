@@ -186,6 +186,7 @@ function update_numbers() {
 		bind3($('#9'), $("#modal_9"));
 		bind3($('#invoicing_number'), $("#modal_invoice_number"));
 		bind3($('#datepicker'), $('#modal_invoice_date'));
+		bind4($('#invoice_id'), $('#modal_invoice_number'));
 		
 		// Showing rows in invoice if value is not 0
 		if ($('.VAT_6').html() == 0) {

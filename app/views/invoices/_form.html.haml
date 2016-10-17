@@ -43,6 +43,7 @@
           = f.hidden_field :invoice_VAT, :html => {:id => "invoice_VAT"}
           = f.hidden_field :invoice_including_VAT, :html => {:id => "invoice_including_VAT"}
           = f.hidden_field :offer, :value => false
+          = f.hidden_field :id, :value => (Invoice.maximum(:id).next + 2016000), :html => {:id => "invoice_id"}
 
       .row
         .col-xs-12.table-responsive

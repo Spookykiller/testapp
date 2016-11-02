@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+    require "uri"
+    require "net/http"
     before_action :authenticate_user!
     before_action :find_client, only: [:edit, :update, :destroy]
 
@@ -15,6 +17,12 @@ class ClientsController < ApplicationController
         
         if @client.save
             flash[:notice] = "De klant is opgeslagen!"
+            
+            # params = {'action' => 'insert', 'client_number' => (@client.client_number + 100000), 'client_name' => @client.client_name, 'client_address' => @client.client_address, 'client_zipcode' => @client.client_zipcode, 'client_residence' => @client.client_residence, 'client_phone' => @client.client_phone, 'client_mobile' => @client.client_phone, 'client_email' => @client.client_email }
+            
+            # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/client_AppConnectorUpdate.php'), params)
+            # puts x.body
+            
             redirect_to action: "index"
         else
             render 'new'
@@ -28,7 +36,14 @@ class ClientsController < ApplicationController
     def update
         if @client.update client_params
             flash[:notice] = "Uw klanteninfo is succesvol aangepast."
+            
+            # params = {'action' => 'update', 'client_number' => (@client.client_number + 100000), 'client_name' => @client.client_name, 'client_address' => @client.client_address, 'client_zipcode' => @client.client_zipcode, 'client_residence' => @client.client_residence, 'client_phone' => @client.client_phone, 'client_mobile' => @client.client_phone, 'client_email' => @client.client_email }
+            
+            # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/client_AppConnectorUpdate.php'), params)
+            # puts x.body
+            
             redirect_to action: "index"
+            
         else
             flash[:notice] = "Oh nee! Uw klanteninfo kon niet opgeslagen worden."
             render 'edit'

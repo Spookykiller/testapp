@@ -46,20 +46,20 @@
             <table class="table table-striped jambo_table bulk_action" id="spendings">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Uitgave nmr.</th>
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Naam bedrijf</th>
-                    <th class="column-title">Omschrijving kosten</th>
-                    <th class="column-title">Nummer crediteur</th>
-                    <th class="column-title">Soort uitgave</th>
-                    <th class="column-title">BTW %</th>
-                    <th class="column-title">Bedrag ex BTW</th>
-                    <th class="column-title">BTW</th>
-                    <th class="column-title">Bedrag incl BTW</th>
-                    <th class="column-title">Datum betaald</th>
-                    <th class="column-title">Betaald</th>
-                    <th class="column-title">Nog over</th>
-                    <th class="column-title"></th>
+                  <th class="column-title">Uitgave nmr.</th>
+                  <th class="column-title">Datum</th>
+                  <th class="column-title">Naam bedrijf</th>
+                  <th class="column-title">Omschrijving kosten</th>
+                  <th class="column-title">Nummer crediteur</th>
+                  <th class="column-title">Soort uitgave</th>
+                  <th class="column-title">BTW %</th>
+                  <th class="column-title">Bedrag ex BTW</th>
+                  <th class="column-title">BTW</th>
+                  <th class="column-title">Bedrag incl BTW</th>
+                  <th class="column-title">Datum betaald</th>
+                  <th class="column-title">Betaald</th>
+                  <th class="column-title">Nog over</th>
+                  <th class="column-title"></th>
                 </tr>
               </thead>
             
@@ -74,36 +74,35 @@
                     <td><%= spending.spending_type %></td>
                     <td>
                       <% spending.spending_VAT_percentage = ((spending.spending_VAT.round(2)  / spending.spending_exclusive_VAT.round(2)) * 100.00) %>
-                      <%= spending.spending_VAT_percentage.round(2) %> %
+                      <%= rounding(spending.spending_VAT_percentage) %> %
                     </td>
                     <td>
-                        € <%= spending.spending_exclusive_VAT %>
+                      € <%= rounding(spending.spending_exclusive_VAT) %>
                     </td>
                     <td> 
-                        € <%= spending.spending_VAT.round(2) %>
+                      € <%= rounding(spending.spending_VAT) %>
                     </td>
                     <td>
-                      <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
-                      € <%= spending.spending_including_VAT %>
+                      € <%= rounding(spending.spending_including_VAT) %>
                     </td>
                     <td><%= spending.spending_when_paid %></td>
-                    <td>€ <%= spending.spending_paid %></td>
+                    <td>€ <%= rounding(spending.spending_paid) %></td>
                     <td>
                       <% if spending.spending_paid.blank? %>
                         <% spending.spending_paid = 0%>
                         <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                        € <%= spending.spending_left %>
+                        € <%= rounding(spending.spending_left) %>
                       <% else %>
                         <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                        € <%= spending.spending_left %>
+                        € <%= rounding(spending.spending_left) %>
                       <% end %>
                     </td>
                     <td>
                     <%= link_to edit_spending_path(spending) do %>
-                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
                     <% end %>
                     <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze uitgave wilt verwijderen?" } do %>
-                        <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                      <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
                     <% end %>
                     </td>
                   </tr>

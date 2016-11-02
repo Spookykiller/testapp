@@ -14,11 +14,11 @@ class MileagesController < ApplicationController
         @mileage = Mileage.new mileage_params
         
         if @mileage.save
-            flash[:notice] = "De klant is opgeslagen!"
+            flash[:notice] = "De kilometerregistratie is opgeslagen!"
             redirect_to action: "index"
         else
             render 'new'
-            flash[:notice] = "Oh nee! De klant is niet opgeslagen."
+            flash[:notice] = "Oh nee! De kilometerregistratie is niet opgeslagen."
         end
     end
     
@@ -27,10 +27,10 @@ class MileagesController < ApplicationController
     
     def update
         if @mileage.update mileage_params
-            flash[:notice] = "Uw klanteninfo is succesvol aangepast."
+            flash[:notice] = "Uw kilometerregistratie is succesvol aangepast."
             redirect_to action: "index"
         else
-            flash[:notice] = "Oh nee! Uw klanteninfo kon niet opgeslagen worden."
+            flash[:notice] = "Oh nee! Uw kilometerregistratie kon niet opgeslagen worden."
             render 'edit'
         end
     end

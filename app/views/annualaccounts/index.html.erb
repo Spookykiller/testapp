@@ -10,9 +10,9 @@
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
-                          </span>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
           </div>
         </div>
       </div>
@@ -58,11 +58,11 @@
                     <td>
                       <% revenue = 0 %>
                       <% Invoice.all.each do |invoice| %>
-                          <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == annualaccount.an_date.year %>
-                              <% revenue += invoice.invoice_paid %>
-                          <% end %>
+                        <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == annualaccount.an_date.year %>
+                          <% revenue += invoice.invoice_exclusive_VAT %>
+                        <% end %>
                       <% end %>
-                      € <%= revenue %>
+                      € <%= rounding(revenue) %>
                     </td>
                     <td style="width:150px">
                     <%= link_to annualaccount_path(annualaccount) do %>

@@ -10,11 +10,11 @@
                 $(document).on('change', 'select', function(e) {
                     var row = $(this).parents('.nested-fields');
                     var selected = $(this).find('option:selected').text();
-                    if ("#{project.project_name}" == selected) {
-                        var project_client = "#{project.project_client}";
-                        var project_hour_rate = "#{project.project_hour_rate}";
+                    if ("#{j (project.project_name)}" == selected) {
+                        var project_client = "#{ j(project.project_client) }";
+                        var project_hour_rate = "#{ project.project_hour_rate }";
                         var item_unit = "uren"
-                        var project_billable = "#{som_billable_hours}";
+                        var project_billable = "#{ som_billable_hours }";
                         
                         row.find('#item_desc').val(project_client);
                         row.find('#item_unit').val(item_unit);
@@ -28,11 +28,11 @@
                 $(document).on('change', 'select', function(e) {
                     var row = $(this).parents('.nested-fields');
                     var selected = $(this).find('option:selected').text();
-                    if ("#{article.article_code}" == selected) {
-                        var article_description = "#{article.article_description}";
-                        var article_unit = "#{article.article_unit}";
-                        var article_VAT_percentage = Number("#{article.article_VAT_percentage}");
-                        var article_unit_price = "#{article.article_unit_price}";
+                    if ("#{ j(article.article_code) }" == selected) {
+                        var article_description = "#{ j(article.article_description) }";
+                        var article_unit = "#{ j(article.article_unit) }";
+                        var article_VAT_percentage = Number("#{ article.article_VAT_percentage }");
+                        var article_unit_price = "#{ article.article_unit_price }";
                         
                         row.find('#item_desc').val(article_description);
                         row.find('#item_unit').val(article_unit);

@@ -21,3 +21,8 @@ function bind4(main, modal) {
     modal.append("" + n);
 }
 
+function collapse_field() {
+    $('.collapse-link.vat_declaration').each(function() {
+        this.click();
+    });
+}

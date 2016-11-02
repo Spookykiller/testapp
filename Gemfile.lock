@@ -57,6 +57,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    brakeman (3.4.0)
     builder (3.2.2)
     byebug (9.0.5)
     capistrano (3.5.0)
@@ -232,6 +233,7 @@ PLATFORMS
 DEPENDENCIES
   active_median (~> 0.1.0)
   apartment
+  brakeman
   byebug
   capistrano
   capistrano-bundler

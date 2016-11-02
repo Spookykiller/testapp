@@ -14,11 +14,11 @@ class TimesheetsController < ApplicationController
         @timesheet = Timesheet.new timesheet_params
         
         if @timesheet.save
-            flash[:notice] = "De uren zijn opgeslagen!"
+            flash[:notice] = "De urenregistratie is opgeslagen!"
             redirect_to action: "index"
         else
             render 'new'
-            flash[:notice] = "Oh nee! De uren zijn niet opgeslagen."
+            flash[:notice] = "Oh nee! De urenregistratie is niet opgeslagen."
         end
     end
     
@@ -27,10 +27,10 @@ class TimesheetsController < ApplicationController
     
     def update
         if @timesheet.update timesheet_params
-            flash[:notice] = "Uw uren zijn succesvol aangepast."
+            flash[:notice] = "Uw urenregistratie is succesvol aangepast."
             redirect_to action: "index"
         else
-            flash[:notice] = "Oh nee! Uw uren konden niet opgeslagen worden."
+            flash[:notice] = "Oh nee! Uw urenregistratie is niet opgeslagen."
             render 'edit'
         end
     end

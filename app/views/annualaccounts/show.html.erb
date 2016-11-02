@@ -26,8 +26,7 @@
           <div class="x_title">
             <h2>Winst- en verliesrekening</h2>
             <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                 <ul class="dropdown-menu" role="menu">
@@ -50,34 +49,20 @@
                         <td>
                             <% revenue = 0 %>
                             <% invoice_left = 0 %>
-                            <% Invoice.all.each do |invoice| %>
-                            
-                                <% if invoice.VAT6.blank? %>
-                                    <% invoice.VAT6 = 0.0 %>
-                                <% end %>
-                                
-                                <% if invoice.VAT21.blank? %>
-                                    <% invoice.VAT21 = 0.0 %>
-                                <% end %>
-                                
-                                <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == @annualaccount.an_date.year %>
-                                    <% invoice_left = invoice.invoice_paid - invoice.VAT6 - invoice.VAT21 %>
-                                    <% revenue += invoice_left %>
-                                <% end %>
+                            <% @invoice.each do |invoice| %>
+                                <% revenue += invoice.invoice_exclusive_VAT %>
                             <% end %>
-                            € <%= revenue %>
+                            € <%= rounding(revenue) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Inkoop</td> 
                         <td>
                             <% purchase_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Inkoop" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% purchase_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @inkoop.all.each do |spending| %>
+                                <% purchase_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= purchase_expenses %>
+                            € <%= rounding(purchase_expenses) %>
                         </td>
                     </tr>
                     <tr>
@@ -88,7 +73,7 @@
                         <td class="extra">Brutoresultaat</td>
                         <td class="extra">
                             <% gross_margin = (revenue - purchase_expenses) %>
-                            € <%= gross_margin %>
+                            € <%= rounding(gross_margin) %>
                         </td>
                     </tr>
                     <tr>
@@ -99,60 +84,50 @@
                         <td>Personeelskosten</td> 
                         <td>
                             <% staff_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Personeelskosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% staff_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @personeelskosten.each do |spending| %>
+                                <% staff_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= staff_expenses %>
+                            € <%= rounding(staff_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Huisvestingkosten</td> 
                         <td>
                             <% accomodation_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Huisvestingkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% accomodation_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @huisvestingkosten.each do |spending| %>
+                                <% accomodation_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= accomodation_expenses %>
+                            € <%= rounding(accomodation_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Verkoopkosten</td> 
                         <td>
                             <% sales_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Verkoopkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% sales_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @verkoopkosten.each do |spending| %>
+                                <% sales_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= sales_expenses %>
+                            € <%= rounding(sales_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Consumptiekosten</td> 
                         <td>
                             <% consumption_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Consumptiekosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% consumption_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @consumptiekosten.each do |spending| %>
+                                <% consumption_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= consumption_expenses %>
+                            € <%= rounding(consumption_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Reis- en verblijfkosten</td> 
                         <td>
                             <% travel_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Reis- en verblijfkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% travel_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @reisverblijfskosten.each do |spending| %>
+                                <% travel_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= travel_expenses %>
+                            € <%= rounding(travel_expenses) %>
                         </td>
                     </tr>
                     
@@ -162,37 +137,32 @@
                             <tr>
                                 <td>Autokosten</td> 
                                 <td>
-                                    <% Spending.all.each do |spending| %>
-                                        <% if spending.spending_type == "Autokosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                            <% car_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                        <% end %>
+                                    <% @autokosten.each do |spending| %>
+                                        <% car_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                                     <% end %>
-                                    € <%= car_expenses %>
+                                    € <%= rounding(car_expenses) %>
                                 </td>
                             </tr>
                         <% else %>
                             <tr>
                                 <td>Kilometervergoeding</td> 
                                 <td>
-                                    <% Mileage.all.each do |mileage| %>
+                                    <% @mileage.all.each do |mileage| %>
                                     
-                                        <% if mileage.mileage_date.year == @annualaccount.an_date.year %>
-                                        
-                                            <% if current_user.company.company_kilometer_compensation != 0 && mileage.mileage_billable == true %>
-                                                <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
-                                            <% end %>
-                                            
-                                            <% if mileage.mileage_retour == true %>
-                                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers * 2 %>
-                                            <% else %>
-                                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers %>
-                                            <% end %>
-                                            
-                                            <% car_expenses += (mileage.mileage_total_kilometers * mileage.mileage_compensation_rate) %>
+                                        <% if current_user.company.company_kilometer_compensation != 0 && mileage.mileage_billable == true %>
+                                            <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
                                         <% end %>
                                         
+                                        <% if mileage.mileage_retour == true %>
+                                            <% mileage.mileage_total_kilometers = mileage.mileage_kilometers * 2 %>
+                                        <% else %>
+                                            <% mileage.mileage_total_kilometers = mileage.mileage_kilometers %>
+                                        <% end %>
+                                        
+                                        <% car_expenses += (mileage.mileage_total_kilometers * mileage.mileage_compensation_rate) %>
+
                                     <% end %>
-                                    € <%= car_expenses %>
+                                    € <%= rounding(car_expenses) %>
                                 </td>
                             </tr>
                         <% end %>
@@ -202,34 +172,29 @@
                         <td>Kantoorkosten</td> 
                         <td>
                             <% office_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                <% if spending.spending_type == "Kantoorkosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% office_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @kantoorkosten.each do |spending| %>
+                                <% office_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= office_expenses %>
+                            € <%= rounding(office_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Overige kosten</td> 
                         <td>
                             <% other_expenses = 0 %>
-                            <% Spending.all.each do |spending| %>
-                                
-                                <% if spending.spending_type == "Overige kosten" && spending.spending_when_paid.year == @annualaccount.an_date.year %>
-                                    <% other_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
-                                <% end %>
+                            <% @overigekosten.each do |spending| %>
+                                <% other_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
                             <% end %>
-                            € <%= other_expenses %>
+                            € <%= rounding(other_expenses) %>
                         </td>
                     </tr>
                     <tr>
                         <td>Afschrijvingen</td> 
-                        <td>€ <%= @annualaccount.an_pr_depreciation %></td>
+                        <td>€ <%= rounding(@annualaccount.an_pr_depreciation) %></td>
                     </tr>
                     <tr>
                         <td>Bank- en rentekosten</td> 
-                        <td>€ <%= @annualaccount.an_pr_interest %></td>
+                        <td>€ <%= rounding(@annualaccount.an_pr_interest) %></td>
                     </tr>
                     <tr>
                         <td></td> 
@@ -239,8 +204,8 @@
                         <td class="extra">Totaal bedrijfskosten</td>
                         <td class="extra">
                             <% total_company_expenses = 0 %>
-                            <% total_company_expenses = (staff_expenses + other_expenses + purchase_expenses + consumption_expenses + sales_expenses + accomodation_expenses + car_expenses + travel_expenses + office_expenses + @annualaccount.an_pr_depreciation + @annualaccount.an_pr_interest) %>
-                            € <%= total_company_expenses %>
+                            <% total_company_expenses = (staff_expenses + other_expenses + consumption_expenses + sales_expenses + accomodation_expenses + car_expenses + travel_expenses + office_expenses + @annualaccount.an_pr_depreciation + @annualaccount.an_pr_interest) %>
+                            € <%= rounding(total_company_expenses) %>
                         </td>
                     </tr>
                     <tr>
@@ -252,13 +217,13 @@
                         
                         <% company_result = 0 %>
                         <% company_result = (gross_margin - total_company_expenses) %>
-                        <% if company_result < 0 %>  
-                            <td class="extra red">
-                                € <%= company_result %>
+                        <% if company_result > 0 %>  
+                            <td class="extra">
+                                € <%= rounding(company_result) %>
                             </td>
                         <% else %>
-                            <td class="extra">
-                                € <%= company_result %>
+                            <td class="extra  red">
+                                € <%= rounding(company_result) %>
                             </td>
                         <% end %>
                     </tr>

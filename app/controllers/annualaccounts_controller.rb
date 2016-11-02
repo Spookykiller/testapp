@@ -3,7 +3,7 @@ class AnnualaccountsController < ApplicationController
     before_action :find_annualaccount, only: [:show, :edit, :update, :destroy]
 
     def index
-        @annualaccounts = Annualaccount.all
+        @annualaccounts = Annualaccount.all.order('an_date DESC')
     end
     
     def new
@@ -11,17 +11,29 @@ class AnnualaccountsController < ApplicationController
     end
     
     def show
+        @inkoop = Spending.all.where("spending_type = 'Inkoop' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @personeelskosten = Spending.all.where("spending_type = 'Personeelskosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @huisvestingkosten = Spending.all.where("spending_type = 'Huisvestingkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @verkoopkosten = Spending.all.where("spending_type = 'Verkoopkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @consumptiekosten = Spending.all.where("spending_type = 'Consumptiekosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @reisverblijfskosten = Spending.all.where("spending_type = 'Reis- en verblijfkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @autokosten = Spending.all.where("spending_type = 'Autokosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @kantoorkosten = Spending.all.where("spending_type = 'Kantoorkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @overigekosten = Spending.all.where("spending_type = 'Overige kosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        
+        @invoice = Invoice.all.where("invoice_paid IS NOT NULL AND extract(year from invoice_when_paid) = ?", @annualaccount.an_date.year)
+        @mileage = Mileage.all.where("extract(year from mileage_date) = ?", @annualaccount.an_date.year)
     end
     
     def create
         @annualaccount = Annualaccount.new annualaccount_params
         
         if @annualaccount.save
-            flash[:notice] = "De klant is opgeslagen!"
+            flash[:notice] = "De jaarrekening is opgeslagen!"
             redirect_to action: "index"
         else
             render 'new'
-            flash[:notice] = "Oh nee! De klant is niet opgeslagen."
+            flash[:notice] = "Oh nee! De jaarrekening is niet opgeslagen."
         end
     end
     
@@ -30,10 +42,10 @@ class AnnualaccountsController < ApplicationController
     
     def update
         if @annualaccount.update annualaccount_params
-            flash[:notice] = "Uw klanteninfo is succesvol aangepast."
+            flash[:notice] = "Uw jaarrekening is succesvol aangepast."
             redirect_to action: "index"
         else
-            flash[:notice] = "Oh nee! Uw klanteninfo kon niet opgeslagen worden."
+            flash[:notice] = "Oh nee! Uw jaarrekening kon niet opgeslagen worden."
             render 'edit'
         end
     end

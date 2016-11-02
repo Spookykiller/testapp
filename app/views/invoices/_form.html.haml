@@ -4,9 +4,7 @@
       .col-xs-12
         %h3.page-header
           FACTUUR
-          %small.pull-right
-            Datum:
-            %span.invoice_header_date
+          %span.invoice_header_date
       / /.col
     = form_for @invoice, :html => {:class => 'form-horizontal form-label-left'} do |f|
       - if @invoice.errors.any?
@@ -43,7 +41,7 @@
           = f.hidden_field :invoice_VAT, :html => {:id => "invoice_VAT"}
           = f.hidden_field :invoice_including_VAT, :html => {:id => "invoice_including_VAT"}
           = f.hidden_field :offer, :value => false
-          = f.hidden_field :id, :value => (Invoice.maximum(:id).next + 2016000), :html => {:id => "invoice_id"}
+          = f.hidden_field :id, :value => (Invoice.maximum(:id).to_i.next), :html => {:id => "invoice_id"}
 
       .row
         .col-xs-12.table-responsive

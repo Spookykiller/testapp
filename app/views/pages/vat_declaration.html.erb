@@ -3,7 +3,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>BTW aangifte</h3>
+        <h3>BTW aangifte <%= Time.now.year %></h3>
       </div>
 
       <div class="title_right">
@@ -18,164 +18,22 @@
       </div>
     </div>
     <div class="clearfix"></div>
-
-    <div class="row">
-
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Voorbeeld BTW aangifte (momenteel nog fictieve bedragen)</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <% high_VAT = 0 %>
-          <% turnover_VAT_21 = 0 %>
-          
-          <% @invoices.each do |invoice| %>
-            <% high_VAT += invoice.VAT21 %>
-            <% if !invoice.invoice_paid.blank? %>
-              <% turnover_VAT_21 += invoice.invoice_paid %>
-            <% end %>
-          <% end %>
-          
-          <div class="x_content">
-            <table class="table2">
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>Bedrag waarover<br> omzetbelasting<br> wordt berekend</td>
-                        <td> Omzetbelasting</td>
-                    </tr>
-                    <tr>
-                        <td class="extra">Rubriek 1: Prestaties binnenland</td>
-                        <td class="extra"></td>
-                        <td class="extra"></td>
-                    </tr>
-                    <tr>
-                      <td>1a. Leveringen/diensten belast met hoog tarief</td>
-                      <td>€ <%= turnover_VAT_21 %></td>
-                      <td>€ <%= high_VAT %></td>
-                    </tr>
-                    <tr>
-                      <td>1b. Leveringen/diensten belast met laag tarief</td>
-                      <td>€ 3000</td>
-                      <td>€ 180</td>
-                    </tr>
-                    <tr>
-                      <td>1c. Leveringen/diensten belast met overige tarieven, behalve 0%</td>
-                      <td>€</td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td>1d. Privégebruik</td>
-                      <td>€</td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td>1e. Leveringen/diensten belast met 0% of niet bij u belast</td>
-                      <td>€</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td class="extra">Rubriek 2: Verleggingsregelingen binnenland</td>
-                      <td class="extra"></td>
-                      <td class="extra"></td>
-                    </tr>
-                     <tr>
-                      <td>2a. Leveringen/diensten waarbij de omzetbelasting naar u is verlegd</td>
-                      <td>€</td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td class="extra">Rubriek 3: Prestaties naar of in het buitenland</td>
-                      <td class="extra"></td>
-                      <td class="extra"></td>
-                    </tr>
-                    <tr>
-                      <td>3a. Leveringen naar landen buiten de EU (uitvoer)</td>
-                      <td>€</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>3b. Leveringen naar of diensten in landen binnen de EU</td>
-                      <td>€</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>3c. Installatie/afstandsverkopen binnen de EU</td>
-                      <td>€</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td class="extra">Rubriek 5: Voorbelasting, kleineondernemingsregeling, schatting en totaal</td>
-                      <td class="extra"></td>
-                      <td class="extra"></td>
-                    </tr>
-                    <tr>
-                      <td>5a. Omzetbelasting (rubrieken 1 t/m 4)</td>
-                      <td></td>
-                      <td>€ 1680</td>
-                    </tr>
-                    <tr>
-                      <td>5b. Voorbelasting</td>
-                      <td></td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td>5c. Subtotaal (rubriek 5a min 5b)</td>
-                      <td></td>
-                      <td class="extra">€ 1680</td>
-                    </tr>
-                    <tr>
-                      <td>5d. Vermindering volgens de kleineondernemingsregeling</td>
-                      <td></td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td>5e. Schatting vorige aangifte(n)</td>
-                      <td></td>
-                      <td>€</td>
-                    </tr>
-                    <tr>
-                      <td>5f. Schatting deze aangifte</td>
-                      <td></td>
-                      <td class="extra">€ 1680</td>
-                    </tr>
-                </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% @quarter_months = [1,2,3] %>
+    <% @quarter_string = "januari t/m maart" %>
+    <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+    
+    <% @quarter_months = [4,5,6] %>
+    <% @quarter_string = "april t/m juni" %>
+    <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+    
+    <% @quarter_months = [7,8,9] %>
+    <% @quarter_string = "juli t/m september" %>
+    <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+    
+    <% @quarter_months = [10,11,12] %>
+    <% @quarter_string = "oktober t/m december" %>
+    <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+    
   </div>
 </div>
 <!-- /page content -->

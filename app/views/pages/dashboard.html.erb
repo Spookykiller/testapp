@@ -74,7 +74,7 @@
                       <td>
                         <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
                         <% @spending_left_sum += spending.spending_left %>
-                        € <%= spending.spending_left %>
+                        € <%= rounding(spending.spending_left) %>
                       </td>
                       <td>
                         <%= (Time.now - spending.spending_date).to_i / (24 * 60 * 60) %> dagen
@@ -95,7 +95,7 @@
               </tbody>
             </table>
             
-            Totaal nog te betalen bedrag: € <%= @spending_left_sum %>
+            Totaal nog te betalen bedrag: € <%= rounding(@spending_left_sum) %>
           </div>
         </div>
       </div>
@@ -140,7 +140,6 @@
               
               <% @invoice_left_sum = 0 %>
               <% @invoices.each do |invoice| %>
-                <% if !invoice.invoice_paid.blank? %>
                   <tbody>
                       <tr>
                         <td><%= invoice.invoice_number %></td>
@@ -152,11 +151,8 @@
                           <% invoice.invoice_VAT = som_BTW %>
                           <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
                         <td>
-                          <% if !invoice.invoice_paid.blank? %>
-                            <% invoice.invoice_left = invoice.invoice_including_VAT - invoice.invoice_paid %>
-                            <% @invoice_left_sum += invoice.invoice_left %>
-                            € <%= invoice.invoice_left %>
-                          <% end %>
+                          <% @invoice_left_sum += invoice.invoice_left %>
+                          € <%= rounding(invoice.invoice_left) %>
                         </td>
                         <td>
                           <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
@@ -171,11 +167,10 @@
                         </td>
                       </tr>
                   </tbody>
-                <% end %>
               <% end %>
             </table>
             
-            Totaal nog te ontvangen bedrag: € <%= @invoice_left_sum %>
+            Totaal nog te ontvangen bedrag: € <%= rounding(@invoice_left_sum) %>
           </div>
         </div>
       </div>
@@ -208,12 +203,11 @@
           </div>
         </div>
       </div>
-
-
+    
       <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Mijn klanten</h2>
+            <h2>Mijn facturen</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -232,11 +226,10 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <%= pie_chart Client.all.group(:client_name).count, library: {backgroundColor: "none"} %>
+            <%= line_chart  Invoice.all.group_by_day(:created_at).count, library: {backgroundColor: "none"} %>
           </div>
         </div>
       </div>
-    </div>
     
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">

@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   
   get 'pages/home'
   get 'pages/dashboard'
-  get 'pages/vat_declaration'
-  get 'invoices/client_update'
   get 'plainpage/index'
+  
+  get 'pages/vat_declaration'
+  
+  get 'invoices/client_update'
   get 'invoices/earning'
   get 'invoices/offer'
   get 'invoices/offer_index'

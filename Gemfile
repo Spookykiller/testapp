@@ -42,11 +42,11 @@ gem 'cocoon'
 gem 'haml'
 
 # Image processing
-
 gem "paperclip"
 
 group :development, :test do
   gem 'byebug'
+  gem 'brakeman', :require => false
 end
 
 group :development do

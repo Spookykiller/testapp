@@ -90,7 +90,7 @@
                           <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
                         <% end %>
                         <% mileage.mileage_compensation = mileage.mileage_total_kilometers * mileage.mileage_compensation_rate %>
-                        € <%= mileage.mileage_compensation %>
+                        € <%= rounding(mileage.mileage_compensation) %>
                       </td>
                       <td>
                       <%= link_to edit_mileage_path(mileage) do %>

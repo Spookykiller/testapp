@@ -94,6 +94,7 @@ $(document).on('ready page:load', function () {
         update_numbers();
     });
     
+    collapse_field();
 });
 
 function VAT_total() {
@@ -147,7 +148,6 @@ function VAT_total() {
 
 function update_numbers() {
     $('input').click(function(){
-	    $(this).select();
 	    VAT_total();
 	});
 	

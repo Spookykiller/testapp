@@ -60,8 +60,8 @@
                       <td><%= article.article_code %></td>
                       <td><%= article.article_description %></td>
                       <td><%= article.article_unit %></td>
-                      <td><%= article.article_VAT_percentage.round(0) %> %</td>
-                      <td><%= article.article_unit_price.round(2) %></td>
+                      <td><%= rounding(article.article_VAT_percentage) %> %</td>
+                      <td>€ <%= rounding(article.article_unit_price) %></td>
                       <td>
                       <%= link_to edit_article_path(article) do %>
                           <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">

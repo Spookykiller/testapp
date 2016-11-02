@@ -69,7 +69,7 @@
                     <td><%= project.project_budget %> uren</td>
                     
                     <%-# Uurtarief -%>
-                    <td>€ <%= project.project_hour_rate %></td>
+                    <td>€ <%= rounding(project.project_hour_rate) %></td>
                     
                     <%-# Billable -%>
                     <td>

@@ -1,0 +1,186 @@
+<% high_VAT_21 = 0 %>
+<% low_VAT_6 = 0 %>
+<% no_VAT_0 = 0 %>
+<% turnover_VAT_21 = 0 %>
+<% turnover_VAT_6 = 0 %>
+<% turnover_VAT_0 = 0 %>
+<% item_price_21 = 0 %>
+<% item_price_6 = 0 %>
+<% item_price_0 = 0 %>
+<% total_VAT = 0 %>
+
+<% @invoices.each do |invoice| %>
+  <% if @quarter_months.include? invoice.invoice_date.month %>
+    <% invoice.items.each do |item| %>
+      <% if item.item_VAT_percentage == 21 %>
+        <% item_price_21 = (item.item_unit_cost * item.item_quantity) %>
+        <% turnover_VAT_21 += item_price_21 %>
+        <% high_VAT_21 += (0.21 * item_price_21) %>
+      <% elsif item.item_VAT_percentage == 6 %>
+        <% item_price_6 = (item.item_unit_cost * item.item_quantity) %>
+        <% turnover_VAT_6 += item_price_6 %>
+        <% low_VAT_6 += (0.06 * item_price_6) %>
+      <% elsif item.item_VAT_percentage == 0%>
+        <% item_price_0 = (item.item_unit_cost * item.item_quantity) %>
+        <% turnover_VAT_0 += item_price_0 %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% total_VAT = low_VAT_6 + high_VAT_21 %>
+
+
+<div class="row">
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Voorbeeld BTW aangifte (<%= @quarter_string %> <%= Time.now.year %>)</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <% if @quarter_months.include? Time.now.month %>
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          <% else %>
+            <li><a class="collapse-link vat_declaration"><i class="fa fa-chevron-up"></i></a>
+            </li> 
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      
+      <div class="x_content">
+        <table class="table2">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Bedrag waarover<br> omzetbelasting<br> wordt berekend</td>
+                    <td> Omzetbelasting</td>
+                </tr>
+                <tr>
+                    <td class="extra">Rubriek 1: Prestaties binnenland</td>
+                    <td class="extra"></td>
+                    <td class="extra"></td>
+                </tr>
+                <tr>
+                  <td>1a. Leveringen/diensten belast met hoog tarief</td>
+                  <td>€ <%= rounding(turnover_VAT_21) %></td>
+                  <td>€ <%= rounding(high_VAT_21) %></td>
+                </tr>
+                <tr>
+                  <td>1b. Leveringen/diensten belast met laag tarief</td>
+                  <td>€ <%= rounding(turnover_VAT_6) %></td>
+                  <td>€ <%= rounding(low_VAT_6) %></td>
+                </tr>
+                <tr>
+                  <td>1c. Leveringen/diensten belast met overige tarieven, behalve 0%</td>
+                  <td>€</td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td>1d. Privégebruik</td>
+                  <td>€</td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td>1e. Leveringen/diensten belast met 0% of niet bij u belast</td>
+                  <td>€ <%= rounding(item_price_0) %></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="extra">Rubriek 2: Verleggingsregelingen binnenland</td>
+                  <td class="extra"></td>
+                  <td class="extra"></td>
+                </tr>
+                 <tr>
+                  <td>2a. Leveringen/diensten waarbij de omzetbelasting naar u is verlegd</td>
+                  <td>€</td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="extra">Rubriek 3: Prestaties naar of in het buitenland</td>
+                  <td class="extra"></td>
+                  <td class="extra"></td>
+                </tr>
+                <tr>
+                  <td>3a. Leveringen naar landen buiten de EU (uitvoer)</td>
+                  <td>€</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>3b. Leveringen naar of diensten in landen binnen de EU</td>
+                  <td>€</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>3c. Installatie/afstandsverkopen binnen de EU</td>
+                  <td>€</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="extra">Rubriek 5: Voorbelasting, kleineondernemingsregeling, schatting en totaal</td>
+                  <td class="extra"></td>
+                  <td class="extra"></td>
+                </tr>
+                <tr>
+                  <td>5a. Omzetbelasting (rubrieken 1 t/m 4)</td>
+                  <td></td>
+                  <td>€ <%= rounding(total_VAT) %></td>
+                </tr>
+                <tr>
+                  <td>5b. Voorbelasting</td>
+                  <td></td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td>5c. Subtotaal (rubriek 5a min 5b)</td>
+                  <td></td>
+                  <td class="extra">€ <%= rounding(total_VAT) %></td>
+                </tr>
+                <tr>
+                  <td>5d. Vermindering volgens de kleineondernemingsregeling</td>
+                  <td></td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td>5e. Schatting vorige aangifte(n)</td>
+                  <td></td>
+                  <td>€</td>
+                </tr>
+                <tr>
+                  <td>5f. Schatting deze aangifte</td>
+                  <td></td>
+                  <td class="extra">€ <%= rounding(total_VAT) %></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

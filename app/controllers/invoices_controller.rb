@@ -61,16 +61,36 @@ class InvoicesController < ApplicationController
     end
     
     def edit
+        if @invoice.invoice_definitive == true
+            redirect_to action: "show"
+        end
     end
     
     def update
-        if @invoice.update invoice_params
-            flash[:notice] = "Uw factuurinfo is succesvol aangepast."
-            redirect_to action: "index"
+        
+        if @invoice.offer == true
+            if @invoice.update invoice_params
+                flash[:notice] = "Uw offerte is succesvol aangepast."
+                redirect_to action: "index"
+            else
+                flash[:notice] = "Oh nee! Uw offerte kon niet opgeslagen worden."
+                render 'edit'
+            end
         else
-            flash[:notice] = "Oh nee! Uw factuurinfo kon niet opgeslagen worden."
-            render 'edit'
+            if @invoice.update invoice_params
+                flash[:notice] = "Uw factuurinfo is succesvol aangepast."
+                redirect_to action: "index"
+                
+                # params = {'action' => 'insert', 'invoice_number' => @invoice.invoice_number, 'invoice_date' => @invoice.invoice_date, 'invoice_client_name' => @invoice.invoice_client_name, 'invoice_client_number' => Client.where(client_name: @invoice.invoice_client_name).client_number, 'invoice_subject' => @invoice.invoice_subject, 'invoice_VAT_number' => @invoice.invoice_VAT_number, 'invoice_exclusive_VAT' => @invoice.invoice_including_VAT, 'invoice_including_VAT' => @invoice.invoice_including_VAT, 'spending_VAT' => @spending.spending_VAT, 'spending_including_VAT' => @spending.spending_including_VAT, 'spending_VAT_percentage' => @spending.spending_VAT_percentage }
+                
+                # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/spending_AppConnectorUpdate.php'), params)
+                # puts x.body
+            else
+                flash[:notice] = "Oh nee! Uw factuurinfo kon niet opgeslagen worden."
+                render 'edit'
+            end 
         end
+
     end
     
     def destroy
@@ -87,4 +107,5 @@ class InvoicesController < ApplicationController
     def find_invoice
        @invoice = Invoice.find(params[:id]) 
     end
+
 end

@@ -14,8 +14,6 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) << :company_id << :user_name << :user_gender << :user_function << :user_phone
     end
 
-
-
   def layout_by_resource
     if devise_controller?
       "devise_layout"

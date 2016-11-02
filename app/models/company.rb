@@ -19,5 +19,5 @@ class Company < ActiveRecord::Base
     has_attached_file :company_logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
     validates_attachment_content_type :company_logo, content_type: /\Aimage\/.*\z/
     validates_attachment :company_logo, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
-    validates :company_logo, attachment_presence: true
+
 end

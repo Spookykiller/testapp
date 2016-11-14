@@ -24,7 +24,7 @@
       .form-group
         = f.label :invoice_client_name, 'Naam Opdrachtgever *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
         .col-md-6.col-sm-6.col-xs-12
-          = f.collection_select :invoice_client_name, Client.all, :client_name, :client_name, {include_blank: true}, class: "form-control", id: 'invoice_invoice_client_name'
+          = f.collection_select :invoice_client_name, Client.all, :client_last_name, :client_last_name, {include_blank: true}, class: "form-control", id: 'invoice_invoice_client_name'
           %br/
       .form-group
         = f.label :invoice_subject, 'Onderwerp *', class: 'control-label col-md-3 col-sm-3 col-xs-12'

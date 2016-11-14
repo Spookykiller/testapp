@@ -41,7 +41,7 @@
                 <tr class="headings">
                     <th class="column-title">Klantnummer</th>
                     <th class="column-title">Klantnaam</th>
-                    <th class="column-title">Klant contact persoon</th>
+                    <th class="column-title">Bedrijfsnaam</th>
                     <th class="column-title">Adres</th>
                     <th class="column-title">Postcode</th>
                     <th class="column-title">Plaats</th>
@@ -52,9 +52,9 @@
               <tbody>
                   <tr>
                       <td><%= client.client_number %></td>
-                      <td><%= client.client_name %></td>
-                      <td><%= client.client_contact_person %></td>
-                      <td><%= client.client_address %></td>
+                      <td><%= client.client_first_name + " " + client.client_last_name %></td>
+                      <td><%= client.client_company_name %></td>
+                      <td><%= client.client_street + " " + client.client_street_number.to_s + " " + client.client_street_addition %></td>
                       <td><%= client.client_zipcode %></td>
                       <td><%= client.client_residence %></td>
                       <td>

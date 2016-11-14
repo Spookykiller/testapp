@@ -42,7 +42,10 @@
           = f.hidden_field :invoice_including_VAT, :html => {:id => "invoice_including_VAT"}
           = f.hidden_field :offer, :value => false
           = f.hidden_field :id, :value => (Invoice.maximum(:id).to_i.next), :html => {:id => "invoice_id"}
-
+          = f.hidden_field :subtotal_0, :html => {:id => "subtotal_0"}
+          = f.hidden_field :subtotal_6, :html => {:id => "subtotal_6"}
+          = f.hidden_field :subtotal_21, :html => {:id => "subtotal_21"}
+          
       .row
         .col-xs-12.table-responsive
           %hr/
@@ -73,12 +76,18 @@
                   %span#subtotal 0.00
                   %span.subtotal_currency
               %tr
-                %th BTW 6%:
+                %th
+                  BTW 6%: (
+                  %span#subtotal_6> 0
+                  )
                 %td
                   %span.VAT_6 0.00
                   %span.subtotal_currency
               %tr
-                %th BTW 21%:
+                %th
+                  BTW 21%: (
+                  %span#subtotal_21> 0
+                  )
                 %td
                   %span.VAT_21 0.00
                   %span.subtotal_currency

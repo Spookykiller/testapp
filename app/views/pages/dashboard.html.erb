@@ -1,6 +1,6 @@
 <!-- page content -->
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-<div class="right_col" role="main">
+<div class="right_col" role="main" id="dashboard">
   <div class="">
     <div class="page-title">
       <div class="title_left">
@@ -21,21 +21,14 @@
     <div class="clearfix"></div>
     
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="open_creditors">
         <div class="x_panel">
           <div class="x_title">
             <h2>Openstaande crediteuren</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -102,21 +95,14 @@
     </div>
     
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="open_debtors">
         <div class="x_panel">
           <div class="x_title">
             <h2>Openstaande debiteuren</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -158,12 +144,7 @@
                           <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
                         </td>
                         <td>
-                        <%= link_to edit_invoice_path(invoice) do %>
-                            <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
-                        <% end %>
-                        <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
-                            <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
-                        <% end %>
+                          <%= link_to "Zie factuur", invoice_path(invoice) %>
                         </td>
                       </tr>
                   </tbody>
@@ -177,21 +158,14 @@
     </div>
     
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="col-md-6 col-sm-12 col-xs-12" id="projects">
         <div class="x_panel">
           <div class="x_title">
             <h2>Mijn projecten</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -203,22 +177,15 @@
           </div>
         </div>
       </div>
-    
-      <div class="col-md-6 col-sm-12 col-xs-12">
+
+      <div class="col-md-6 col-sm-12 col-xs-12" id="all_invoices">
         <div class="x_panel">
           <div class="x_title">
             <h2>Mijn facturen</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -230,23 +197,17 @@
           </div>
         </div>
       </div>
+    </div>
     
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="time_registration">
         <div class="x_panel">
           <div class="x_title">
             <h2>Urenregistratie</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>

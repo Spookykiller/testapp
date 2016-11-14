@@ -14,6 +14,12 @@
 //= require jquery_ujs
 //= require cocoon
 //= require dataTables/jquery.dataTables
+
+//= require jquery.inputmask
+//= require jquery.inputmask.extensions
+//= require jquery.inputmask.numeric.extensions
+//= require jquery.inputmask.date.extensions
+
 //= require js/flot/jquery.flot.js
 //= require js/flot/jquery.flot.pie.js
 //= require js/flot/jquery.flot.orderBars.js
@@ -32,6 +38,7 @@
 
 
 //= require js/bootstrap.min.js
+//= require js/tour/bootstrap-tour.min.js
 
 //= require js/gauge/gauge.min.js
 //= require js/gauge/gauge_demo.js
@@ -67,6 +74,9 @@ $(document).on('ready page:load', function () {
         });
     });
     
+    $('#client_zipcode').inputmask("9999 aa");
+    $('#client_phone').inputmask({ mask: "99[99] 99999999", greedy: false });
+
     $('#definitive').find('form').each(function() {
         $(this).find('input.form-control').prop('disabled', true);
         $(this).find('select').prop('disabled', true);
@@ -103,6 +113,9 @@ function VAT_total() {
     var total_VAT21 = 0.00;
     var total_VAT = 0.00;
     var subtotal = 0.00;
+    var subtotal_0 = 0.00;
+    var subtotal_6 = 0.00;
+    var subtotal_21 = 0.00;
     var total = 0.00;
 	$('tr.nested-fields').each(function(){
 
@@ -117,12 +130,17 @@ function VAT_total() {
 
         if (column_VAT == 0.06) {
             var column_VAT_total6 = Number(column_VAT) * Number(column_price);
+            subtotal_6 += Number(column_total_price);
 
             if (!isNaN(column_VAT_total6)) total_VAT6 += Number(column_VAT_total6);
         } else if (column_VAT == 0.21){
             var column_VAT_total21 = Number(column_VAT) * Number(column_price);
+            
+            subtotal_21 += Number(column_total_price);
 
             if (!isNaN(column_VAT_total21)) total_VAT21 += Number(column_VAT_total21);
+        } else if (column_VAT == 0.00 ) {
+        	subtotal_0 += Number(column_total_price);
         }
         
         subtotal += Number(column_total_price);
@@ -137,11 +155,19 @@ function VAT_total() {
     
     $('#invoice_VAT6').val(Number(total_VAT6.toFixed(2)));
 	$('#invoice_VAT21').val(Number(total_VAT21.toFixed(2)));
-        $('#invoice_invoice_VAT').val(total_VAT.toFixed(2));
+    $('#invoice_invoice_VAT').val(total_VAT.toFixed(2));
     
     $('#subtotal').html(subtotal.toFixed(2));
-    $('#invoice_invoice_exclusive_VAT').val(subtotal.toFixed(2));
 
+    $('#subtotal_0').html(subtotal_0.toFixed(2));
+    $('#subtotal_6').html(subtotal_6.toFixed(2));
+    $('#subtotal_21').html(subtotal_21.toFixed(2));
+    
+    $('#invoice_subtotal_0').val(subtotal_0.toFixed(2));
+    $('#invoice_subtotal_6').val(subtotal_6.toFixed(2));
+    $('#invoice_subtotal_21').val(subtotal_21.toFixed(2));
+    
+    $('#invoice_invoice_exclusive_VAT').val(subtotal.toFixed(2));
     $('#invoice_invoice_including_VAT').val(total.toFixed(2));
 
 }

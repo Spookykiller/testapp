@@ -7,50 +7,48 @@
             <% end %>
         </ul>
     <% end %>
+
     <div class="form-group">
-        <%= f.label :client_number, 'Klantnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :client_number, class: 'form-control col-md-7 col-xs-12' %>
+        <%= f.label :client_first_name, 'Klantnaam *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-3 col-sm-3 col-xs-6 form-group">
+            <%= f.text_field :client_first_name, class: 'form-control', :placeholder => 'Voornaam', :required => true %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 form-group">
+            <%= f.text_field :client_last_name, class: 'form-control', :placeholder => 'Achternaam', :required => true %>
         </div>
     </div>
     
     <div class="form-group">
-        <%= f.label :client_name, 'Klantnaam', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_company_name, 'Bedrijf', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_name, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_company_name, class: 'form-control col-md-7 col-xs-12', :placeholder => 'Bedrijfsnaam' %>
         </div>
     </div>
     
     <div class="form-group">
-        <%= f.label :client_contact_person, 'Contactpersoon', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_address, 'Adres *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-3 col-sm-3 col-xs-5 form-group">
+            <%= f.text_field :client_street, class: 'form-control', :placeholder => 'Straatnaam', :required => true %>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-3 form-group">
+            <%= f.number_field :client_street_number, class: 'form-control', :placeholder => 'Huisnummer', :required => true %>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-4 form-group">
+            <%= f.text_field :client_street_addition, class: 'form-control', :placeholder => 'toev. huisnummer', :required => true %>
+        </div> 
+    </div>
+
+    <div class="form-group">
+        <%= f.label :client_zipcode, 'Postcode *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_contact_person, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_zipcode, class: 'form-control col-md-7 col-xs-12', :placeholder => 'Postcode', id: 'client_zipcode', :required => true %>
         </div>
     </div>
     
     <div class="form-group">
-        <%= f.label :client_address, 'Adres', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_residence, 'Woonplaats *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_address, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :client_zipcode, 'Postcode', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_zipcode, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <%= f.label :client_residence, 'Woonplaats', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_residence, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_residence, class: 'form-control col-md-7 col-xs-12', :placeholder => 'Woonplaats', :required => true %>
         </div>
     </div>
     
@@ -61,6 +59,7 @@
             <%= f.radio_button :client_gender, true %>
             <%= f.label :client_gender, "Vrouw", :value => "false" %>
             <%= f.radio_button :client_gender, false %>
+            (Laat leeg voor onbekend)
         </div>
     </div>
     
@@ -69,22 +68,19 @@
     <div class="form-group">
         <%= f.label :client_phone, 'Telefoonnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_phone, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_phone, class: 'form-control col-md-7 col-xs-12', id: 'client_phone', :placeholder => 'Telefoonnummer' %>
         </div>
     </div>
     <div class="form-group">
-        <%= f.label :client_email, 'Emailadres', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_email, 'Emailadres *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_email, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_email, class: 'form-control col-md-7 col-xs-12', :placeholder => 'Emailadres', :required => true %>
         </div>
     </div>
     <div class="form-group">
         <%= f.label :client_account_number, 'Rekeningnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :client_account_number, class: 'form-control col-md-7 col-xs-12' %><br>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :client_account_number, class: 'form-control col-md-7 col-xs-12', :placeholder => 'Rekeningnummer' %><br>
         </div>
     </div>
 

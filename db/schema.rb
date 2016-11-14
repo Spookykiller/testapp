@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017082442) do
+ActiveRecord::Schema.define(version: 20161114091936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,17 +48,20 @@ ActiveRecord::Schema.define(version: 20161017082442) do
 
   create_table "clients", force: :cascade do |t|
     t.integer  "client_number"
-    t.string   "client_name"
-    t.string   "client_contact_person"
-    t.string   "client_address"
     t.string   "client_zipcode"
     t.string   "client_residence"
     t.boolean  "client_gender"
     t.string   "client_phone"
     t.string   "client_email"
     t.string   "client_account_number"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "client_first_name"
+    t.string   "client_last_name"
+    t.string   "client_street"
+    t.integer  "client_street_number"
+    t.string   "client_street_addition"
+    t.string   "client_company_name"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -82,6 +85,7 @@ ActiveRecord::Schema.define(version: 20161017082442) do
     t.string   "company_logo_content_type"
     t.integer  "company_logo_file_size"
     t.datetime "company_logo_updated_at"
+    t.integer  "administration_code"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -102,7 +106,10 @@ ActiveRecord::Schema.define(version: 20161017082442) do
     t.datetime "updated_at",             null: false
     t.decimal  "VAT6"
     t.decimal  "VAT21"
-    t.boolean  "offer",                  null: false
+    t.boolean  "offer"
+    t.decimal  "subtotal_0"
+    t.decimal  "subtotal_6"
+    t.decimal  "subtotal_21"
   end
 
   create_table "items", force: :cascade do |t|

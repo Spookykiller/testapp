@@ -44,6 +44,9 @@ gem 'haml'
 # Image processing
 gem "paperclip"
 
+# Input
+gem 'jquery-inputmask-rails'
+
 group :development, :test do
   gem 'byebug'
   gem 'brakeman', :require => false

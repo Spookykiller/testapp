@@ -1,5 +1,5 @@
 <!-- page content -->
-<div class="right_col" role="main" style="height:100vh">
+<div class="right_col" role="main" style="height:100vh" id="invoices">
   <div class="">
     <div class="page-title">
       <div class="title_left">
@@ -21,21 +21,14 @@
 
     <div class="row">
 
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="invoice-concept">
         <div class="x_panel">
           <div class="x_title">
             <h2>Uw concepten:</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -77,7 +70,7 @@
                         <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
                     <% end %>
                     <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze factuur wilt verwijderen?" } do %>
-                        <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                        <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
                     <% end %>
                     <%= link_to definitive_invoice_path(invoice) do %>
                       <button class="btn btn-primary">Definitief</button>
@@ -99,21 +92,14 @@
     
     <div class="row">
 
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="invoice_definitive">
         <div class="x_panel">
           <div class="x_title">
             <h2>Definitieve facturen:</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Settings 1</a>
-                  </li>
-                  <li><a href="#">Settings 2</a>
-                  </li>
-                </ul>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
               </li>
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
@@ -124,7 +110,7 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Factuur nummer</th>
+                    <th class="column-title factuurnummer">Factuur nummer</th>
                     <th class="column-title">Datum</th>
                     <th class="column-title">Naam Opdrachtgever</th>
                     <th class="column-title">Onderwerp</th>
@@ -152,7 +138,7 @@
                         <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
                         € <%= rounding(invoice.invoice_including_VAT) %>
                     </td>
-                    <td><%= link_to "Zie factuur", invoice_path(invoice) %></td>
+                    <td><%= link_to "Zie factuur", invoice_path(invoice), class: 'show_invoice' %></td>
                   </tr>
               </tbody>
             <% end %>

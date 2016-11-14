@@ -53,6 +53,11 @@ class InvoicesController < ApplicationController
             if @invoice.save
                 flash[:notice] = "De factuur is opgeslagen!"
                 redirect_to action: "index"
+                
+                # params = {'action' => 'insert', 'administration_number' => current_user.company.administration_code, 'invoice_number' => @invoice.invoice_number, 'invoice_date' => @invoice.invoice_date, 'invoice_client_name' => @invoice.invoice_client_name, 'invoice_client_number' => 100012, 'invoice_subject' => @invoice.invoice_subject, 'invoice_VAT_number' => @invoice.invoice_VAT_number, 'invoice_including_VAT' => @invoice.invoice_including_VAT, 'subtotal_0' => @invoice.subtotal_0, 'subtotal_6' => @invoice.subtotal_6, 'subtotal_21' => @invoice.subtotal_21, 'VAT6' => @invoice.VAT6, 'VAT21' => @invoice.VAT21 }
+                
+                # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/invoice_AppConnectorUpdate.php'), params)
+                # puts x.body
             else
                 render 'new'
                 flash[:notice] = "Oh nee! De factuur is niet opgeslagen."
@@ -80,11 +85,6 @@ class InvoicesController < ApplicationController
             if @invoice.update invoice_params
                 flash[:notice] = "Uw factuurinfo is succesvol aangepast."
                 redirect_to action: "index"
-                
-                # params = {'action' => 'insert', 'invoice_number' => @invoice.invoice_number, 'invoice_date' => @invoice.invoice_date, 'invoice_client_name' => @invoice.invoice_client_name, 'invoice_client_number' => Client.where(client_name: @invoice.invoice_client_name).client_number, 'invoice_subject' => @invoice.invoice_subject, 'invoice_VAT_number' => @invoice.invoice_VAT_number, 'invoice_exclusive_VAT' => @invoice.invoice_including_VAT, 'invoice_including_VAT' => @invoice.invoice_including_VAT, 'spending_VAT' => @spending.spending_VAT, 'spending_including_VAT' => @spending.spending_including_VAT, 'spending_VAT_percentage' => @spending.spending_VAT_percentage }
-                
-                # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/spending_AppConnectorUpdate.php'), params)
-                # puts x.body
             else
                 flash[:notice] = "Oh nee! Uw factuurinfo kon niet opgeslagen worden."
                 render 'edit'

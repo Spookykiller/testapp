@@ -11,7 +11,6 @@ class Client < ActiveRecord::Base
     
     validates :client_street, presence: true
     validates :client_street_number, presence: true
-    validates :client_street_addition, presence: true
 
     validates :client_zipcode, presence: true
     validates :client_residence, presence: true

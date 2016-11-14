@@ -210,7 +210,7 @@
                         
                         <% company_result = 0 %>
                         <% company_result = (gross_margin - total_company_expenses) %>
-                        <% if company_result > 0 %>  
+                        <% if company_result >= 0 %>  
                             <td class="extra">
                                 € <%= rounding(company_result) %>
                             </td>

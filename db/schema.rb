@@ -11,29 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114091936) do
+ActiveRecord::Schema.define(version: 20161114104358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "annualaccounts", force: :cascade do |t|
     t.datetime "an_date"
-    t.decimal  "an_pr_return"
-    t.decimal  "an_pr_purchase_value"
-    t.decimal  "an_pr_gross_margin"
-    t.decimal  "an_pr_accomodation_expenses"
-    t.decimal  "an_pr_TA_expenses"
-    t.decimal  "an_pr_consumption_expenses"
-    t.decimal  "an_pr_sales_expenses"
-    t.decimal  "an_pr_car_expenses"
-    t.decimal  "an_pr_office_expenses"
-    t.decimal  "an_pr_other_expenses"
-    t.decimal  "an_pr_total_company_expenses"
-    t.decimal  "an_pr_company_result"
-    t.decimal  "an_pr_depreciation"
-    t.decimal  "an_pr_interest"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.decimal  "an_pr_interest",     default: 0.0, null: false
+    t.decimal  "an_pr_depreciation", default: 0.0, null: false
   end
 
   create_table "articles", force: :cascade do |t|

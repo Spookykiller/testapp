@@ -29,7 +29,7 @@ class Client < ActiveRecord::Base
         self.client_street = self.client_street.strip
         self.client_street_addition = self.client_street_addition.strip
 
-        self.client_email = self.client_email.gsub!(/\s+/, '')
+        self.client_email = self.client_email.gsub(/\s+/, '')
         
         self.client_phone = self.client_phone.strip unless self.client_company_name.nil?
         self.client_company_name = self.client_company_name.strip unless self.client_company_name.nil?

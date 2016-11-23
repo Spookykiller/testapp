@@ -4,10 +4,10 @@
         var selectedText = selects.options[selects.selectedIndex].text;
         var $jsValue = document.querySelector('.jsValue');
 
-        if ('<%= j client.client_name %>' == selectedText) {
-            var client_name = "<%= j client.client_name.to_json %>";
-            var client_contact_person = "<%= j client.client_contact_person.to_json %>";
-            var client_address = "<%= j client.client_address.to_json %>";
+        if ('<%= j client.client_last_name %>' == selectedText) {
+            var client_name = "<%= j client.client_company_name.to_json %>";
+            var client_contact_person = "<%= j client.client_first_name.to_json %>" + " <%= j client.client_last_name.to_json %>";
+            var client_address = "<%= j client.client_street.to_json %>" + " <%= j client.client_street_number.to_json %>"  + " <%= j client.client_street_addition.to_json %>";
             var client_zipcode = "<%= j client.client_zipcode.to_json %>";
             var client_residence = '<%= j client.client_residence.to_json %>';
             

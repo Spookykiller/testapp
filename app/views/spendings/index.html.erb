@@ -81,14 +81,7 @@
                     <td><%= spending.spending_when_paid %></td>
                     <td>€ <%= rounding(spending.spending_paid) %></td>
                     <td>
-                      <% if spending.spending_paid.blank? %>
-                        <% spending.spending_paid = 0%>
-                        <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                        € <%= rounding(spending.spending_left) %>
-                      <% else %>
-                        <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                        € <%= rounding(spending.spending_left) %>
-                      <% end %>
+                      € <%= rounding(spending.spending_left) %>
                     </td>
                     <td>
                     <%= link_to edit_spending_path(spending) do %>

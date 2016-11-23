@@ -25,7 +25,7 @@ class Client < ActiveRecord::Base
         self.client_last_name = self.client_last_name.strip
         
         self.client_zipcode = self.client_zipcode.strip
-        self.client_residence = self.client_residence.strip
+        self.client_residence = self.client_residence.strip.upcase
         self.client_street = self.client_street.strip
         self.client_street_addition = self.client_street_addition.strip
 

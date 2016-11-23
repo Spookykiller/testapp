@@ -8,6 +8,7 @@ class PagesController < ApplicationController
   def dashboard
     @projects = Project.all
     @invoices = Invoice.where("invoice_definitive = true AND invoice_left > 0").order("created_at DESC")
+    @spending = Spending.where("spending_left > 0").order("created_at DESC")
   end
   
   def vat_declaration

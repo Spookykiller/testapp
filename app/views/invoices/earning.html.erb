@@ -44,6 +44,7 @@
                     <th class="column-title">Naam Opdrachtgever</th>
                     <th class="column-title">Onderwerp</th>
                     <th class="column-title">BTW nummer</th>
+                    <th class="column-title">Factuurbedrag incl. btw</th>
                     <th class="column-title">Datum betaald</th>
                     <th class="column-title">Bedrag betaald</th>
                     <th class="column-title">Acties</th>
@@ -57,7 +58,7 @@
                   <td><%= invoice.invoice_client_name %></td>
                   <td><%= invoice.invoice_subject %></td>
                   <td><%= invoice.invoice_VAT_number %></td>
-                  
+                  <td><%= invoice.invoice_including_VAT %></td>
                   <% if invoice.invoice_when_paid.blank? %>
                     <%= form_for invoice do |f| %>
                         <td>

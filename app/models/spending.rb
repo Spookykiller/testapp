@@ -1,6 +1,6 @@
 class Spending < ActiveRecord::Base
     belongs_to :company
-    before_save :calculate_spending_including_VAT, :calculate_spending_VAT_percentage
+    before_save :calculate_spending_including_VAT, :calculate_spending_VAT_percentage, :define_spending_left
     after_create :define_spending_follow_number
     
     validates :spending_date, presence: true
@@ -32,5 +32,13 @@ class Spending < ActiveRecord::Base
     
     def define_spending_follow_number
         self.update_attributes(:spending_follow_number => (self.id + (Time.now.year * 1000)))
+    end
+    
+    def define_spending_left
+        if !self.spending_paid.blank?
+            self.spending_left = (self.spending_including_VAT - self.spending_paid)
+        else
+            self.spending_left = 0
+        end
     end
 end

@@ -12,17 +12,19 @@
 <% @invoices.each do |invoice| %>
   <% if @quarter_months.include? invoice.invoice_date.month %>
     <% invoice.items.each do |item| %>
-      <% if item.item_VAT_percentage == 21 %>
-        <% item_price_21 = (item.item_unit_cost * item.item_quantity) %>
-        <% turnover_VAT_21 += item_price_21 %>
-        <% high_VAT_21 += (0.21 * item_price_21) %>
-      <% elsif item.item_VAT_percentage == 6 %>
-        <% item_price_6 = (item.item_unit_cost * item.item_quantity) %>
-        <% turnover_VAT_6 += item_price_6 %>
-        <% low_VAT_6 += (0.06 * item_price_6) %>
-      <% elsif item.item_VAT_percentage == 0%>
-        <% item_price_0 = (item.item_unit_cost * item.item_quantity) %>
-        <% turnover_VAT_0 += item_price_0 %>
+      <% if !item.item_unit_cost.blank? %>
+        <% if item.item_VAT_percentage == 21 %>
+          <% item_price_21 = (item.item_unit_cost * item.item_quantity) %>
+          <% turnover_VAT_21 += item_price_21 %>
+          <% high_VAT_21 += (0.21 * item_price_21) %>
+        <% elsif item.item_VAT_percentage == 6 %>
+          <% item_price_6 = (item.item_unit_cost * item.item_quantity) %>
+          <% turnover_VAT_6 += item_price_6 %>
+          <% low_VAT_6 += (0.06 * item_price_6) %>
+        <% elsif item.item_VAT_percentage == 0 %>
+          <% item_price_0 = (item.item_unit_cost * item.item_quantity) %>
+          <% turnover_VAT_0 += item_price_0 %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

@@ -10,15 +10,15 @@ class ApplicationController < ActionController::Base
   
   protected
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) << :company_id << :user_name << :user_gender << :user_function << :user_phone
-      devise_parameter_sanitizer.for(:account_update) << :company_id << :user_name << :user_gender << :user_function << :user_phone
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :user_name, :user_gender, :user_function, :user_phone])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:company_id, :user_name, :user_gender, :user_function, :user_phone])
     end
 
-  def layout_by_resource
-    if devise_controller?
-      "devise_layout"
-    else
-      "application"
+    def layout_by_resource
+      if devise_controller?
+        "devise_layout"
+      else
+        "application"
+      end
     end
-  end
 end

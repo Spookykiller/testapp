@@ -17,8 +17,7 @@
     <div class="form-group">
         <%= f.label :mileage_date, 'Datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :mileage_date, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+            <%= f.text_field :mileage_date, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %>
         </div>
     </div>
     
@@ -26,7 +25,6 @@
         <%= f.label :mileage_from, 'Vertrek plaats', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <%= f.text_field :mileage_from, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
         </div>
     </div>
     
@@ -34,7 +32,6 @@
         <%= f.label :mileage_to, 'Aankomst plaats', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <%= f.text_field :mileage_to, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
         </div>
     </div>
     
@@ -42,7 +39,6 @@
         <%= f.label :mileage_kilometers, 'Aantal kilometers (enkele reis)', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <%= f.number_field :mileage_kilometers, class: 'form-control col-md-7 col-xs-12' %>
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
         </div>
     </div>
     

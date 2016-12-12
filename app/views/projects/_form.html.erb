@@ -11,7 +11,7 @@
     <div class="form-group">
         <%= f.label :project_name, 'Project', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :project_name, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :project_name, :placeholder => 'Project naam', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -25,14 +25,14 @@
     <div class="form-group">
         <%= f.label :project_budget, 'Budget', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :project_budget, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :project_budget, :placeholder => 'Budget in uren', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
 
     <div class="form-group">
         <%= f.label :project_hour_rate, 'Uurtarief', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :project_hour_rate, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+            <%= f.number_field :project_hour_rate, :placeholder => 'Uurtarief', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     

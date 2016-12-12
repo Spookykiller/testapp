@@ -11,28 +11,28 @@
     <div class="form-group">
         <%= f.label :spending_date, 'Datum uitgave' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_date, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
+            <%= f.text_field :spending_date, :placeholder => 'Datum uitgave', class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_company_name, 'Naam Bedrijf' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_company_name, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :spending_company_name, :placeholder => 'Naam bedrijf van uitgave', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_cost_description, 'Omschrijving kosten', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_cost_description, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :spending_cost_description, :placeholder => 'Omschrijving gemaakte kosten', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_invoice_number_creditor, 'Factuurnummer leverancier' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_invoice_number_creditor, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :spending_invoice_number_creditor, :placeholder => 'Factuurnummer van leverancier', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -52,28 +52,28 @@
     <div class="form-group">
         <%= f.label :spending_exclusive_VAT, 'Bedrag exclusief BTW', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :spending_exclusive_VAT, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+            <%= f.number_field :spending_exclusive_VAT, :placeholder => 'Bedrag exclusief BTW', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_VAT, 'BTW bedrag', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :spending_VAT, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+            <%= f.number_field :spending_VAT, :placeholder => 'BTW bedrag', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_when_paid, 'Datum betaling', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :spending_when_paid, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
+            <%= f.text_field :spending_when_paid, :placeholder => 'Datum wanneer u betaald heeft', class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :spending_paid, 'Betaald bedrag', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :spending_paid, class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+            <%= f.number_field :spending_paid, :placeholder => 'Bedrag wat u betaald heeft', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     

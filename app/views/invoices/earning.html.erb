@@ -62,10 +62,10 @@
                   <% if invoice.invoice_when_paid.blank? %>
                     <%= form_for invoice do |f| %>
                         <td>
-                          <%= f.text_field :invoice_when_paid, class: 'form-control', :id => 'datepicker' %>
+                          <%= f.text_field :invoice_when_paid, :placeholder => 'Datum van betaling', class: 'form-control', :id => 'datepicker' %>
                         </td>
                         <td>
-                          <%= f.number_field :invoice_paid, class: 'form-control', :id => 'invoice_paid', :step => '0.01' %>
+                          <%= f.number_field :invoice_paid, :placeholder => 'Bedrag van betaling', class: 'form-control', :id => 'invoice_paid', :step => '0.01' %>
                         </td>
                     <td>
                       <%= f.submit "opslaan", :class => 'btn btn-success', :id => 'save_earning' %>

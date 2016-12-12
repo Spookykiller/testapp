@@ -12,7 +12,7 @@
     <div class="form-group">
         <%= f.label :timesheet_project_number, 'Projectnummer' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :timesheet_project_number, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.number_field :timesheet_project_number, :placeholder => 'Projectnummer', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -26,21 +26,21 @@
     <div class="form-group">
         <%= f.label :timesheet_description, 'Beschrijving' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :timesheet_description, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :timesheet_description, :placeholder => 'Beschrijving', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :timesheet_date, 'Datum' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :timesheet_date, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
+            <%= f.text_field :timesheet_date, :placeholder => 'Datum activiteit', class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
         </div>
     </div>
     
     <div class="form-group">
         <%= f.label :timesheet_hours, 'Uren' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :timesheet_hours, :step => '0.01', class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.number_field :timesheet_hours, :placeholder => 'Aantal uren', :step => '0.01', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -54,7 +54,7 @@
     <div class="form-group">
         <%= f.label :timesheet_comment, 'Opmerkingen' , class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_area :timesheet_comment, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_area :timesheet_comment, :placeholder => 'Extra opmerkingen', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     

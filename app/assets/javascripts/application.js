@@ -123,7 +123,7 @@ function VAT_total() {
 	    var colum_item_cost = Number($(this).find('#item_cost').val());
 	    var column_total_price = Number(column_qty) * Number(colum_item_cost);
 	    
-	    $(this).find('.price').html(format(column_total_price));
+	    $(this).find('.price').html(column_total_price.toFixed(2));
 	    
 	    var column_price = Number($(this).find('.price').html());
 	    var column_VAT = 0.01 * Number($(this).find('#item_VAT').val());
@@ -149,26 +149,26 @@ function VAT_total() {
 	total = Number(subtotal) + Number(total_VAT6) + Number(total_VAT21);
 	total_VAT = Number(total_VAT6) + Number(total_VAT21);
 	
-	$('.VAT_6').html(format(Number(total_VAT6)));
-	$('.VAT_21').html(format(Number(total_VAT21)));
-    $('.due').html(format(total));
+	$('.VAT_6').html(Number(total_VAT6.toFixed(2)));
+	$('.VAT_21').html(Number(total_VAT21.toFixed(2)));
+    $('.due').html(total.toFixed(2));
     
-    $('#invoice_VAT6').val(format(Number(total_VAT6)));
-	$('#invoice_VAT21').val(format(Number(total_VAT21)));
-    $('#invoice_invoice_VAT').val(format(total_VAT));
+    $('#invoice_VAT6').val(Number(total_VAT6.toFixed(2)));
+	$('#invoice_VAT21').val(Number(total_VAT21.toFixed(2)));
+    $('#invoice_invoice_VAT').val(total_VAT.toFixed(2));
     
-    $('#subtotal').html(format(subtotal));
+    $('#subtotal').html(subtotal.toFixed(2));
 
-    $('#subtotal_0').html(format(subtotal_0));
-    $('#subtotal_6').html(format(subtotal_6));
-    $('#subtotal_21').html(format(subtotal_21));
+    $('#subtotal_0').html(subtotal_0.toFixed(2));
+    $('#subtotal_6').html(subtotal_6.toFixed(2));
+    $('#subtotal_21').html(subtotal_21.toFixed(2));
     
-    $('#invoice_subtotal_0').val(format(subtotal_0));
-    $('#invoice_subtotal_6').val(format(subtotal_6));
-    $('#invoice_subtotal_21').val(format(subtotal_21));
+    $('#invoice_subtotal_0').val(subtotal_0.toFixed(2));
+    $('#invoice_subtotal_6').val(subtotal_6.toFixed(2));
+    $('#invoice_subtotal_21').val(subtotal_21.toFixed(2));
     
-    $('#invoice_invoice_exclusive_VAT').val(format(subtotal));
-    $('#invoice_invoice_including_VAT').val(format(total));
+    $('#invoice_invoice_exclusive_VAT').val(subtotal.toFixed(2));
+    $('#invoice_invoice_including_VAT').val(total.toFixed(2));
 
 }
 
@@ -240,13 +240,13 @@ function update_numbers() {
 			$('.modal-nested-fields:last').append('<td>' + unit + '</td>');
 
 			var VAT = $(row).find('.item_VAT_percentage').find(":selected").text();
-			$('.modal-nested-fields:last').append('<td>' + Number(VAT) + '</td>');
+			$('.modal-nested-fields:last').append('<td>' + VAT + '</td>');
 
 			var qty = $(row).find('.qty').val();
-			$('.modal-nested-fields:last').append('<td>' + Number(qty) + '</td>');
+			$('.modal-nested-fields:last').append('<td>' + qty + '</td>');
 			
 			var cost = $(row).find('.cost').val();
-			$('.modal-nested-fields:last').append('<td> € ' + format(Number(cost)) + '</td>');
+			$('.modal-nested-fields:last').append('<td> € ' + cost + '</td>');
 			
 			var price = $(row).find('.price').text();
 			$('.modal-nested-fields:last').append('<td> € ' + price + '</td>');
@@ -255,13 +255,4 @@ function update_numbers() {
 		
 	});
     
-}
-
-function format(yourNumber) {
-    //Seperates the components of the number
-    var n= yourNumber.toFixed(2).toString().split(".");
-    //Comma-fies the first part
-    n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    //Combines the two sections
-    return n.join(",");
 }

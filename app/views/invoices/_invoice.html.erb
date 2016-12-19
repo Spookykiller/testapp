@@ -129,7 +129,9 @@
   </div>
   
   <div id="modal_terms">
+    <% if !current_user.company.payment_terms.blank? %>
       <%= current_user.company.payment_terms %>
+    <% end %>
   </div>
 
 

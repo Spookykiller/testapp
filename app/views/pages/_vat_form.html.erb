@@ -32,6 +32,16 @@
 
 <% total_VAT = low_VAT_6 + high_VAT_21 %>
 
+<% preload = 0 %>
+
+<% @spendings.each do |spending| %>
+  <% if @quarter_months.include? spending.spending_date.month %>
+    <% preload += spending.spending_VAT %>
+  <% end %>
+<% end %>
+
+<% subtotal = 0 %>
+<% subtotal = total_VAT - preload %>
 
 <div class="row">
 
@@ -77,13 +87,13 @@
                 </tr>
                 <tr>
                   <td>1a. Leveringen/diensten belast met hoog tarief</td>
-                  <td>€ <%= rounding(turnover_VAT_21) %></td>
-                  <td>€ <%= rounding(high_VAT_21) %></td>
+                  <td>€ <%= floor(turnover_VAT_21) %></td>
+                  <td>€ <%= floor(high_VAT_21) %></td>
                 </tr>
                 <tr>
                   <td>1b. Leveringen/diensten belast met laag tarief</td>
-                  <td>€ <%= rounding(turnover_VAT_6) %></td>
-                  <td>€ <%= rounding(low_VAT_6) %></td>
+                  <td>€ <%= floor(turnover_VAT_6) %></td>
+                  <td>€ <%= floor(low_VAT_6) %></td>
                 </tr>
                 <tr>
                   <td>1c. Leveringen/diensten belast met overige tarieven, behalve 0%</td>
@@ -97,7 +107,7 @@
                 </tr>
                 <tr>
                   <td>1e. Leveringen/diensten belast met 0% of niet bij u belast</td>
-                  <td>€ <%= rounding(item_price_0) %></td>
+                  <td>€ <%= floor(item_price_0) %></td>
                   <td></td>
                 </tr>
                 <tr>
@@ -153,17 +163,17 @@
                 <tr>
                   <td>5a. Omzetbelasting (rubrieken 1 t/m 4)</td>
                   <td></td>
-                  <td>€ <%= rounding(total_VAT) %></td>
+                  <td>€ <%= turnover_tax = floor(high_VAT_21) - floor(low_VAT_6) %></td>
                 </tr>
                 <tr>
                   <td>5b. Voorbelasting</td>
                   <td></td>
-                  <td>€</td>
+                  <td>€ <%= preload = ceil(preload) %></td>
                 </tr>
                 <tr>
                   <td>5c. Subtotaal (rubriek 5a min 5b)</td>
                   <td></td>
-                  <td class="extra">€ <%= rounding(total_VAT) %></td>
+                  <td class="extra">€ <%= subtotal = turnover_tax - preload %></td>
                 </tr>
                 <tr>
                   <td>5d. Vermindering volgens de kleineondernemingsregeling</td>
@@ -178,7 +188,7 @@
                 <tr>
                   <td>5f. Schatting deze aangifte</td>
                   <td></td>
-                  <td class="extra">€ <%= rounding(total_VAT) %></td>
+                  <td class="extra">€ <%= subtotal %></td>
                 </tr>
             </tbody>
         </table>

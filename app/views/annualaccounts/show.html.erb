@@ -53,7 +53,7 @@
                         <td>
                             <% purchase_expenses = 0 %>
                             <% @inkoop.all.each do |spending| %>
-                                <% purchase_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% purchase_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(purchase_expenses) %>
                         </td>
@@ -78,7 +78,7 @@
                         <td>
                             <% staff_expenses = 0 %>
                             <% @personeelskosten.each do |spending| %>
-                                <% staff_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% staff_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(staff_expenses) %>
                         </td>
@@ -87,8 +87,8 @@
                         <td>Huisvestingkosten</td> 
                         <td>
                             <% accomodation_expenses = 0 %>
-                            <% @huisvestingkosten.each do |spending| %>
-                                <% accomodation_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                            <% @Huisvestigingskosten.each do |spending| %>
+                                <% accomodation_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(accomodation_expenses) %>
                         </td>
@@ -98,7 +98,7 @@
                         <td>
                             <% sales_expenses = 0 %>
                             <% @verkoopkosten.each do |spending| %>
-                                <% sales_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% sales_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(sales_expenses) %>
                         </td>
@@ -108,7 +108,7 @@
                         <td>
                             <% consumption_expenses = 0 %>
                             <% @consumptiekosten.each do |spending| %>
-                                <% consumption_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% consumption_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(consumption_expenses) %>
                         </td>
@@ -118,7 +118,7 @@
                         <td>
                             <% travel_expenses = 0 %>
                             <% @reisverblijfskosten.each do |spending| %>
-                                <% travel_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% travel_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(travel_expenses) %>
                         </td>
@@ -131,7 +131,7 @@
                                 <td>Autokosten</td> 
                                 <td>
                                     <% @autokosten.each do |spending| %>
-                                        <% car_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                        <% car_expenses += spending.spending_exclusive_VAT %>
                                     <% end %>
                                     € <%= rounding(car_expenses) %>
                                 </td>
@@ -166,7 +166,7 @@
                         <td>
                             <% office_expenses = 0 %>
                             <% @kantoorkosten.each do |spending| %>
-                                <% office_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% office_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(office_expenses) %>
                         </td>
@@ -176,7 +176,7 @@
                         <td>
                             <% other_expenses = 0 %>
                             <% @overigekosten.each do |spending| %>
-                                <% other_expenses += (spending.spending_VAT + spending.spending_exclusive_VAT) %>
+                                <% other_expenses += spending.spending_exclusive_VAT %>
                             <% end %>
                             € <%= rounding(other_expenses) %>
                         </td>

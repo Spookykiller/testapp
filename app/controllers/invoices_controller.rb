@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_invoice, only: [:definitive, :earning_edit, :show, :edit, :update, :destroy]
+    before_action :find_invoice, only: [:definitive, :earning_edit, :update_earning, :show, :edit, :update, :destroy]
     
     def index
         @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => [nil,false]).all.order('invoice_date DESC')
@@ -72,7 +72,7 @@ class InvoicesController < ApplicationController
     end
     
     def update
-        
+
         if @invoice.offer == true
             if @invoice.update invoice_params
                 flash[:notice] = "Uw offerte is succesvol aangepast."
@@ -91,6 +91,16 @@ class InvoicesController < ApplicationController
             end 
         end
 
+    end
+    
+    def update_earning
+        if @invoice.update invoice_params
+            flash[:notice] = "Uw betaling is succesvol aangepast."
+            redirect_to action: "earning"
+        else
+            flash[:notice] = "Oh nee! Uw betaling kon niet opgeslagen worden."
+            render 'earning_edit'
+        end
     end
     
     def destroy

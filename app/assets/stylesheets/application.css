@@ -56,3 +56,25 @@ table.jambo_table tbody:nth-of-type(odd) {		      /* added all even rows a #eee 
     color: #ff0000;
 }
 
+#modal_totals th {
+    vertical-align: middle;
+}
+
+#spendings th a {
+    color: #ffffff;
+}
+
+#spendings th .current {
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right center;
+}
+
+#spendings th .asc {
+    background-image: url("/images/icon_up.png");
+}
+
+#spendings th .desc {
+    background-image: url("/images/icon_down.png");
+}

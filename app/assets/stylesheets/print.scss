@@ -32,13 +32,36 @@
       display: none;
     }
     
-   #invoice_totals {
+    .pagebreak { 
+        page-break-after: always;
+        position: relative;
+        height: 100%;
+    }
+    
+    #invoice_totals {
         display: block;
         position: absolute;
-        width: 100%;
+        width: 90%;
+        margin: 10px;
+        margin-bottom: 30px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    #modal_terms {
+        display: block;
+        position: absolute;
+        width: 90%;
         margin: 10px;
         bottom: 0;
         right: 0;
-        page-break-after: always;
+    }
+    
+    .price_align {
+        text-align: right;
+    }
+    
+    #modal_totals th {
+        vertical-align: middle;
     }
 }

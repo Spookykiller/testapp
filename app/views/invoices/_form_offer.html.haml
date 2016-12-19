@@ -86,14 +86,11 @@
                   %span#invoice_total.due 0.00
                   %span.subtotal_currency
         / /.col
-      #terms
-        %h5 Voorwaarde
-        %textarea#10 Betalingsvoorwaarde: net 30. Interest accrued at 1.5% per month thereafter.
-        .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
-          = link_to invoices_client_update_path, :remote => true do
-            %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk offerte
-          = link_to 'Annuleren', invoices_path, :class => 'btn btn-primary'
-          = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing'
+      .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+        = link_to invoices_client_update_path, :remote => true do
+          %button#invoice_button.btn.btn-info{"data-target" => "#invoice_modal", "data-toggle" => "modal"} Bekijk offerte
+        = link_to 'Annuleren', invoices_path, :class => 'btn btn-primary'
+        = f.submit 'Opslaan', :class => 'btn btn-success', :id => 'invoicing'
 #invoice_modal.modal.fade{"aria-labelledby" => "myLargeModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal-lg
     .modal-content{:style => "width:920px"}

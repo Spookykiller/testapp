@@ -39,19 +39,18 @@
             <table class="table table-striped jambo_table bulk_action" id="spendings">
               <thead>
                 <tr class="headings">
-                  <th class="column-title">Uitgave nmr.</th>
-                  <th class="column-title">Datum</th>
-                  <th class="column-title">Naam bedrijf</th>
-                  <th class="column-title">Omschrijving kosten</th>
-                  <th class="column-title">Nummer crediteur</th>
-                  <th class="column-title">Soort uitgave</th>
-                  <th class="column-title">BTW %</th>
-                  <th class="column-title">Bedrag ex BTW</th>
-                  <th class="column-title">BTW</th>
-                  <th class="column-title">Bedrag incl BTW</th>
-                  <th class="column-title">Datum betaald</th>
-                  <th class="column-title">Betaald</th>
-                  <th class="column-title">Nog over</th>
+                  <th class="column-title"><%= sortable "spending_follow_number", "Uitgave nmr." %></th>
+                  <th class="column-title"><%= sortable "spending_date", "Datum" %></th>
+                  <th class="column-title"><%= sortable "spending_company_name", "Naam bedrijf"  %></th>
+                  <th class="column-title"><%= sortable "spending_cost_description", "Omschrijving kosten" %></th>
+                  <th class="column-title"><%= sortable "spending_invoice_number_creditor", "Nummer crediteur" %></th>
+                  <th class="column-title"><%= sortable "spending_type", "Soort uitgave" %></th>
+                  <th class="column-title"><%= sortable "spending_exclusive_VAT", "Bedrag ex BTW" %></th>
+                  <th class="column-title"><%= sortable "spending_VAT", "BTW" %></th>
+                  <th class="column-title"><%= sortable "spending_including_VAT", "Bedrag incl BTW" %></th>
+                  <th class="column-title"><%= sortable "spending_when_paid", "Datum betaald" %></th>
+                  <th class="column-title"><%= sortable "spending_paid", "Betaald" %></th>
+                  <th class="column-title"><%= sortable "spending_left", "Nog over" %></th>
                   <th class="column-title"></th>
                 </tr>
               </thead>
@@ -65,10 +64,6 @@
                     <td><%= spending.spending_cost_description %></td>
                     <td><%= spending.spending_invoice_number_creditor %></td>
                     <td><%= spending.spending_type %></td>
-                    <td>
-                      <% spending.spending_VAT_percentage = ((spending.spending_VAT.round(2)  / spending.spending_exclusive_VAT.round(2)) * 100.00) %>
-                      <%= rounding(spending.spending_VAT_percentage) %> %
-                    </td>
                     <td>
                       € <%= rounding(spending.spending_exclusive_VAT) %>
                     </td>

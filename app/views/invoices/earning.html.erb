@@ -58,7 +58,7 @@
                   <td><%= invoice.invoice_client_name %></td>
                   <td><%= invoice.invoice_subject %></td>
                   <td><%= invoice.invoice_VAT_number %></td>
-                  <td>€ <%= rounding(invoice.invoice_including_VAT) %></td>
+                  <td>€ <%= invoice.invoice_including_VAT %></td>
                   <% if invoice.invoice_when_paid.blank? %>
                     <%= form_for invoice do |f| %>
                         <td>

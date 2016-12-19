@@ -32,7 +32,7 @@
     <div class="form-group">
         <%= f.label :company_zipcode, 'Postcode', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_field :company_zipcode, :placeholder => 'Postcode', class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :company_zipcode, :placeholder => 'Postcode', id: 'company_zipcode', class: 'form-control col-md-7 col-xs-12' %><br>
         </div>
     </div>
     
@@ -96,6 +96,13 @@
         <%= f.label :company_kilometer_compensation, 'Kilometerregistratie', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <%= f.number_field :company_kilometer_compensation, :placeholder => 'Kilometerregistratie tarief', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :payment_terms, 'Betalingsvoorwaarde', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.text_area :payment_terms, :placeholder => 'Betalingsvoorwaarde voor factuur', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     

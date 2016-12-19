@@ -17,6 +17,7 @@ class PagesController < ApplicationController
   private
   
   def find_invoices
-    @invoices = Invoice.all.where(:invoice_definitive => true)
+    @invoices = Invoice.where(:invoice_definitive => true)
+    @spendings = Spending.all
   end
 end

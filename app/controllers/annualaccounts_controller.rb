@@ -11,18 +11,18 @@ class AnnualaccountsController < ApplicationController
     end
     
     def show
-        @inkoop = Spending.all.where("spending_type = 'Inkoop' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @personeelskosten = Spending.all.where("spending_type = 'Personeelskosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @huisvestingkosten = Spending.all.where("spending_type = 'Huisvestingkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @verkoopkosten = Spending.all.where("spending_type = 'Verkoopkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @consumptiekosten = Spending.all.where("spending_type = 'Consumptiekosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @reisverblijfskosten = Spending.all.where("spending_type = 'Reis- en verblijfkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @autokosten = Spending.all.where("spending_type = 'Autokosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @kantoorkosten = Spending.all.where("spending_type = 'Kantoorkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
-        @overigekosten = Spending.all.where("spending_type = 'Overige kosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @inkoop = Spending.where("spending_type = 'Inkoop' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @personeelskosten = Spending.where("spending_type = 'Personeelskosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @Huisvestigingskosten = Spending.where("spending_type = 'Huisvestigingskosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @verkoopkosten = Spending.where("spending_type = 'Verkoopkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @consumptiekosten = Spending.where("spending_type = 'Consumptiekosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @reisverblijfskosten = Spending.where("spending_type = 'Reis- en verblijfkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @autokosten = Spending.where("spending_type = 'Autokosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @kantoorkosten = Spending.where("spending_type = 'Kantoorkosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
+        @overigekosten = Spending.where("spending_type = 'Overige kosten' AND extract(year from spending_when_paid) = ?", @annualaccount.an_date.year)
         
-        @invoice = Invoice.all.where("invoice_paid IS NOT NULL AND extract(year from invoice_when_paid) = ?", @annualaccount.an_date.year)
-        @mileage = Mileage.all.where("extract(year from mileage_date) = ?", @annualaccount.an_date.year)
+        @invoice = Invoice.where("invoice_paid IS NOT NULL AND extract(year from invoice_when_paid) = ?", @annualaccount.an_date.year)
+        @mileage = Mileage.where("extract(year from mileage_date) = ?", @annualaccount.an_date.year)
     end
     
     def create

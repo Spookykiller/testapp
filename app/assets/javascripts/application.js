@@ -74,8 +74,17 @@ $(document).on('ready page:load', function () {
         });
     });
     
+    $('#spending_type').change(function() {
+    	if (this.value == "Consumptiekosten") {
+    		$('#spending_VAT').attr('disabled','disabled');
+    		$('#spending_VAT').val(0);
+    	} else {
+    		$('#spending_VAT').removeAttr('disabled');
+    	};
+    })
+    
     $('#client_zipcode').inputmask("9999 aa");
-    $('#client_phone').inputmask({ mask: "99[99] 99999999", greedy: false });
+    $('#company_zipcode').inputmask("9999 aa");
 
     $('#definitive').find('form').each(function() {
         $(this).find('input.form-control').prop('disabled', true);

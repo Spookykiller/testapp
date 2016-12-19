@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     member do
       get 'earning_edit'
       get 'definitive'
+      patch 'update_earning'
     end
   end
   resources :spendings

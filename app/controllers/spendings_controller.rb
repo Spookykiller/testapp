@@ -1,9 +1,10 @@
 class SpendingsController < ApplicationController
     before_action :authenticate_user!
     before_action :find_spending, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
     
     def index
-        @spendings = Spending.all.order("spending_date DESC")
+        @spendings = Spending.order(sort_column + " " + sort_direction)
     end
     
     def new
@@ -66,5 +67,13 @@ class SpendingsController < ApplicationController
     
     def find_spending
        @spending = Spending.find(params[:id]) 
+    end
+    
+    def sort_column
+       Spending.column_names.include?(params[:sort]) ? params[:sort] : "spending_follow_number" 
+    end
+    
+    def sort_direction
+       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

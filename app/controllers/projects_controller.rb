@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
     before_action :authenticate_user!
     before_action :find_project, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
 
-    
     def index
-        @projects = Project.all
+        @projects = Project.order(sort_column + " " + sort_direction)
     end
     
     def new
@@ -49,5 +49,13 @@ class ProjectsController < ApplicationController
     
     def find_project
        @project = Project.find(params[:id]) 
+    end
+    
+    def sort_column
+        Project.column_names.include?(params[:sort]) ? params[:sort] : "project_name"
+    end
+    
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

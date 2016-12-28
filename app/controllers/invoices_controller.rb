@@ -1,10 +1,11 @@
 class InvoicesController < ApplicationController
     before_action :authenticate_user!
     before_action :find_invoice, only: [:definitive, :earning_edit, :update_earning, :show, :edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
     
     def index
-        @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => [nil,false]).all.order('invoice_date DESC')
-        @invoices_definitive = Invoice.where(:invoice_definitive => true, :offer => [nil,false]).all.order('invoice_date DESC')
+        @invoices_concept = Invoice.where(:invoice_definitive => nil, :offer => [nil,false]).order(sort_column + " " + sort_direction)
+        @invoices_definitive = Invoice.where(:invoice_definitive => true, :offer => [nil,false]).order(sort_column + " " + sort_direction)
     end
     
     def earning
@@ -49,7 +50,7 @@ class InvoicesController < ApplicationController
                 render 'offer'
                 flash[:notice] = "Oh nee! De offerte is niet opgeslagen."
             end
-        else  
+        else
             if @invoice.save
                 flash[:notice] = "De factuur is opgeslagen!"
                 redirect_to action: "index"
@@ -72,7 +73,7 @@ class InvoicesController < ApplicationController
     end
     
     def update
-
+    
         if @invoice.offer == true
             if @invoice.update invoice_params
                 flash[:notice] = "Uw offerte is succesvol aangepast."
@@ -117,5 +118,13 @@ class InvoicesController < ApplicationController
     def find_invoice
        @invoice = Invoice.find(params[:id]) 
     end
-
+    
+    def sort_column
+        Invoice.column_names.include?(params[:sort]) ? params[:sort] : "invoice_number"
+    end
+    
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+    
 end

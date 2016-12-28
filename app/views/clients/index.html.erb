@@ -39,13 +39,13 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Klantnummer</th>
-                    <th class="column-title">Klantnaam</th>
-                    <th class="column-title">Bedrijfsnaam</th>
-                    <th class="column-title">Adres</th>
-                    <th class="column-title">Postcode</th>
-                    <th class="column-title">Plaats</th>
-                    <th class="column-title"></th>
+                    <th class="column-title"><%= sortable "client_number", "Klantnummer" %></th>
+                    <th class="column-title"><%= sortable "client_first_name", "Klantnaam" %></th>
+                    <th class="column-title"><%= sortable "client_company_name", "Bedrijfsnaam" %></th>
+                    <th class="column-title"><%= sortable "client_street", "Adres" %></th>
+                    <th class="column-title"><%= sortable "client_zipcode", "Postcode" %></th>
+                    <th class="column-title"><%= sortable "client_residence", "Plaats" %></th>
+                    <th class="column-title">Acties</th>
                 </tr>
               </thead>
             <% @clients.each do |client| %>

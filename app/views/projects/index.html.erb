@@ -38,14 +38,14 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Project</th>
-                    <th class="column-title">Klant</th>
-                    <th class="column-title">Budget</th>
+                    <th class="column-title"><%= sortable "project_name", "Project" %></th>
+                    <th class="column-title"><%= sortable "project_client", "Klant" %></th>
+                    <th class="column-title"><%= sortable "project_budget", "Budget" %></th>
                     <th class="column-title">Uurtarief</th>
                     <th class="column-title">Billable</th>
                     <th class="column-title">Non Billable</th>
                     <th class="column-title">Nog over</th>
-                    <th class="column-title"></th>
+                    <th class="column-title">Acties</th>
                 </tr>
               </thead>
             <% @projects.each do |project| %>
@@ -58,7 +58,7 @@
                     <td><%= project.project_client %></td>
                     
                     <%-# Budget -%>
-                    <td><%= project.project_budget %> uren</td>
+                    <td><%= rounding(project.project_budget) %> uren</td>
                     
                     <%-# Uurtarief -%>
                     <td>€ <%= rounding(project.project_hour_rate) %></td>
@@ -72,7 +72,7 @@
                             <% end %>
                         <% end %>
                         <% project.project_billable = som_billable_hours %>
-                        <%= project.project_billable %> uren
+                        <%= rounding(project.project_billable) %> uren
                     </td>
                     
                     <%-# Non Billable -%>
@@ -84,14 +84,14 @@
                             <% end %>
                         <% end %>
                         <% project.project_non_billable = som_hours %>
-                        <%= project.project_non_billable %> uren
+                        <%= rounding(project.project_non_billable) %> uren
                     </td>
                     
                     <%-# Nog over -%>
                     <td>
                         <% project.project_residual = project.project_budget - project.project_billable %>
                         
-                        <%= project.project_residual %> uren
+                        <%= rounding(project.project_residual) %> uren
                     </td>
                     
                     <%-# Acties -%>

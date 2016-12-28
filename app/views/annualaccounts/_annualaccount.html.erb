@@ -1,0 +1,188 @@
+<h3>Winst en verliesrekening <%= @annualaccount.an_date.year %></h3>
+<table class="table2">
+    <tbody>
+        <tr>
+            <td>Omzet</td> 
+            <td class="price_align">
+                <% revenue = 0 %>
+                <% invoice_left = 0 %>
+                <% @invoice.each do |invoice| %>
+                    <% revenue += invoice.invoice_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(revenue) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Inkoop</td> 
+            <td class="price_align">
+                <% purchase_expenses = 0 %>
+                <% @inkoop.all.each do |spending| %>
+                    <% purchase_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(purchase_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td></td> 
+            <td></td>
+        </tr>
+        <tr>
+            <td class="extra">Brutoresultaat</td>
+            <td class="extra price_align">
+                <% gross_margin = (revenue - purchase_expenses) %>
+                € <%= rounding(gross_margin) %>
+            </td>
+        </tr>
+        <tr>
+            <td></td> 
+            <td class="price_align"></td>
+        </tr>
+        <tr>
+            <td>Personeelskosten</td> 
+            <td class="price_align">
+                <% staff_expenses = 0 %>
+                <% @personeelskosten.each do |spending| %>
+                    <% staff_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(staff_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Huisvestingkosten</td> 
+            <td class="price_align">
+                <% accomodation_expenses = 0 %>
+                <% @Huisvestigingskosten.each do |spending| %>
+                    <% accomodation_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(accomodation_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Verkoopkosten</td> 
+            <td class="price_align">
+                <% sales_expenses = 0 %>
+                <% @verkoopkosten.each do |spending| %>
+                    <% sales_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(sales_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Consumptiekosten</td> 
+            <td class="price_align">
+                <% consumption_expenses = 0 %>
+                <% @consumptiekosten.each do |spending| %>
+                    <% consumption_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(consumption_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Reis- en verblijfkosten</td> 
+            <td class="price_align">
+                <% travel_expenses = 0 %>
+                <% @reisverblijfskosten.each do |spending| %>
+                    <% travel_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(travel_expenses) %>
+            </td>
+        </tr>
+        
+        <% car_expenses = 0 %>
+        <% Company.all.each do |company| %>
+            <% if company.id == current_user.company_id && company.company_business_car == true %>
+                <tr>
+                    <td>Autokosten</td> 
+                    <td class="price_align">
+                        <% @autokosten.each do |spending| %>
+                            <% car_expenses += spending.spending_exclusive_VAT %>
+                        <% end %>
+                        € <%= rounding(car_expenses) %>
+                    </td>
+                </tr>
+            <% else %>
+                <tr>
+                    <td>Kilometervergoeding</td> 
+                    <td class="price_align">
+                        <% @mileage.all.each do |mileage| %>
+                        
+                            <% if current_user.company.company_kilometer_compensation != 0 && mileage.mileage_billable == true %>
+                                <% mileage.mileage_compensation_rate = current_user.company.company_kilometer_compensation %>
+                            <% end %>
+                            
+                            <% if mileage.mileage_retour == true %>
+                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers * 2 %>
+                            <% else %>
+                                <% mileage.mileage_total_kilometers = mileage.mileage_kilometers %>
+                            <% end %>
+                            
+                            <% car_expenses += (mileage.mileage_total_kilometers * mileage.mileage_compensation_rate) %>
+
+                        <% end %>
+                        € <%= rounding(car_expenses) %>
+                    </td>
+                </tr>
+            <% end %>
+        <% end %>
+        
+        <tr>
+            <td>Kantoorkosten</td> 
+            <td class="price_align">
+                <% office_expenses = 0 %>
+                <% @kantoorkosten.each do |spending| %>
+                    <% office_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(office_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Overige kosten</td> 
+            <td class="price_align">
+                <% other_expenses = 0 %>
+                <% @overigekosten.each do |spending| %>
+                    <% other_expenses += spending.spending_exclusive_VAT %>
+                <% end %>
+                € <%= rounding(other_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td>Afschrijvingen</td> 
+            <td class="price_align">€ <%= rounding(@annualaccount.an_pr_depreciation) %></td>
+        </tr>
+        <tr>
+            <td>Bank- en rentekosten</td> 
+            <td class="price_align">€ <%= rounding(@annualaccount.an_pr_interest) %></td>
+        </tr>
+        <tr>
+            <td></td> 
+            <td></td>
+        </tr>
+        <tr>
+            <td class="extra">Totaal bedrijfskosten</td>
+            <td class="extra price_align">
+                <% total_company_expenses = 0 %>
+                <% total_company_expenses = (staff_expenses + other_expenses + consumption_expenses + sales_expenses + accomodation_expenses + car_expenses + travel_expenses + office_expenses + @annualaccount.an_pr_depreciation + @annualaccount.an_pr_interest) %>
+                € <%= rounding(total_company_expenses) %>
+            </td>
+        </tr>
+        <tr>
+            <td></td> 
+            <td></td>
+        </tr>
+        <tr>
+            <td class="extra">Nettoresultaat</td> 
+            
+            <% company_result = 0 %>
+            <% company_result = (gross_margin - total_company_expenses) %>
+            <% if company_result >= 0 %>  
+                <td class="extra price_align">
+                    € <%= rounding(company_result) %>
+                </td>
+            <% else %>
+                <td class="extra red price_align">
+                    € <%= rounding(company_result) %>
+                </td>
+            <% end %>
+        </tr>
+    <tbody>
+</table>

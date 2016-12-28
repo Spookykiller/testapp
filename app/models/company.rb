@@ -17,9 +17,10 @@ class Company < ActiveRecord::Base
     validates :company_VAT_number, presence: true
     validates :company_CC_number, presence: true
     validates :company_kilometer_compensation, presence: true
+    validates :payment_terms, presence: true
     validates :administration_code, presence: true
     
-    has_attached_file :company_logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+    has_attached_file :company_logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "http://www.koendersadvies.nl/beheer/wp-content/themes/koenders-1/img/koenders-logo-line.svg"
     validates_attachment_content_type :company_logo, content_type: /\Aimage\/.*\z/
     validates_attachment :company_logo, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
     

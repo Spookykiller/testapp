@@ -55,32 +55,31 @@
                 <% @spending_left_sum = 0 %>
                 
                 <% @spending.each do |spending| %>
-                  <tr>
-                    <td><%= spending.spending_follow_number %></td>
-                    <td><%= spending.spending_date %></td>
-                    <td><%= spending.spending_company_name %></td>
-                    <td><%= spending.spending_cost_description %></td>
-                    <td><%= spending.spending_invoice_number_creditor %></td>
-                    <td><%= spending.spending_type %></td>
-                    <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
-                    <td>
-                      <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                      <% @spending_left_sum += spending.spending_left %>
-                      € <%= rounding(spending.spending_left) %>
-                    </td>
-                    <td>
-                      <%= (Time.now - spending.spending_date).to_i / (24 * 60 * 60) %> dagen
-                    </td>
-                      
-                    <td>
-                    <%= link_to edit_spending_path(spending) do %>
-                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
-                    <% end %>
-                    <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
-                        <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
-                    <% end %>
-                    </td>
-                  </tr>
+                <tr>
+                  <td><%= spending.spending_follow_number %></td>
+                  <td><%= spending.spending_date %></td>
+                  <td><%= spending.spending_company_name %></td>
+                  <td><%= spending.spending_cost_description %></td>
+                  <td><%= spending.spending_invoice_number_creditor %></td>
+                  <td><%= spending.spending_type %></td>
+                  <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
+                  <td>
+                    <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
+                    <% @spending_left_sum += spending.spending_left %>
+                    € <%= rounding(spending.spending_left) %>
+                  </td>
+                  <td>
+                    <%= (Time.now - spending.spending_date).to_i / (24 * 60 * 60) %> dagen
+                  </td>
+                  <td>
+                  <%= link_to edit_spending_path(spending) do %>
+                    <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                  <% end %>
+                  <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
+                    <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
+                  <% end %>
+                  </td>
+                </tr>
                 <% end %>
               
               </tbody>
@@ -125,26 +124,26 @@
               <% @invoice_left_sum = 0 %>
               <% @invoices.each do |invoice| %>
                   <tbody>
-                      <tr>
-                        <td><%= invoice.invoice_number %></td>
-                        <td><%= invoice.invoice_date %></td>
-                        <td><%= invoice.invoice_client_name %></td>
-                        <td><%= invoice.invoice_subject %></td>
-                        <td><%= invoice.invoice_VAT_number %></td>
-                          <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
-                          <% invoice.invoice_VAT = som_BTW %>
-                          <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                        <td>
-                          <% @invoice_left_sum += invoice.invoice_left %>
-                          € <%= rounding(invoice.invoice_left) %>
-                        </td>
-                        <td>
-                          <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
-                        </td>
-                        <td>
-                          <%= link_to "Zie factuur", invoice_path(invoice) %>
-                        </td>
-                      </tr>
+                    <tr>
+                      <td><%= invoice.invoice_number %></td>
+                      <td><%= invoice.invoice_date %></td>
+                      <td><%= invoice.invoice_client_name %></td>
+                      <td><%= invoice.invoice_subject %></td>
+                      <td><%= invoice.invoice_VAT_number %></td>
+                        <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
+                        <% invoice.invoice_VAT = som_BTW %>
+                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                      <td>
+                        <% @invoice_left_sum += invoice.invoice_left %>
+                        € <%= rounding(invoice.invoice_left) %>
+                      </td>
+                      <td>
+                        <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
+                      </td>
+                      <td>
+                        <%= link_to "Zie factuur", invoice_path(invoice) %>
+                      </td>
+                    </tr>
                   </tbody>
               <% end %>
             </table>
@@ -214,6 +213,40 @@
           </div>
           <div class="x_content">
             <%= bar_chart Timesheet.all.group(:timesheet_name).sum(:timesheet_hours), library: {backgroundColor: "none"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12" id="time_registration">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Omzet per maand</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="help-link"><i class="fa fa-question"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <% @unique_years = [] %>
+            
+            <% Invoice.all.each do |invoice| %>
+              <% @unique_years.push(invoice.invoice_date.year) unless @unique_years.include?(invoice.invoice_date.year) %>
+            <% end %>
+            
+            <% @unique_years.sort! { |a,b| a <=> b } %>
+            
+            <%= line_chart @unique_years.map { |year|
+              {name: year, data: (Invoice.all.where("extract(year from invoice_date) = ?", year)).group_by_month(:invoice_date, format: "%b").sum(:invoice_exclusive_VAT)}
+            } %>
+            
+            <%# line_chart Invoice.group_by_month(:invoice_date, format: "%b %Y").sum(:invoice_exclusive_VAT), library: {backgroundColor: "none"}, xtitle: "Tijd", ytitle: "Omzet" %>
           </div>
         </div>
       </div>

@@ -110,36 +110,36 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title factuurnummer">Factuur nummer</th>
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Naam Opdrachtgever</th>
-                    <th class="column-title">Onderwerp</th>
-                    <th class="column-title">BTW nummer</th>
-                    <th class="column-title">Bedrag ex BTW</th>
-                    <th class="column-title">BTW</th>
-                    <th class="column-title">Bedrag incl BTW</th>
-                    <th class="column-title">Acties</th>
+                  <th class="column-title factuurnummer"><%= sortable "invoice_number", "Factuur nummer" %></th>
+                  <th class="column-title"><%= sortable "invoice_date", "Datum" %></th>
+                  <th class="column-title"><%= sortable "invoice_client_name", "Naam Opdrachtgever" %></th>
+                  <th class="column-title"><%= sortable "invoice_subject", "Onderwerp" %></th>
+                  <th class="column-title">BTW nummer</th>
+                  <th class="column-title">Bedrag ex BTW</th>
+                  <th class="column-title">BTW</th>
+                  <th class="column-title">Bedrag incl BTW</th>
+                  <th class="column-title">Acties</th>
                 </tr>
               </thead>
             <% @invoices_definitive.each do |invoice| %>
               <tbody>
-                  <tr>
-                    <td><%= invoice.invoice_number %></td>
-                    <td><%= invoice.invoice_date %></td>
-                    <td><%= invoice.invoice_client_name %></td>
-                    <td><%= invoice.invoice_subject %></td>
-                    <td><%= invoice.invoice_VAT_number %></td>
-                    <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
-                    <td>
-                        <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
-                        € <%= rounding(invoice.invoice_VAT) %>
-                    </td>
-                    <td> 
-                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                        € <%= rounding(invoice.invoice_including_VAT) %>
-                    </td>
-                    <td><%= link_to "Zie factuur", invoice_path(invoice), class: 'show_invoice' %></td>
-                  </tr>
+                <tr>
+                  <td><%= invoice.invoice_number %></td>
+                  <td><%= invoice.invoice_date %></td>
+                  <td><%= invoice.invoice_client_name %></td>
+                  <td><%= invoice.invoice_subject %></td>
+                  <td><%= invoice.invoice_VAT_number %></td>
+                  <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
+                  <td>
+                    <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
+                    € <%= rounding(invoice.invoice_VAT) %>
+                  </td>
+                  <td> 
+                    <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                    € <%= rounding(invoice.invoice_including_VAT) %>
+                  </td>
+                  <td><%= link_to "Zie factuur", invoice_path(invoice), class: 'show_invoice' %></td>
+                </tr>
               </tbody>
             <% end %>
             </table>

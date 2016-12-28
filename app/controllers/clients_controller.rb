@@ -3,9 +3,10 @@ class ClientsController < ApplicationController
     require "net/http"
     before_action :authenticate_user!
     before_action :find_client, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
 
     def index
-        @clients = Client.all
+        @clients = Client.order(sort_column + " " + sort_direction)
     end
     
     def new
@@ -64,5 +65,13 @@ class ClientsController < ApplicationController
     
     def find_client
        @client = Client.find(params[:id]) 
+    end
+    
+    def sort_column
+        Client.column_names.include?(params[:sort]) ? params[:sort] : "client_number"
+    end
+  
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

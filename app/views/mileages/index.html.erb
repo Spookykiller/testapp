@@ -39,12 +39,12 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Retour</th>
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Van</th>
-                    <th class="column-title">Naar</th>
+                    <th class="column-title"><%= sortable "mileage_retour", "Retour" %></th>
+                    <th class="column-title"><%= sortable "mileage_date", "Datum" %></th>
+                    <th class="column-title"><%= sortable "mileage_from", "Van" %></th>
+                    <th class="column-title"><%= sortable "mileage_to", "Naar" %></th>
                     <th class="column-title">Totaal Kilometers</th>
-                    <th class="column-title">Factureerbaar</th>
+                    <th class="column-title"><%= sortable "mileage_billable", "Factureerbaar" %></th>
                     <th class="column-title">Vergoeding</th>
                     <th class="column-title">Acties</th>
                 </tr>
@@ -65,10 +65,10 @@
                       <td>
                         <% if mileage.mileage_retour == true %>
                           <% mileage.mileage_total_kilometers = mileage.mileage_kilometers * 2 %>
-                          <%= mileage.mileage_total_kilometers %>
+                          <%= rounding(mileage.mileage_total_kilometers) %> km
                         <% else %>
                           <% mileage.mileage_total_kilometers = mileage.mileage_kilometers %>
-                          <%= mileage.mileage_total_kilometers %> km
+                          <%= rounding(mileage.mileage_total_kilometers) %> km
                         <% end %>
                       </td>
                       <td>

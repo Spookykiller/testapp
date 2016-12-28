@@ -19,19 +19,23 @@
     </div>
     <div class="clearfix"></div>
     <% @quarter_months = [1,2,3] %>
-    <% @quarter_string = "januari t/m maart" %>
+    <% @quarter_string = "kwartaal 1 (januari t/m maart" %>
     <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
     
     <% @quarter_months = [4,5,6] %>
-    <% @quarter_string = "april t/m juni" %>
+    <% @quarter_string = "kwartaal 2 (april t/m juni" %>
     <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
     
     <% @quarter_months = [7,8,9] %>
-    <% @quarter_string = "juli t/m september" %>
+    <% @quarter_string = "kwartaal 3 (juli t/m september" %>
     <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
     
     <% @quarter_months = [10,11,12] %>
-    <% @quarter_string = "oktober t/m december" %>
+    <% @quarter_string = "kwartaal 4 (oktober t/m december" %>
+    <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+    
+    <% @quarter_months = [1,2,3,4,5,6,7,8,9,10,11,12] %>
+    <% @quarter_string = "volledig jaaroverzicht (januari t/m december" %>
     <%= render partial: 'vat_form', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
     
   </div>

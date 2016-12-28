@@ -1,9 +1,10 @@
 class TimesheetsController < ApplicationController
     before_action :authenticate_user!
     before_action :find_timesheet, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction 
     
     def index
-        @timesheets = Timesheet.all
+        @timesheets = Timesheet.order(sort_column + " " + sort_direction)
     end
     
     def new
@@ -48,5 +49,13 @@ class TimesheetsController < ApplicationController
     
     def find_timesheet
        @timesheet = Timesheet.find(params[:id]) 
+    end
+    
+    def sort_column
+        Timesheet.column_names.include?(params[:sort]) ? params[:sort] : "timesheet_project_number"
+    end
+    
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

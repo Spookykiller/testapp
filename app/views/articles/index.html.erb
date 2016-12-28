@@ -39,11 +39,11 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Code</th>
-                    <th class="column-title">Bescrhijving</th>
-                    <th class="column-title">Eenheid</th>
+                    <th class="column-title"><%= sortable "article_code", "Code" %></th>
+                    <th class="column-title"><%= sortable "article_description", "Bescrhijving" %></th>
+                    <th class="column-title"><%= sortable "article_unit", "Eenheid" %></th>
                     <th class="column-title">BTW percentage</th>
-                    <th class="column-title">Prijs per eenheid</th>
+                    <th class="column-title"><%= sortable "article_unit_price", "Prijs per eenheid" %></th>
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>

@@ -39,13 +39,13 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Projectnaam</th>
-                    <th class="column-title">Beschrijving</th>
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Uren</th>
-                    <th class="column-title">Billable</th>
-                    <th class="column-title">Opmerkingen</th>
-                    <th class="column-title"></th>
+                    <th class="column-title"><%= sortable "timesheet_name", "Projectnaam" %></th>
+                    <th class="column-title"><%= sortable "timesheet_description", "Beschrijving" %></th>
+                    <th class="column-title"><%= sortable "timesheet_date", "Datum" %></th>
+                    <th class="column-title"><%= sortable "timesheet_hours", "Uren" %></th>
+                    <th class="column-title"><%= sortable "timesheet_billable", "Billable" %></th>
+                    <th class="column-title"><%= sortable "timesheet_comment", "Opmerkingen" %></th>
+                    <th class="column-title">Acties</th>
                 </tr>
               </thead>
             <% @timesheets.each do |timesheet| %>
@@ -54,12 +54,12 @@
                     <td><%= timesheet.timesheet_name %></td>
                     <td><%= timesheet.timesheet_description %></td>
                     <td><%= timesheet.timesheet_date %></td>
-                    <td><%= timesheet.timesheet_hours %></td>
+                    <td><%= rounding(timesheet.timesheet_hours) %></td>
                     <td>
                         <% if timesheet.timesheet_billable == true %>
-                            Ja
+                          Ja
                         <% else %>
-                            Nee
+                          Nee
                         <% end %>
                     </td>
                     <td><%= timesheet.timesheet_comment %></td>

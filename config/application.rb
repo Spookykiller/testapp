@@ -24,6 +24,14 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components', 'koenders', 'production')
-
+    
+    config.to_prepare do
+      Devise::SessionsController.layout "devise_layout"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise_layout" }
+      Devise::ConfirmationsController.layout "devise_layout"
+      Devise::UnlocksController.layout "devise_layout"            
+      Devise::PasswordsController.layout "devise_layout"        
+    end
+    
   end
 end

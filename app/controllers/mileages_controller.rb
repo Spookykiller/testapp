@@ -1,9 +1,10 @@
 class MileagesController < ApplicationController
     before_action :authenticate_user!
     before_action :find_mileage, only: [:edit, :update, :destroy]
+    helper_method :sort_column, :sort_direction
 
     def index
-        @mileages = Mileage.all
+        @mileages = Mileage.order(sort_column + " " + sort_direction)
     end
     
     def new
@@ -48,5 +49,13 @@ class MileagesController < ApplicationController
     
     def find_mileage
        @mileage = Mileage.find(params[:id]) 
+    end
+    
+    def sort_column
+        Mileage.column_names.include?(params[:sort]) ? params[:sort] : "mileage_date"
+    end
+    
+    def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

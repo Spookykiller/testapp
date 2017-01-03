@@ -497,6 +497,6 @@ if ($('.right_col').is( "#dashboard" )) {
 
 $('.close-link').each(function(e){
   $(this).click(function(){ 
-    toastr.warning('U heeft een tablad tijdelijk verwijderd! Om het tablet weer toe te voegen moet u de pagina herladen.')
+    toastr.warning('U heeft een tablad tijdelijk verwijderd! Om het tablad weer toe te voegen moet u de pagina herladen.')
   });
 });

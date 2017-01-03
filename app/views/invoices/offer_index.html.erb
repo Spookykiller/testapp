@@ -51,39 +51,39 @@
               </thead>
             <% @offers.each do |invoice| %>
               <tbody>
-                  <tr>
-                    <td><%= invoice.id %></td>
-                    <td><%= invoice.invoice_date %></td>
-                    <td><%= invoice.invoice_client_name %></td>
-                    <td><%= invoice.invoice_subject %></td>
-                    <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
-                    <td>
-                      <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
-                      € <%= rounding(invoice.invoice_VAT) %>
-                    </td>
-                    <td> 
-                      <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                      € <%= rounding(invoice.invoice_including_VAT) %>
-                    </td>
-                    <td>
-                    <%= link_to edit_invoice_path(invoice) do %>
-                      <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
-                    <% end %>
-                    <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze factuur wilt verwijderen?" } do %>
-                      <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
-                    <% end %>
-                    <%= link_to definitive_invoice_path(invoice) do %>
-                      <button class="btn btn-primary">Maak factuur</button>
-                    <% end %>
-                    </td>
-                  </tr>
+                <tr>
+                  <td><%= invoice.id %></td>
+                  <td><%= invoice.invoice_date %></td>
+                  <td><%= invoice.invoice_client_name %></td>
+                  <td><%= invoice.invoice_subject %></td>
+                  <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
+                  <td>
+                    <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
+                    € <%= rounding(invoice.invoice_VAT) %>
+                  </td>
+                  <td> 
+                    <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                    € <%= rounding(invoice.invoice_including_VAT) %>
+                  </td>
+                  <td>
+                  <%= link_to edit_invoice_path(invoice) do %>
+                    <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                  <% end %>
+                  <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze factuur wilt verwijderen?" } do %>
+                    <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                  <% end %>
+                  <%= link_to definitive_invoice_path(invoice) do %>
+                    <button class="btn btn-primary">Maak factuur</button>
+                  <% end %>
+                  </td>
+                </tr>
               </tbody>
             <% end %>
             </table>
             <div class="col-md-6 col-md-offset-5">
-                <%= link_to invoices_offer_path do %>
-                    <button class="btn btn-primary">Nieuwe offerte</button>
-                <% end %>
+              <%= link_to invoices_offer_path do %>
+                <button class="btn btn-primary">Nieuwe offerte</button>
+              <% end %>
             </div>
           </div>
         </div>

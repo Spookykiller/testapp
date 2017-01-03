@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     member do
       get 'earning_edit'
       get 'definitive'
+      patch 'transform_to_concept'
       patch 'update_earning'
     end
   end

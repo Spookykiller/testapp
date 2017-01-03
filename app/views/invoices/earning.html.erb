@@ -60,7 +60,7 @@
                   <td><%= invoice.invoice_VAT_number %></td>
                   <td>€ <%= rounding(invoice.invoice_including_VAT) %></td>
                   <% if invoice.invoice_when_paid.blank? %>
-                    <%= form_for invoice do |f| %>
+                    <%= form_for invoice, :url => {:action => "update_earning"} do |f| %>
                         <td>
                           <%= f.text_field :invoice_when_paid, :placeholder => 'Datum van betaling', class: 'form-control', :id => 'datepicker' %>
                         </td>

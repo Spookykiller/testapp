@@ -243,8 +243,13 @@
             <% @unique_years.sort! { |a,b| a <=> b } %>
             
             <%= line_chart @unique_years.map { |year|
-              {name: year, data: (Invoice.all.where("extract(year from invoice_date) = ?", year)).group_by_month(:invoice_date, format: "%b").sum(:invoice_exclusive_VAT)}
+              {name: year, data: (Invoice.all.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%b").sum(:invoice_exclusive_VAT)}
             } %>
+            
+            <%= line_chart @unique_years.map { |year|
+              @sum = 0
+              {name: year, data: (Invoice.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%b").sum(:invoice_exclusive_VAT).map { |x,y| { x => (@sum += y)} }.reduce({}, :merge)}
+            }, library: {curveType: "none"} %>
             
             <%# line_chart Invoice.group_by_month(:invoice_date, format: "%b %Y").sum(:invoice_exclusive_VAT), library: {backgroundColor: "none"}, xtitle: "Tijd", ytitle: "Omzet" %>
           </div>

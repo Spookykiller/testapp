@@ -58,12 +58,12 @@
                     <td><%= invoice.invoice_VAT_number %></td>
                     <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
                     <td>
-                        <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
-                        € <%= rounding(invoice.invoice_VAT) %>
+                      <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
+                      € <%= rounding(invoice.invoice_VAT) %>
                     </td>
                     <td> 
-                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                        € <%= rounding(invoice.invoice_including_VAT) %>
+                      <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                      € <%= rounding(invoice.invoice_including_VAT) %>
                     </td>
                     <td>
                     <%= link_to edit_invoice_path(invoice) do %>

@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_invoices, only: [:vat_declaration]
 
   def home
   end
@@ -12,12 +11,8 @@ class PagesController < ApplicationController
   end
   
   def vat_declaration
+    @invoices = Invoice.where('invoice_definitive = ? AND extract(year from invoice_date) = ?', true, Time.now.year)
+    @spendings = Spending.where('extract(year from spending_date) = ?', Time.now.year)
   end
   
-  private
-  
-  def find_invoices
-    @invoices = Invoice.where(:invoice_definitive => true)
-    @spendings = Spending.all
-  end
 end

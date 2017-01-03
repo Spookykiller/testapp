@@ -19,15 +19,23 @@
       </div>
     </div>
     <div class="clearfix"></div>
-    
     <div class="col-md-12 col-sm-12 col-xs-12"
       <div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-clock-o"></i> Totale omzet</span>
+          <span class="count_top"><i class="fa fa-line-chart"></i> Omzet <%= Time.now.year %></span>
           <div class="count">
             <% revenue_this_year = 0 %>
             <% revenue_last_year = 0 %>
+            <% invoice_current_count = 0 %>
+            <% invoice_last_count = 0 %>
             <% Invoice.all.each do |invoice| %>
+              <% if !invoice.offer? %>
+                <% invoice_current_count += 1 %>
+                <%#= Time.now.include?(invoice.created_at) %>
+                <% if (invoice.created_at).between?(Time.now.last_month.beginning_of_month, Time.now.last_month.end_of_month) %>
+                  <% invoice_last_count += 1 %>
+                <% end %>
+              <% end %>
               <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == Time.now.year %>
                 <% revenue_this_year += invoice.invoice_exclusive_VAT %>
               <% elsif !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == (Time.now.year - 1) %>
@@ -36,29 +44,57 @@
             <% end %>
             € <%= rounding(revenue_this_year) %>
           </div>
-          <%= revenue_last_year %>
-          <%= revenue_compared = (revenue_this_year / revenue_last_year) * 100 %>
-          <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> Van vorig jaar</span>
+          <% revenue_compared = (revenue_this_year - revenue_last_year) / revenue_last_year * 100 %>
+          <% if revenue_compared < 0 %>
+            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= revenue_compared.round %>% </i> Vergeleken met vorig jaar</span>
+          <% else %>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= revenue_compared.round %>% </i> Vergeleken met vorig jaar</span>
+          <% end %>
         </div>
+        
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
-          <div class="count green">2,500</div>
-          <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+          <span class="count_top"><i class="fa fa-credit-card"></i> Uitgaven <%= Time.now.year %></span>
+          <% current_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year)).sum(:spending_including_VAT) %>
+          <% last_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year - 1)).sum(:spending_including_VAT) %>
+          <div class="count">
+            € <%= rounding(current_spending) %>
+          </div>
+          <% spending_percentage = (current_spending - last_spending) / last_spending * 100 %>
+          <% if spending_percentage < 0 %>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i><%= spending_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+          <% else %>
+            <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i><%= spending_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+          <% end %>
         </div>
+        
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
-          <div class="count">4,567</div>
-          <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+          <span class="count_top"><i class="fa fa-envelope-o"></i> Resultaat <%= Time.now.year %> </span>
+          <div class="count">€ <%= rounding(revenue_this_year - current_spending) %></div>
+          <% result_percentage = (spending_percentage + revenue_compared) %>
+          <% if result_percentage < 0 %>
+            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= result_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+          <% else %>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= result_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+          <% end %>
         </div>
+        
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
-          <div class="count">2,315</div>
-          <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+          <span class="count_top"><i class="fa fa-envelope-o"></i> Totaal aangemaakte facturen </span>
+          <div class="count green"><%= invoice_current_count %></div>
+          <span class="count_bottom"></span><%= invoice_last_count %> vorige maand</span>
         </div>
+        
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-          <div class="count">7,325</div>
-          <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+          <span class="count_top"><i class="fa fa-clock-o"></i> Aantal logins </span>
+          <div class="count"><%= current_user.sign_in_count %></div>
+          <span class="count_bottom">Laatste login op <%= current_user.last_sign_in_at %></span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-user"></i> Aantal klanten </span>
+          <div class="count"><%= count = Client.count %></div>
+          <% saldo = count - Client.where("extract(year from created_at) = ?", (Time.now.year - 1)).count %>
+          <span class="count_bottom"><%= saldo %> meer dan vorig jaar</span>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_invoice, only: [:transform_to_concept, :definitive, :earning_edit, :update_earning, :show, :edit, :update, :destroy]
+    before_action :find_invoice, only: [:definitive, :earning_edit, :update_earning, :show, :edit, :update, :destroy]
     helper_method :sort_column, :sort_direction
     
     def index
@@ -94,19 +94,6 @@ class InvoicesController < ApplicationController
 
     end
     
-    def transform_to_concept
-        @invoice.offer = false
-        @invoice.invoice_date = Time.now
-        
-        if @invoice.update invoice_params
-            flash[:notice] = "Uw offerte is succesvol omgezet naar een conceptuele factuur."
-            redirect_to action: "index"
-        else
-            flash[:notice] = "Oh nee! Uw offerte kon niet omgezet worden."
-            render 'offer_index'
-        end
-    end
-    
     def update_earning
         if @invoice.update invoice_params
             flash[:notice] = "Uw betaling is succesvol aangepast."
@@ -129,7 +116,7 @@ class InvoicesController < ApplicationController
     end
     
     def find_invoice
-       @invoice = Invoice.find(params[:id]) 
+        @invoice = Invoice.find(params[:id]) 
     end
     
     def sort_column

@@ -60,17 +60,17 @@
                   <td><%= invoice.invoice_VAT_number %></td>
                   <td>€ <%= rounding(invoice.invoice_including_VAT) %></td>
                   <% if invoice.invoice_when_paid.blank? %>
-                    <%= form_for invoice, :url => {:action => "update_earning"} do |f| %>
-                        <td>
-                          <%= f.text_field :invoice_when_paid, :placeholder => 'Datum van betaling', class: 'form-control', :id => 'datepicker' %>
-                        </td>
-                        <td>
-                          <%= f.number_field :invoice_paid, :placeholder => 'Bedrag van betaling', class: 'form-control', :id => 'invoice_paid', :step => '0.01' %>
-                        </td>
-                    <td>
-                      <%= f.submit "opslaan", :class => 'btn btn-success', :id => 'save_earning' %>
+                    <%= form_for invoice, :url => update_earning_invoice_path(invoice), :html => {:class => 'form-horizontal form-label-left'} do |f| %>
+                      <td>
+                        <%= f.text_field :invoice_when_paid, :placeholder => 'Datum van betaling', class: 'form-control', :id => 'datepicker' %>
+                      </td>
+                      <td>
+                        <%= f.number_field :invoice_paid, :placeholder => 'Bedrag van betaling', class: 'form-control', :id => 'invoice_paid', :step => '0.01' %>
+                      </td>
+                      <td>
+                        <%= f.submit "opslaan", :class => 'btn btn-success', :id => 'save_earning' %>
+                      </td>
                     <% end %>
-                    </td>
                   <% else %>
                     <td><%= invoice.invoice_when_paid %></td>
                     <td>€ <%= rounding(invoice.invoice_paid) %></td>

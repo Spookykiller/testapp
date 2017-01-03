@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219082956) do
+ActiveRecord::Schema.define(version: 20170103112503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,11 @@ ActiveRecord::Schema.define(version: 20161219082956) do
     t.integer  "company_id"
     t.integer  "failed_attempts",        default: 0,  null: false
     t.datetime "locked_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.boolean  "allowed_to_log_in"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

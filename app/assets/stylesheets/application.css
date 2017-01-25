@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  *= require toastr
- *= require dataTables/jquery.dataTables
  *= require css/bootstrap.min.css
  *= require css/tour/bootstrap-tour.min.css
  *= require font-awesome
@@ -77,4 +76,12 @@ table th .asc {
 
 table th .desc {
     background-image: url("/images/icon_down.png");
+}
+
+.fa-warning {
+    color: red;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: middle !important;
 }

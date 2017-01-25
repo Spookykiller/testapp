@@ -25,6 +25,18 @@ class ClientsController < ApplicationController
             # x = Net::HTTP.post_form(URI.parse('https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/client_AppConnectorUpdate.php'), params)
             # puts x.body
             
+            if @client.client_gender == true
+                gender = "male"
+            elsif @client.client_gender == false
+                gender = "female"
+            else 
+                gender = ""
+            end
+            
+            # params = {'afas_debtor_id' => @client.client_number, 'company' => @client.client_company_name, 'firstname' => @client.client_first_name, 'lastname' => @client.client_last_name, 'gender' => gender, 'street' => @client.client_street, 'housenumber' => @client.client_street_number, 'toevoeging' => @client.client_street_addition, 'postcode' => @client.client_zipcode, 'city' => @client.client_residence, 'country' => "NL", 'telephone' => @client.client_phone, 'fax' => "", 'email' => @client.client_email }
+            # x = Net::HTTP.post_form(URI.parse('http://afas.webrtb.net/koenders-online/debtor'), params)
+            # puts x.body
+            
             redirect_to action: "index"
         else
             render 'new'

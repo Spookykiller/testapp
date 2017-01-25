@@ -48,8 +48,8 @@
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @clients.each do |client| %>
               <tbody>
+                <% @clients.each do |client| %>
                   <tr>
                       <td><%= client.client_number %></td>
                       <td><%= client.client_first_name + " " + client.client_last_name %></td>
@@ -59,15 +59,15 @@
                       <td><%= client.client_residence %></td>
                       <td>
                       <%= link_to edit_client_path(client) do %>
-                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                          <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                       <% end %>
                       <%= link_to client_path(client), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
-                          <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                          <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verwijderen"><i class="fa fa-trash-o"></i></button>
                       <% end %>
                       </td>
                   </tr>
+                <% end %>
               </tbody>
-            <% end %>
             </table>
             <div class="col-md-6 col-md-offset-5">
                 <%= link_to new_client_path do %>

@@ -19,8 +19,14 @@ class Invoice < ActiveRecord::Base
     private
             
     def set_invoice_left
-        if self.invoice_paid.present? && self.invoice_including_VAT.present? && self.invoice_paid > 0
-            self.invoice_left = self.invoice_including_VAT - self.invoice_paid
+        if self.invoice_paid.present? && self.invoice_including_VAT.present? 
+            if self.invoice_paid.blank?
+                self.invoice_left = self.invoice_including_VAT
+            else
+                self.invoice_left = self.invoice_including_VAT - self.invoice_paid
+            end
+        else
+            self.invoice_left = self.invoice_including_VAT
         end
     end
     

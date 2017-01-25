@@ -101,13 +101,18 @@
             <li><a><i class="fa fa-files-o"></i> Rapportages <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <li>
-                  <%= link_to pages_vat_declaration_path do %>
-                    BTW aangifte
+                  <%= link_to annualaccounts_path do %>
+                    Winst & verliesrekening
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to annualaccounts_path do %>
-                    Winst & verliesrekening
+                  <%= link_to pages_vat_declaration_path do %>
+                    BTW aangifte (<%= Time.now.year %>)
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to pages_past_vat_declaration_path do %>
+                    BTW aangifte (<%= Time.now.year - 1 %>)
                   <% end %>
                 </li>
               </ul>

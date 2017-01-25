@@ -47,8 +47,8 @@
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @articles.each do |article| %>
               <tbody>
+                <% @articles.each do |article| %>
                   <tr>
                       <td><%= article.article_code %></td>
                       <td><%= article.article_description %></td>
@@ -57,20 +57,21 @@
                       <td>€ <%= rounding(article.article_unit_price) %></td>
                       <td>
                       <%= link_to edit_article_path(article) do %>
-                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                        <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                       <% end %>
                       <%= link_to article_path(article), method: :delete, data: { confirm: "Weet je zeker dat je dit artikel wilt verwijderen?" } do %>
-                          <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                        <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verwijderen"><i class="fa fa-trash-o"></i></button>
                       <% end %>
                       </td>
                   </tr>
-              </tbody>
-            <% end %>
-            </table>
-            <div class="col-md-6 col-md-offset-5">
-                <%= link_to new_article_path do %>
-                    <button class="btn btn-primary">Nieuw artikel</button>
                 <% end %>
+              </tbody>
+            </table>
+
+            <div class="col-md-6 col-md-offset-5">
+              <%= link_to new_article_path do %>
+                <button class="btn btn-primary">Nieuw artikel</button>
+              <% end %>
             </div>
           </div>
         </div>

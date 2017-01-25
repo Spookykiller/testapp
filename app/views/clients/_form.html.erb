@@ -9,7 +9,7 @@
     <% end %>
 
     <div class="form-group">
-        <%= f.label :client_first_name, 'Klantnaam *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :client_first_name, 'Voor- en achternaam *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-3 col-sm-3 col-xs-6 form-group">
             <%= f.text_field :client_first_name, class: 'form-control', :placeholder => 'Voornaam', :required => true, autofocus: true %>
         </div>
@@ -59,11 +59,10 @@
             <%= f.radio_button :client_gender, true %>
             <%= f.label :client_gender, "Vrouw", :value => "false" %>
             <%= f.radio_button :client_gender, false %>
-            (Laat leeg voor onbekend)
+            <%= f.label :client_gender, "Onbekend", :value => "" %>
+            <%= f.radio_button :client_gender, "" %>
         </div>
     </div>
-    
-
     
     <div class="form-group">
         <%= f.label :client_phone, 'Telefoonnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>

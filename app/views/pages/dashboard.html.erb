@@ -19,91 +19,105 @@
       </div>
     </div>
     <div class="clearfix"></div>
-    <% begin %>
-      <div class="col-md-12 col-sm-12 col-xs-12"
-        <div class="row tile_count">
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-line-chart"></i> Omzet <%= Time.now.year %></span>
-            <div class="count">
-              <% revenue_this_year = 0 %>
-              <% revenue_last_year = 0 %>
-              <% invoice_current_count = 0 %>
-              <% invoice_last_count = 0 %>
-              <% Invoice.all.each do |invoice| %>
-                <% if !invoice.offer? %>
-                  <% invoice_current_count += 1 %>
-                  <%#= Time.now.include?(invoice.created_at) %>
-                  <% if (invoice.created_at).between?(Time.now.last_month.beginning_of_month, Time.now.last_month.end_of_month) %>
-                    <% invoice_last_count += 1 %>
-                  <% end %>
-                <% end %>
-                <% if !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == Time.now.year %>
-                  <% revenue_this_year += invoice.invoice_exclusive_VAT %>
-                <% elsif !invoice.invoice_paid.blank? && invoice.invoice_when_paid.year == (Time.now.year - 1) %>
-                  <% revenue_last_year += invoice.invoice_exclusive_VAT %>
+    <div class="col-md-12 col-sm-12 col-xs-12"
+      <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-line-chart"></i> Omzet <%= Time.now.year %></span>
+          <div class="count">
+            <% revenue_this_year = 0 %>
+            <% revenue_last_year = 0 %>
+            <% invoice_current_count = 0 %>
+            <% invoice_last_count = 0 %>
+            <% Invoice.all.each do |invoice| %>
+              <% if !invoice.offer? %>
+                <% invoice_current_count += 1 %>
+                <%#= Time.now.include?(invoice.created_at) %>
+                <% if (invoice.created_at).between?(Time.now.last_month.beginning_of_month, Time.now.last_month.end_of_month) %>
+                  <% invoice_last_count += 1 %>
                 <% end %>
               <% end %>
-              € <%= rounding(revenue_this_year) %>
-            </div>
-            <% revenue_compared = 0 %>
-            <% revenue_compared = (revenue_this_year - revenue_last_year) / revenue_last_year * 100 %>
-            <% if revenue_compared < 0 %>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= revenue_compared.round %>% </i> Vergeleken met vorig jaar</span>
-            <% else %>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= revenue_compared.round %>% </i> Vergeleken met vorig jaar</span>
+              <% if invoice.offer != true && invoice.invoice_date.year == Time.now.year %>
+                <% revenue_this_year += invoice.invoice_exclusive_VAT %>
+              <% elsif invoice.offer != true && invoice.invoice_date.year == (Time.now.year - 1) %>
+                <% revenue_last_year += invoice.invoice_exclusive_VAT %>
+              <% end %>
             <% end %>
+            € <%= rounding(revenue_this_year) %>
           </div>
           
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-credit-card"></i> Uitgaven <%= Time.now.year %></span>
-            <% current_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year)).sum(:spending_including_VAT) %>
-            <% last_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year - 1)).sum(:spending_including_VAT) %>
-            <div class="count">
-              € <%= rounding(current_spending) %>
-            </div>
-            <% spending_percentage = 0 %>
+          <% revenue_compared = 0 %>
+          <% revenue_compared = (revenue_this_year - revenue_last_year) / revenue_last_year * 100 %>
+          <% begin %>
+            <% if revenue_compared < 0 %>
+              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= revenue_compared.round %>%
+            <% else %>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= revenue_compared.round %>%
+            <% end %>
+          <% rescue %>
+            0%
+          <% end %>
+           </i> Vergeleken met vorig jaar</span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-credit-card"></i> Uitgaven <%= Time.now.year %></span>
+          <% current_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year)).sum(:spending_including_VAT) %>
+          <% last_spending = Spending.where("extract(year from created_at) = ?", (Time.now.year - 1)).sum(:spending_including_VAT) %>
+          <div class="count">
+            € <%= rounding(current_spending) %>
+          </div>
+          <% spending_percentage = 0 %>
+          
+          <% begin %>  
             <% spending_percentage = (current_spending - last_spending) / last_spending * 100 %>
             <% if spending_percentage < 0 %>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i><%= spending_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i><%= spending_percentage.round %>%
             <% else %>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i><%= spending_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+              <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i><%= spending_percentage.round %>%
             <% end %>
-          </div>
+          <% rescue %>
+            0%
+          <% end %>
+          </i> Vergeleken met vorig jaar</span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-envelope-o"></i> Resultaat <%= Time.now.year %> </span>
+          <div class="count">€ <%= rounding(revenue_this_year - current_spending) %></div>
+          <% result_percentage = 0 %>
           
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-envelope-o"></i> Resultaat <%= Time.now.year %> </span>
-            <div class="count">€ <%= rounding(revenue_this_year - current_spending) %></div>
-            <% result_percentage = 0 %>
+          <% begin %>
             <% result_percentage = (spending_percentage + revenue_compared) %>
             <% if result_percentage < 0 %>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= result_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%= result_percentage.round %>%
             <% else %>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= result_percentage.round %>% </i> Vergeleken met vorig jaar</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%= result_percentage.round %>%
             <% end %>
-          </div>
-          
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-envelope-o"></i> Totaal aangemaakte facturen </span>
-            <div class="count green"><%= invoice_current_count %></div>
-            <span class="count_bottom"></span><%= invoice_last_count %> vorige maand</span>
-          </div>
-          
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-clock-o"></i> Aantal logins </span>
-            <div class="count"><%= current_user.sign_in_count %></div>
-            <span class="count_bottom">Laatste login op <%= current_user.last_sign_in_at %></span>
-          </div>
-          
-          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-user"></i> Aantal klanten </span>
-            <div class="count"><%= count = Client.count %></div>
-            <% saldo = count - Client.where("extract(year from created_at) = ?", (Time.now.year - 1)).count %>
-            <span class="count_bottom"><%= saldo %> meer dan vorig jaar</span>
-          </div>
+          <% rescue %>
+            0%
+          <% end %>
+          </i> Vergeleken met vorig jaar</span>
         </div>
-      <% rescue %>
-      
-      <% end %>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-envelope-o"></i> Totaal aangemaakte facturen </span>
+          <div class="count green"><%= invoice_current_count %></div>
+          <span class="count_bottom"></span><%= invoice_last_count %> vorige maand</span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-clock-o"></i> Aantal logins </span>
+          <div class="count"><%= current_user.sign_in_count %></div>
+          <span class="count_bottom">Vorige login op <%= current_user.last_sign_in_at %></span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-user"></i> Aantal klanten </span>
+          <div class="count"><%= count = Client.count %></div>
+          <% saldo = count - Client.where("extract(year from created_at) = ?", (Time.now.year - 1)).count %>
+          <span class="count_bottom"><%= saldo %> meer dan vorig jaar</span>
+        </div>
+      </div>
     </div>
     
     <div class="row">
@@ -122,6 +136,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
+            
             <table class="table table-striped jambo_table bulk_action" id="example">
               <thead>
                 <tr class="headings">
@@ -141,31 +156,28 @@
                 <% @spending_left_sum = 0 %>
                 
                 <% @spending.each do |spending| %>
-                <tr>
-                  <td><%= spending.spending_follow_number %></td>
-                  <td><%= spending.spending_date %></td>
-                  <td><%= spending.spending_company_name %></td>
-                  <td><%= spending.spending_cost_description %></td>
-                  <td><%= spending.spending_invoice_number_creditor %></td>
-                  <td><%= spending.spending_type %></td>
-                  <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
-                  <td>
-                    <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
-                    <% @spending_left_sum += spending.spending_left %>
-                    € <%= rounding(spending.spending_left) %>
-                  </td>
-                  <td>
-                    <%= (Time.now - spending.spending_date).to_i / (24 * 60 * 60) %> dagen
-                  </td>
-                  <td>
-                  <%= link_to edit_spending_path(spending) do %>
-                    <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
-                  <% end %>
-                  <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze klant wilt verwijderen" } do %>
-                    <img src="/images/delete.png" alt="Wijzig" class="edit_icon">
-                  <% end %>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><%= spending.spending_follow_number %></td>
+                    <td><%= spending.spending_date %></td>
+                    <td><%= spending.spending_company_name %></td>
+                    <td><%= spending.spending_cost_description %></td>
+                    <td><%= spending.spending_invoice_number_creditor %></td>
+                    <td><%= spending.spending_type %></td>
+                    <% spending.spending_including_VAT = spending.spending_VAT + spending.spending_exclusive_VAT %>
+                    <td>
+                      <% spending.spending_left = spending.spending_including_VAT - spending.spending_paid %>
+                      <% @spending_left_sum += spending.spending_left %>
+                      € <%= rounding(spending.spending_left) %>
+                    </td>
+                    <td>
+                      <%= (Time.now - spending.spending_date).to_i / (24 * 60 * 60) %> dagen
+                    </td>
+                    <td>
+                    <%= link_to edit_spending_path(spending) do %>
+                      <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
+                    <% end %>
+                    </td>
+                  </tr>
                 <% end %>
               
               </tbody>
@@ -193,6 +205,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
+            <% @invoice_left_sum = 0 %>
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
@@ -204,34 +217,27 @@
                   <th class="column-title">Nog over</th>
                   <th class="column-title">Openstaand</th>
                   <th class="column-title">Acties</th>
+                  <th></th>
                 </tr>
               </thead>
-              
-              <% @invoice_left_sum = 0 %>
-              <% @invoices.each do |invoice| %>
-                  <tbody>
-                    <tr>
-                      <td><%= invoice.invoice_number %></td>
-                      <td><%= invoice.invoice_date %></td>
-                      <td><%= invoice.invoice_client_name %></td>
-                      <td><%= invoice.invoice_subject %></td>
-                      <td><%= invoice.invoice_VAT_number %></td>
-                        <% som_BTW = invoice.invoice_VAT_percentage * 0.01 * invoice.invoice_exclusive_VAT %>
-                        <% invoice.invoice_VAT = som_BTW %>
-                        <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                      <td>
-                        <% @invoice_left_sum += invoice.invoice_left %>
-                        € <%= rounding(invoice.invoice_left) %>
-                      </td>
-                      <td>
-                        <%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen
-                      </td>
-                      <td>
-                        <%= link_to "Zie factuur", invoice_path(invoice) %>
-                      </td>
-                    </tr>
-                  </tbody>
-              <% end %>
+              <tbody>
+                <% @invoices.each do |invoice| %>
+                  <tr>
+                    <td><%= invoice.invoice_number %></td>
+                    <td><%= invoice.invoice_date %></td>
+                    <td><%= invoice.invoice_client_name %></td>
+                    <td><%= invoice.invoice_subject %></td>
+                    <td><%= invoice.invoice_VAT_number %></td>
+                    <% @invoice_left_sum += invoice.invoice_left %>
+                    <td>€ <%= rounding(invoice.invoice_left) %></td>
+                    <td><%= (Time.now - invoice.invoice_date).to_i / (24 * 60 * 60) %> dagen</td>
+                    <td><%= link_to "Zie factuur", invoice_path(invoice) %></td>
+                    <% if ((invoice.invoice_date + current_user.company.payment_time.days) < Time.now) %>
+                      <td><button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verlopen"><i class="fa fa-warning"></i></button></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
             </table>
             
             Totaal nog te ontvangen bedrag: € <%= rounding(@invoice_left_sum) %>
@@ -329,8 +335,8 @@
             <% @unique_years.sort! { |a,b| a <=> b } %>
             
             <%= line_chart @unique_years.map { |year|
-              {name: year, data: (Invoice.all.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%h").order("month asc").sum(:invoice_exclusive_VAT)}
-            }, library: {curveType: "none"}, xtitle: "Maanden", ytitle: "Omzet (€)", min: -200 %>
+              {name: year, data: (Invoice.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%m").order("month asc").sum(:invoice_exclusive_VAT)}
+            }, library: {curveType: "none"}, xtitle: "Maanden", ytitle: "Omzet (€)", min: -200, discrete: false %>
             
           </div>
         </div>
@@ -354,10 +360,15 @@
           </div>
           <div class="x_content">
             
+            <%#= line_chart @unique_years.map { |year|
+              @sum = 0
+              {name: year, data: (Invoice.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%b%t%m").order("month asc").sum(:invoice_exclusive_VAT).map { |x,y| { x => (@sum += y)} }.reduce({}, :merge)}
+            }, library: {curveType: "none"}, xtitle: "Maanden", ytitle: "Omzet (€)"  %>
+            
             <%= line_chart @unique_years.map { |year|
               @sum = 0
-              {name: year, data: (Invoice.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%h").order("month asc").sum(:invoice_exclusive_VAT).map { |x,y| { x => (@sum += y)} }.reduce({}, :merge)}
-            }, library: {curveType: "none"}, xtitle: "Maanden", ytitle: "Omzet (€)"  %>
+              {name: year, data: (Invoice.where("extract(year from invoice_date) = ? AND offer != true", year)).group_by_month(:invoice_date, format: "%m").order("month asc").sum(:invoice_exclusive_VAT).map { |x,y| { x => (@sum += y)} }.reduce({}, :merge)}
+            }, library: {curveType: "none"}, xtitle: "Maanden", ytitle: "Omzet (€)", discrete: false %>
             
           </div>
         </div>

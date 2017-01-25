@@ -44,3 +44,11 @@
     max-width: 300px;
     max-height: 120px;
 }
+
+#totals tr td {
+    text-align: right;
+}
+
+#modal_totals td {
+    text-align: right;
+}

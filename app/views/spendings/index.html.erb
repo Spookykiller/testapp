@@ -80,7 +80,7 @@
                     </td>
                     <td>
                     <%= link_to edit_spending_path(spending) do %>
-                      <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                     <% end %>
                     <%= link_to spending_path(spending), method: :delete, data: { confirm: "Weet je zeker dat je deze uitgave wilt verwijderen?" } do %>
                       <img src="/images/delete.png" alt="Wijzig" class="edit_icon">

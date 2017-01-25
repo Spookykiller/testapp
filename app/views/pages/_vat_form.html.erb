@@ -48,7 +48,7 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Voorbeeld BTW aangifte | <%= @quarter_string %> <%= Time.now.year %>)</h2>
+        <h2>Voorbeeld BTW aangifte | <%= @quarter_string %> <%= @year %>)</h2>
         <ul class="nav navbar-right panel_toolbox">
           <% if @quarter_months.include? Time.now.month %>
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -188,7 +188,17 @@
                 <tr>
                   <td>5f. Schatting deze aangifte</td>
                   <td class="price_align"></td>
-                  <td class="extra price_align">€ <%= subtotal %></td>
+                  <td class="extra price_align">€ 0</td>
+                </tr>
+                <tr>
+                  <td>5g. Totaal te betalen</td>
+                  <td class="price_align"></td>
+                  <td class="price_align">€ <%= subtotal %></td>
+                </tr>
+                <tr>
+                  <td>terug te vragen</td>
+                  <td class="price_align"></td>
+                  <td class="price_align">€ <%= subtotal %></td>
                 </tr>
             </tbody>
         </table>
@@ -197,7 +207,7 @@
           <div class="modal-dialog modal-lg">
             <div class="modal-content" style="width:920px">
               <div class="container-fluid invoice_wrapper" style="margin:10px" id="print-me">
-                <%= render partial: 'vat_print', @quarter_months => @quarter_months, @quarter_string => @quarter_string %>
+                <%= render partial: 'vat_print', @quarter_months => @quarter_months, @quarter_string => @quarter_string, @year => @year %>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" onclick="printDiv('print-me')">Print</button>

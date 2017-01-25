@@ -49,8 +49,8 @@
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @mileages.each do |mileage| %>
               <tbody>
+                <% @mileages.each do |mileage| %>
                   <tr>
                       <td>
                         <% if mileage.mileage_retour == true %>
@@ -87,15 +87,15 @@
                       </td>
                       <td>
                       <%= link_to edit_mileage_path(mileage) do %>
-                          <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                          <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                       <% end %>
                       <%= link_to mileage_path(mileage), method: :delete, data: { confirm: "Weet je zeker dat je deze kilometerregistratie wilt verwijderen?" } do %>
-                          <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                          <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verwijderen"><i class="fa fa-trash-o"></i></button>
                       <% end %>
                       </td>
                   </tr>
+                <% end %>
               </tbody>
-            <% end %>
             </table>
             <div class="col-md-6 col-md-offset-5">
                 <%= link_to new_mileage_path do %>

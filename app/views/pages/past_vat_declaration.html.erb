@@ -3,7 +3,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>BTW aangifte <%= Time.now.year %></h3>
+        <h3>BTW aangifte <%= (Time.now.year - 1) %></h3>
       </div>
 
       <div class="title_right">
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="clearfix"></div>
-    <% @year = Time.now.year %>
+    <% @year = Time.now.year - 1 %>
     
     <% @quarter_months = [1,2,3] %>
     <% @quarter_string = "kwartaal 1 (januari t/m maart" %>

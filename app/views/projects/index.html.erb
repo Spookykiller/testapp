@@ -48,8 +48,8 @@
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @projects.each do |project| %>
               <tbody>
+                <% @projects.each do |project| %>
                   <tr>
                     <%-# Project -%>
                     <td><%= project.project_name %></td>
@@ -97,22 +97,21 @@
                     <%-# Acties -%>
                     <td>
                     <%= link_to edit_project_path(project) do %>
-                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                        <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                     <% end %>
                     <%= link_to project_path(project), method: :delete, data: { confirm: "Weet je zeker dat je dit project wilt verwijderen" } do %>
-                        <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                        <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verwijderen"><i class="fa fa-trash-o"></i></button>
                     <% end %>
                     </td>
                   </tr>
+                <% end %>
               </tbody>
-            <% end %>
-                        
             </table>
             
             <div class="col-md-6 col-md-offset-5">
-                <%= link_to new_project_path do %>
-                    <button class="btn btn-primary">Nieuw project</button>
-                <% end %>
+              <%= link_to new_project_path do %>
+                <button class="btn btn-primary">Nieuw project</button>
+              <% end %>
             </div>
           </div>
         </div>

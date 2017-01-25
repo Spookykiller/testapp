@@ -7,14 +7,7 @@
             <% end %>
         </ul>
     <% end %>
-    
-    <div class="form-group">
-        <%= f.label :administration_code, 'Administratiecode', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.number_field :administration_code, :placeholder => 'Administratiecode', class: 'form-control col-md-7 col-xs-12' %><br>
-        </div>
-    </div>
-    
+
     <div class="form-group">
         <%= f.label :company_name, 'Naam van bedrijf', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -65,7 +58,7 @@
     </div>
     
     <div class="form-group">
-        <%= f.label :company_bank_account_number, 'Rekeningnummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :company_bank_account_number, 'IBAN nummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <%= f.text_field :company_bank_account_number, :placeholder => 'Rekeningnummer', class: 'form-control col-md-7 col-xs-12', :required => true %><br>
         </div>
@@ -98,11 +91,18 @@
             <%= f.number_field :company_kilometer_compensation, :placeholder => 'Kilometerregistratie tarief', class: 'form-control col-md-7 col-xs-12', :step => '0.01', :required => true %><br>
         </div>
     </div>
+    
+    <div class="form-group">
+        <%= f.label :payment_time, 'Betalingsperiode', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <%= f.number_field :payment_time, :placeholder => 'Betalingsperiode in dagen', class: 'form-control col-md-7 col-xs-12', :step => '1', :required => true %><br>
+        </div>
+    </div>
 
     <div class="form-group">
-        <%= f.label :payment_terms, 'Betalingsvoorwaarde', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+        <%= f.label :terms_and_conditions, 'Algemenevoorwaarde', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <%= f.text_area :payment_terms, :placeholder => 'Betalingsvoorwaarde voor factuur', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
+            <%= f.text_area :terms_and_conditions, :placeholder => 'Algemenevoorwaarde voor op factuur', class: 'form-control col-md-7 col-xs-12', :step => '0.01' %><br>
         </div>
     </div>
     

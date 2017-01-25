@@ -22,7 +22,7 @@
       .form-group
         = f.label :invoice_client_name, 'Naam Opdrachtgever *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
         .col-md-6.col-sm-6.col-xs-12
-          = f.collection_select :invoice_client_name, Client.all, :client_last_name, :client_last_name, {include_blank: true}, class: "form-control", id: 'invoice_invoice_client_name'
+          = f.select :invoice_client_name, options_for_select(Client.all.map{ |c| [c.client_last_name + ' - ' + c.client_company_name, c.id] }), {}, { :id => 'invoice_invoice_client_name', :class => 'form-control' }
           %br/
       .form-group
         = f.label :invoice_subject, 'Onderwerp *', class: 'control-label col-md-3 col-sm-3 col-xs-12'
@@ -67,7 +67,7 @@
           'data-association-insertion-node' => 'table', :class => 'btn btn-success btn-sm', :id => 'addrow'
 
       .row
-        .col-xs-6.col-xs-offset-6
+        .col-xs-4.col-xs-offset-8
           .table-responsive
             %table#totals.table.table-hover
               %tr

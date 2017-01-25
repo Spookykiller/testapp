@@ -30,7 +30,6 @@
 //= require js/flot/curvedLines.js
 //= require js/flot/jquery.flot.resize.js
 
-
 //= require js/maps/jquery-jvectormap-2.0.3.min.js
 //= require js/maps/gdp-data.js
 //= require js/maps/jquery-jvectormap-world-mill-en.js
@@ -74,6 +73,18 @@ $(document).on('ready page:load', function () {
         });
     });
     
+    $('table.jambo_table').DataTable( {
+    	"info": false
+    });
+
+    $('.datepicker').each(function(){
+        $(this).daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            format: 'DD/MM/YYYY'
+        });
+    });
+    
     $('#spending_type').change(function() {
     	if (this.value == "Consumptiekosten") {
     		$('#spending_VAT').attr('disabled','disabled');
@@ -83,6 +94,7 @@ $(document).on('ready page:load', function () {
     	};
     })
     
+    $('#phone_number').inputmask("9999999999");
     $('#client_zipcode').inputmask("9999 aa");
     $('#company_zipcode').inputmask("9999 aa");
 
@@ -94,13 +106,14 @@ $(document).on('ready page:load', function () {
     })
 
     update_numbers();
+    VAT_total();
     
     $('#items').on('cocoon:after-insert', function(e, insertedItem){
         update_numbers();
     });
     
     $('#items').on('cocoon:before-insert', function(e, insertedItem) {
-        insertedItem.fadeIn('slow');
+        insertedItem.fadeIn('slo');
         update_numbers();
     });
     
@@ -114,12 +127,36 @@ $(document).on('ready page:load', function () {
     });
     
     collapse_field();
+    
+    $('body').on('keydown', 'input, select, textarea', function(e) {
+	    var self = $(this)
+	      , form = self.parents('form:eq(0)')
+	      , focusable
+	      , next
+	      ;
+	    if (e.keyCode == 13) {
+	        focusable = form.find('input,a,select,button,textarea').filter(':visible');
+	        next = focusable.eq(focusable.index(this)+1);
+	        if (next.length) {
+	            next.focus();
+	        } else {
+	            form.submit();
+	        }
+	        return false;
+	    }
+	});
+    
 });
 
+var total_VAT6_final = 0.00;
+var total_VAT21_final = 0.00;
+var subtotal_final = 0.00;
+
+
 function VAT_total() {
-    
+	
     var total_VAT6 = 0.00;
-    var total_VAT21 = 0.00;
+	var total_VAT21 = 0.00;
     var total_VAT = 0.00;
     var subtotal = 0.00;
     var subtotal_0 = 0.00;
@@ -128,15 +165,13 @@ function VAT_total() {
     var total = 0.00;
 	$('tr.nested-fields').each(function(){
 
-	    var column_qty = Number($(this).find('#item_qty').val());
-	    var colum_item_cost = Number($(this).find('#item_cost').val());
+	    var column_qty = deformat($(this).find('#item_qty').val());
+	    var colum_item_cost = deformat($(this).find('#item_cost').val());
 	    var column_total_price = Number(column_qty) * Number(colum_item_cost);
 	    
-	    $(this).find('.price').html(column_total_price.toFixed(2));
-	    
-	    var column_price = Number($(this).find('.price').html());
-	    var column_VAT = 0.01 * Number($(this).find('#item_VAT').val());
-
+	    var column_price = deformat($(this).find('.price').html());
+	    var column_VAT = 0.01 * deformat($(this).find('#item_VAT').val());
+		
         if (column_VAT == 0.06) {
             var column_VAT_total6 = Number(column_VAT) * Number(column_price);
             subtotal_6 += Number(column_total_price);
@@ -153,31 +188,36 @@ function VAT_total() {
         }
         
         subtotal += Number(column_total_price);
+        $(this).find('.price').html(column_total_price.toFixed(2));
 	});
 	
 	total = Number(subtotal) + Number(total_VAT6) + Number(total_VAT21);
 	total_VAT = Number(total_VAT6) + Number(total_VAT21);
+	total_VAT6_final = Number(total_VAT6);
+	total_VAT21_final = Number(total_VAT21);
 	
-	$('.VAT_6').html(Number(total_VAT6.toFixed(2)));
-	$('.VAT_21').html(Number(total_VAT21.toFixed(2)));
-    $('.due').html(total.toFixed(2));
+	subtotal_final = Number(subtotal);
+	
+	$('.VAT_6').html(format(Number(total_VAT6)));
+	$('.VAT_21').html(format(Number(total_VAT21)));
+    $('.due').html(format(total));
     
     $('#invoice_VAT6').val(Number(total_VAT6.toFixed(2)));
 	$('#invoice_VAT21').val(Number(total_VAT21.toFixed(2)));
     $('#invoice_invoice_VAT').val(total_VAT.toFixed(2));
     
-    $('#subtotal').html(subtotal.toFixed(2));
+    $('#subtotal').html(format(subtotal));
 
-    $('#subtotal_0').html(subtotal_0.toFixed(2));
-    $('#subtotal_6').html(subtotal_6.toFixed(2));
-    $('#subtotal_21').html(subtotal_21.toFixed(2));
+    $('#subtotal_0').html(format(subtotal_0));
+    $('#subtotal_6').html(format(subtotal_6));
+    $('#subtotal_21').html(format(subtotal_21));
     
-    $('#invoice_subtotal_0').val(subtotal_0.toFixed(2));
-    $('#invoice_subtotal_6').val(subtotal_6.toFixed(2));
-    $('#invoice_subtotal_21').val(subtotal_21.toFixed(2));
+    $('#invoice_subtotal_0').val(format(subtotal_0));
+    $('#invoice_subtotal_6').val(format(subtotal_6));
+    $('#invoice_subtotal_21').val(format(subtotal_21));
     
     $('#invoice_invoice_exclusive_VAT').val(subtotal.toFixed(2));
-    $('#invoice_invoice_including_VAT').val(total.toFixed(2));
+    $('#invoice_invoice_including_VAT').val(total);;
 
 }
 
@@ -199,15 +239,12 @@ function update_numbers() {
 	});
 	
 	$('body').on('click', '#invoicing', function(){
-		var e = $('#9').val();
+		var e = deformat($('#9').val());
 		$('#invoice_invoice_VAT_percentage').empty();
 		$('#invoice_invoice_VAT_percentage').val(Number(e));
-	});
-	
-	$('body').on('click', '#invoicing', function(){
-		var f = $('#subtotal').html();
+
 		$('#invoice_invoice_exclusive_VAT').empty();
-		$('#invoice_invoice_exclusive_VAT').val(Number(f));
+		$('#invoice_invoice_exclusive_VAT').val(Number(subtotal_final));
 	});
 	
 	$('body').on('click', '#invoice_button', function(){
@@ -224,12 +261,12 @@ function update_numbers() {
 		bind4($('#invoice_id'), $('#modal_invoice_number'));
 		
 		// Showing rows in invoice if value is not 0
-		if ($('.VAT_6').html() == 0) {
+		if (Number(total_VAT6_final) == 0) {
 		    $('#invoice_VAT_6').hide();
 		} else {
 		    $('#invoice_VAT_6').show();
 		}
-		if ($('.VAT_21').html() == 0) {
+		if (Number(total_VAT21_final) == 0) {
 		    $('#invoice_VAT_21').hide();
 		} else {
 		    $('#invoice_VAT_21').show();
@@ -252,16 +289,33 @@ function update_numbers() {
 			$('.modal-nested-fields:last').append('<td>' + VAT + '</td>');
 
 			var qty = $(row).find('.qty').val();
-			$('.modal-nested-fields:last').append('<td>' + qty + '</td>');
+			$('.modal-nested-fields:last').append('<td>' + format(Number(qty)) + '</td>');
 			
 			var cost = $(row).find('.cost').val();
-			$('.modal-nested-fields:last').append('<td> € ' + cost + '</td>');
+			$('.modal-nested-fields:last').append('<td> € ' + format(Number(cost)) + '</td>');
 			
 			var price = $(row).find('.price').text();
-			$('.modal-nested-fields:last').append('<td> € ' + price + '</td>');
+			$('.modal-nested-fields:last').append('<td> € ' + format(Number(price)) + '</td>');
 
 		}
 		
 	});
     
+}
+
+function format(yourNumber) {
+	yourNumber = yourNumber.toFixed(2);
+
+    var n= yourNumber.toString().split(".");
+    //Comma-fies the first part
+    n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    //Combines the two sections
+    return n.join(",");
+}
+
+function deformat(yourNumber) {
+	var n = yourNumber.replace(/,/g, '.');
+	
+	console.log(n);
+	return n;
 }

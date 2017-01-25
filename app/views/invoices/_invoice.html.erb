@@ -39,7 +39,6 @@
 <div class="col-xs-4 invoice-col" id="client-address-col">
   <div class="address_input">
     <span id="client_name" class="bold"></span><br>
-    <span id="client_contact_person"></span><br>
     <span id="client_address"></span><br>
     <span id="client_zipcode"></span> <span id="client_residence"></span><br>
   </div>
@@ -65,15 +64,15 @@
       <div class="col-xs-12"></div>
 
       <div class="form-group">
-        <div class="col-xs-4"><label>Factuur datum</label></div>
-        <div class="col-xs-8"><span id="modal_invoice_date" class="invoice_header_date pull-right"></span></div>
+        <div class="col-xs-5"><label>Factuur datum</label></div>
+        <div class="col-xs-7"><span id="modal_invoice_date" class="invoice_header_date pull-right"></span></div>
       </div>
                     
       <div class="col-xs-12"></div>
 
       <div class="form-group">
         <div class="col-xs-5 invoice_space"><label>Verschuldigd</label></div>
-        <div class="col-xs-7 invoice_space bold" style="text-align:right"><span class="due">875.00</span><span class="subtotal_currency"></span></div>
+        <div class="col-xs-7 invoice_space bold" style="text-align:right">€ <span class="due"></span><span class="subtotal_currency"></span></div>
       </div>
     </form>
   </div><!-- /.col -->
@@ -129,8 +128,10 @@
   </div>
   
   <div id="modal_terms">
-    <% if !current_user.company.payment_terms.blank? %>
-      <%= current_user.company.payment_terms %>
+    Betaling binnen <%= current_user.company.payment_time %> dagen op rekening <%= current_user.company.company_bank_account_number %> t.n.v <%= current_user.company.company_name %>
+    <br>
+    <% if !current_user.company.terms_and_conditions.blank? %>
+      <%= current_user.company.terms_and_conditions %>
     <% end %>
   </div>
 

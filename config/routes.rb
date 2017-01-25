@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'plainpage/index'
   
   get 'pages/vat_declaration'
+  get 'pages/past_vat_declaration'
   
   get 'invoices/client_update'
   get 'invoices/earning'

@@ -1,18 +1,28 @@
 <% Client.all.each do |client| %>
     <%= javascript_tag do %>
         var selects = document.getElementById("invoice_invoice_client_name");
-        var selectedText = selects.options[selects.selectedIndex].text;
+        var selectedText = selects.options[selects.selectedIndex].getAttribute("value");
         var $jsValue = document.querySelector('.jsValue');
 
-        if ('<%= j client.client_last_name %>' == selectedText) {
-            var client_name = "<%= j client.client_company_name.to_json %>";
-            var client_contact_person = "<%= j client.client_first_name.to_json %>" + " <%= j client.client_last_name.to_json %>";
+        if ('<%= client.id %>' == selectedText) {
+            <% if !client.client_company_name.blank? %>
+                var client_name = "<%= j client.client_company_name.to_json %>";
+            <% else %>
+                <% if !client.client_gender.nil? %>
+                    <% if client.client_gender == true %>
+                        var client_name = "De heer" + " <%= j client.client_last_name.to_json %>";
+                    <% else %>
+                        var client_name = "Mevrouw" + " <%= j client.client_last_name.to_json %>";
+                    <% end %>
+                <% else %>
+                    var client_name = "<%= j client.client_first_name.to_json %>" + " <%= j client.client_last_name.to_json %>";
+                <% end %>
+            <% end %>
             var client_address = "<%= j client.client_street.to_json %>" + " <%= j client.client_street_number.to_json %>"  + " <%= j client.client_street_addition.to_json %>";
             var client_zipcode = "<%= j client.client_zipcode.to_json %>";
             var client_residence = '<%= j client.client_residence.to_json %>';
             
             document.getElementById("client_name").innerHTML = client_name.replace(/&quot;/g, "");
-            document.getElementById("client_contact_person").innerHTML = client_contact_person.replace(/&quot;/g, "");
             document.getElementById("client_address").innerHTML = client_address.replace(/&quot;/g, "");
             document.getElementById("client_zipcode").innerHTML = client_zipcode.replace(/&quot;/g, "");
             document.getElementById("client_residence").innerHTML = client_residence.replace(/&quot;/g, "");

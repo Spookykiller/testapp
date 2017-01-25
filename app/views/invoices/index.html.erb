@@ -39,9 +39,9 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                    <th class="column-title">Datum</th>
-                    <th class="column-title">Naam Opdrachtgever</th>
-                    <th class="column-title">Onderwerp</th>
+                    <th class="column-title"><%= sortable "invoice_date", "Datum" %></th>
+                    <th class="column-title"><%= sortable "invoice_client_name", "Naam Opdrachtgever" %></th>
+                    <th class="column-title"><%= sortable "invoice_subject", "Onderwerp" %></th>
                     <th class="column-title">BTW nummer</th>
                     <th class="column-title">Bedrag ex BTW</th>
                     <th class="column-title">BTW</th>
@@ -49,8 +49,8 @@
                     <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @invoices_concept.each do |invoice| %>
               <tbody>
+                <% @invoices_concept.each do |invoice| %>
                   <tr>
                     <td><%= invoice.invoice_date %></td>
                     <td><%= invoice.invoice_client_name %></td>
@@ -67,18 +67,18 @@
                     </td>
                     <td>
                     <%= link_to edit_invoice_path(invoice) do %>
-                        <img src="/images/pencil-edit-button.png" alt="Delete" class="edit_icon">
+                      <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Wijzigen"><i class="fa fa-pencil"></i></button>
                     <% end %>
                     <%= link_to invoice_path(invoice), method: :delete, data: { confirm: "Weet je zeker dat je deze factuur wilt verwijderen?" } do %>
-                        <img src="/images/delete.png" alt="Wijzig" class="delete_icon">
+                      <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Verwijderen"><i class="fa fa-trash-o"></i></button>
                     <% end %>
                     <%= link_to definitive_invoice_path(invoice) do %>
                       <button class="btn btn-primary">Definitief</button>
                     <% end %>
                     </td>
                   </tr>
+                <% end %>
               </tbody>
-            <% end %>
             </table>
             <div class="col-md-6 col-md-offset-5">
                 <%= link_to new_invoice_path do %>
@@ -121,27 +121,27 @@
                   <th class="column-title">Acties</th>
                 </tr>
               </thead>
-            <% @invoices_definitive.each do |invoice| %>
               <tbody>
-                <tr>
-                  <td><%= invoice.invoice_number %></td>
-                  <td><%= invoice.invoice_date %></td>
-                  <td><%= invoice.invoice_client_name %></td>
-                  <td><%= invoice.invoice_subject %></td>
-                  <td><%= invoice.invoice_VAT_number %></td>
-                  <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
-                  <td>
-                    <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
-                    € <%= rounding(invoice.invoice_VAT) %>
-                  </td>
-                  <td> 
-                    <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
-                    € <%= rounding(invoice.invoice_including_VAT) %>
-                  </td>
-                  <td><%= link_to "Zie factuur", invoice_path(invoice), class: 'show_invoice' %></td>
-                </tr>
+                <% @invoices_definitive.each do |invoice| %>
+                  <tr>
+                    <td><%= invoice.invoice_number %></td>
+                    <td><%= invoice.invoice_date %></td>
+                    <td><%= invoice.invoice_client_name %></td>
+                    <td><%= invoice.invoice_subject %></td>
+                    <td><%= invoice.invoice_VAT_number %></td>
+                    <td>€ <%= rounding(invoice.invoice_exclusive_VAT) %></td>
+                    <td>
+                      <% invoice.invoice_VAT = invoice.VAT6.to_f + invoice.VAT21.to_f %>
+                      € <%= rounding(invoice.invoice_VAT) %>
+                    </td>
+                    <td> 
+                      <% invoice.invoice_including_VAT = invoice.invoice_VAT + invoice.invoice_exclusive_VAT %>
+                      € <%= rounding(invoice.invoice_including_VAT) %>
+                    </td>
+                    <td><%= link_to "Zie factuur", invoice_path(invoice), class: 'show_invoice' %></td>
+                  </tr>
+                <% end %>
               </tbody>
-            <% end %>
             </table>
           </div>
         </div>
